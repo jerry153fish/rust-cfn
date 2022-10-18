@@ -9,6 +9,11 @@ pub struct Canary {
 /// Properties for the `Canary` resource.
 #[derive(Debug, Default)]
 pub struct CanaryProperties {
+    /// Property [`ArtifactConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html#cfn-synthetics-canary-artifactconfig).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub artifact_config: Option<::Value<self::canary::ArtifactConfig>>,
     /// Property [`ArtifactS3Location`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html#cfn-synthetics-canary-artifacts3location).
     ///
     /// Update type: _Mutable_.
@@ -19,6 +24,11 @@ pub struct CanaryProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub code: ::Value<self::canary::Code>,
+    /// Property [`DeleteLambdaResourcesOnCanaryDeletion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html#cfn-synthetics-canary-deletelambdaresourcesoncanarydeletion).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub delete_lambda_resources_on_canary_deletion: Option<::Value<bool>>,
     /// Property [`ExecutionRoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html#cfn-synthetics-canary-executionrolearn).
     ///
     /// Update type: _Mutable_.
@@ -69,13 +79,24 @@ pub struct CanaryProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub vpc_config: Option<::Value<self::canary::VPCConfig>>,
+    /// Property [`VisualReference`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-canary.html#cfn-synthetics-canary-visualreference).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub visual_reference: Option<::Value<self::canary::VisualReference>>,
 }
 
 impl ::serde::Serialize for CanaryProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref artifact_config) = self.artifact_config {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ArtifactConfig", artifact_config)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "ArtifactS3Location", &self.artifact_s3_location)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "Code", &self.code)?;
+        if let Some(ref delete_lambda_resources_on_canary_deletion) = self.delete_lambda_resources_on_canary_deletion {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DeleteLambdaResourcesOnCanaryDeletion", delete_lambda_resources_on_canary_deletion)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "ExecutionRoleArn", &self.execution_role_arn)?;
         if let Some(ref failure_retention_period) = self.failure_retention_period {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "FailureRetentionPeriod", failure_retention_period)?;
@@ -96,6 +117,9 @@ impl ::serde::Serialize for CanaryProperties {
         if let Some(ref vpc_config) = self.vpc_config {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "VPCConfig", vpc_config)?;
         }
+        if let Some(ref visual_reference) = self.visual_reference {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "VisualReference", visual_reference)?;
+        }
         ::serde::ser::SerializeMap::end(map)
     }
 }
@@ -112,8 +136,10 @@ impl<'de> ::serde::Deserialize<'de> for CanaryProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut artifact_config: Option<::Value<self::canary::ArtifactConfig>> = None;
                 let mut artifact_s3_location: Option<::Value<String>> = None;
                 let mut code: Option<::Value<self::canary::Code>> = None;
+                let mut delete_lambda_resources_on_canary_deletion: Option<::Value<bool>> = None;
                 let mut execution_role_arn: Option<::Value<String>> = None;
                 let mut failure_retention_period: Option<::Value<u32>> = None;
                 let mut name: Option<::Value<String>> = None;
@@ -124,14 +150,21 @@ impl<'de> ::serde::Deserialize<'de> for CanaryProperties {
                 let mut success_retention_period: Option<::Value<u32>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
                 let mut vpc_config: Option<::Value<self::canary::VPCConfig>> = None;
+                let mut visual_reference: Option<::Value<self::canary::VisualReference>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "ArtifactConfig" => {
+                            artifact_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "ArtifactS3Location" => {
                             artifact_s3_location = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Code" => {
                             code = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "DeleteLambdaResourcesOnCanaryDeletion" => {
+                            delete_lambda_resources_on_canary_deletion = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "ExecutionRoleArn" => {
                             execution_role_arn = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -163,13 +196,18 @@ impl<'de> ::serde::Deserialize<'de> for CanaryProperties {
                         "VPCConfig" => {
                             vpc_config = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "VisualReference" => {
+                            visual_reference = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
 
                 Ok(CanaryProperties {
+                    artifact_config: artifact_config,
                     artifact_s3_location: artifact_s3_location.ok_or(::serde::de::Error::missing_field("ArtifactS3Location"))?,
                     code: code.ok_or(::serde::de::Error::missing_field("Code"))?,
+                    delete_lambda_resources_on_canary_deletion: delete_lambda_resources_on_canary_deletion,
                     execution_role_arn: execution_role_arn.ok_or(::serde::de::Error::missing_field("ExecutionRoleArn"))?,
                     failure_retention_period: failure_retention_period,
                     name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
@@ -180,6 +218,7 @@ impl<'de> ::serde::Deserialize<'de> for CanaryProperties {
                     success_retention_period: success_retention_period,
                     tags: tags,
                     vpc_config: vpc_config,
+                    visual_reference: visual_reference,
                 })
             }
         }
@@ -207,8 +246,227 @@ impl From<CanaryProperties> for Canary {
     }
 }
 
+/// The [`AWS::Synthetics::Group`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-group.html) resource type.
+#[derive(Debug, Default)]
+pub struct Group {
+    properties: GroupProperties
+}
+
+/// Properties for the `Group` resource.
+#[derive(Debug, Default)]
+pub struct GroupProperties {
+    /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-group.html#cfn-synthetics-group-name).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub name: ::Value<String>,
+    /// Property [`ResourceArns`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-group.html#cfn-synthetics-group-resourcearns).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub resource_arns: Option<::ValueList<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-synthetics-group.html#cfn-synthetics-group-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for GroupProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+        if let Some(ref resource_arns) = self.resource_arns {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ResourceArns", resource_arns)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for GroupProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<GroupProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = GroupProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type GroupProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut name: Option<::Value<String>> = None;
+                let mut resource_arns: Option<::ValueList<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "Name" => {
+                            name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ResourceArns" => {
+                            resource_arns = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(GroupProperties {
+                    name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                    resource_arns: resource_arns,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for Group {
+    type Properties = GroupProperties;
+    const TYPE: &'static str = "AWS::Synthetics::Group";
+    fn properties(&self) -> &GroupProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut GroupProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for Group {}
+
+impl From<GroupProperties> for Group {
+    fn from(properties: GroupProperties) -> Group {
+        Group { properties }
+    }
+}
+
 pub mod canary {
     //! Property types for the `Canary` resource.
+
+    /// The [`AWS::Synthetics::Canary.ArtifactConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-artifactconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ArtifactConfig {
+        /// Property [`S3Encryption`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-artifactconfig.html#cfn-synthetics-canary-artifactconfig-s3encryption).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub s3_encryption: Option<::Value<S3Encryption>>,
+    }
+
+    impl ::codec::SerializeValue for ArtifactConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref s3_encryption) = self.s3_encryption {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3Encryption", s3_encryption)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ArtifactConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ArtifactConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ArtifactConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ArtifactConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut s3_encryption: Option<::Value<S3Encryption>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "S3Encryption" => {
+                                s3_encryption = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ArtifactConfig {
+                        s3_encryption: s3_encryption,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::Synthetics::Canary.BaseScreenshot`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-basescreenshot.html) property type.
+    #[derive(Debug, Default)]
+    pub struct BaseScreenshot {
+        /// Property [`IgnoreCoordinates`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-basescreenshot.html#cfn-synthetics-canary-basescreenshot-ignorecoordinates).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub ignore_coordinates: Option<::ValueList<String>>,
+        /// Property [`ScreenshotName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-basescreenshot.html#cfn-synthetics-canary-basescreenshot-screenshotname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub screenshot_name: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for BaseScreenshot {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref ignore_coordinates) = self.ignore_coordinates {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "IgnoreCoordinates", ignore_coordinates)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ScreenshotName", &self.screenshot_name)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for BaseScreenshot {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<BaseScreenshot, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = BaseScreenshot;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type BaseScreenshot")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut ignore_coordinates: Option<::ValueList<String>> = None;
+                    let mut screenshot_name: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "IgnoreCoordinates" => {
+                                ignore_coordinates = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ScreenshotName" => {
+                                screenshot_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(BaseScreenshot {
+                        ignore_coordinates: ignore_coordinates,
+                        screenshot_name: screenshot_name.ok_or(::serde::de::Error::missing_field("ScreenshotName"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 
     /// The [`AWS::Synthetics::Canary.Code`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-code.html) property type.
     #[derive(Debug, Default)]
@@ -405,6 +663,72 @@ pub mod canary {
         }
     }
 
+    /// The [`AWS::Synthetics::Canary.S3Encryption`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-s3encryption.html) property type.
+    #[derive(Debug, Default)]
+    pub struct S3Encryption {
+        /// Property [`EncryptionMode`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-s3encryption.html#cfn-synthetics-canary-s3encryption-encryptionmode).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub encryption_mode: Option<::Value<String>>,
+        /// Property [`KmsKeyArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-s3encryption.html#cfn-synthetics-canary-s3encryption-kmskeyarn).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub kms_key_arn: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for S3Encryption {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref encryption_mode) = self.encryption_mode {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EncryptionMode", encryption_mode)?;
+            }
+            if let Some(ref kms_key_arn) = self.kms_key_arn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyArn", kms_key_arn)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for S3Encryption {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<S3Encryption, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = S3Encryption;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type S3Encryption")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut encryption_mode: Option<::Value<String>> = None;
+                    let mut kms_key_arn: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "EncryptionMode" => {
+                                encryption_mode = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "KmsKeyArn" => {
+                                kms_key_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(S3Encryption {
+                        encryption_mode: encryption_mode,
+                        kms_key_arn: kms_key_arn,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::Synthetics::Canary.Schedule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-schedule.html) property type.
     #[derive(Debug, Default)]
     pub struct Schedule {
@@ -536,6 +860,70 @@ pub mod canary {
                         security_group_ids: security_group_ids.ok_or(::serde::de::Error::missing_field("SecurityGroupIds"))?,
                         subnet_ids: subnet_ids.ok_or(::serde::de::Error::missing_field("SubnetIds"))?,
                         vpc_id: vpc_id,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::Synthetics::Canary.VisualReference`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-visualreference.html) property type.
+    #[derive(Debug, Default)]
+    pub struct VisualReference {
+        /// Property [`BaseCanaryRunId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-visualreference.html#cfn-synthetics-canary-visualreference-basecanaryrunid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub base_canary_run_id: ::Value<String>,
+        /// Property [`BaseScreenshots`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-synthetics-canary-visualreference.html#cfn-synthetics-canary-visualreference-basescreenshots).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub base_screenshots: Option<::ValueList<BaseScreenshot>>,
+    }
+
+    impl ::codec::SerializeValue for VisualReference {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "BaseCanaryRunId", &self.base_canary_run_id)?;
+            if let Some(ref base_screenshots) = self.base_screenshots {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "BaseScreenshots", base_screenshots)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for VisualReference {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<VisualReference, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = VisualReference;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type VisualReference")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut base_canary_run_id: Option<::Value<String>> = None;
+                    let mut base_screenshots: Option<::ValueList<BaseScreenshot>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "BaseCanaryRunId" => {
+                                base_canary_run_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "BaseScreenshots" => {
+                                base_screenshots = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(VisualReference {
+                        base_canary_run_id: base_canary_run_id.ok_or(::serde::de::Error::missing_field("BaseCanaryRunId"))?,
+                        base_screenshots: base_screenshots,
                     })
                 }
             }

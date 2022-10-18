@@ -18,7 +18,7 @@ pub struct DestinationProperties {
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub destination_policy: ::Value<String>,
+    pub destination_policy: Option<::Value<String>>,
     /// Property [`RoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-destination.html#cfn-logs-destination-rolearn).
     ///
     /// Update type: _Mutable_.
@@ -35,7 +35,9 @@ impl ::serde::Serialize for DestinationProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "DestinationName", &self.destination_name)?;
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "DestinationPolicy", &self.destination_policy)?;
+        if let Some(ref destination_policy) = self.destination_policy {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DestinationPolicy", destination_policy)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "RoleArn", &self.role_arn)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "TargetArn", &self.target_arn)?;
         ::serde::ser::SerializeMap::end(map)
@@ -79,7 +81,7 @@ impl<'de> ::serde::Deserialize<'de> for DestinationProperties {
 
                 Ok(DestinationProperties {
                     destination_name: destination_name.ok_or(::serde::de::Error::missing_field("DestinationName"))?,
-                    destination_policy: destination_policy.ok_or(::serde::de::Error::missing_field("DestinationPolicy"))?,
+                    destination_policy: destination_policy,
                     role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
                     target_arn: target_arn.ok_or(::serde::de::Error::missing_field("TargetArn"))?,
                 })
@@ -133,6 +135,11 @@ pub struct LogGroupProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub retention_in_days: Option<::Value<u32>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html#cfn-logs-loggroup-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
 }
 
 impl ::serde::Serialize for LogGroupProperties {
@@ -146,6 +153,9 @@ impl ::serde::Serialize for LogGroupProperties {
         }
         if let Some(ref retention_in_days) = self.retention_in_days {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "RetentionInDays", retention_in_days)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -166,6 +176,7 @@ impl<'de> ::serde::Deserialize<'de> for LogGroupProperties {
                 let mut kms_key_id: Option<::Value<String>> = None;
                 let mut log_group_name: Option<::Value<String>> = None;
                 let mut retention_in_days: Option<::Value<u32>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -178,6 +189,9 @@ impl<'de> ::serde::Deserialize<'de> for LogGroupProperties {
                         "RetentionInDays" => {
                             retention_in_days = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
@@ -186,6 +200,7 @@ impl<'de> ::serde::Deserialize<'de> for LogGroupProperties {
                     kms_key_id: kms_key_id,
                     log_group_name: log_group_name,
                     retention_in_days: retention_in_days,
+                    tags: tags,
                 })
             }
         }
@@ -311,17 +326,22 @@ pub struct MetricFilter {
 /// Properties for the `MetricFilter` resource.
 #[derive(Debug, Default)]
 pub struct MetricFilterProperties {
-    /// Property [`FilterPattern`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-cwl-metricfilter-filterpattern).
+    /// Property [`FilterName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-logs-metricfilter-filtername).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub filter_name: Option<::Value<String>>,
+    /// Property [`FilterPattern`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-logs-metricfilter-filterpattern).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub filter_pattern: ::Value<String>,
-    /// Property [`LogGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-cwl-metricfilter-loggroupname).
+    /// Property [`LogGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-logs-metricfilter-loggroupname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub log_group_name: ::Value<String>,
-    /// Property [`MetricTransformations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-cwl-metricfilter-metrictransformations).
+    /// Property [`MetricTransformations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html#cfn-logs-metricfilter-metrictransformations).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -331,6 +351,9 @@ pub struct MetricFilterProperties {
 impl ::serde::Serialize for MetricFilterProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref filter_name) = self.filter_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "FilterName", filter_name)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "FilterPattern", &self.filter_pattern)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "LogGroupName", &self.log_group_name)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricTransformations", &self.metric_transformations)?;
@@ -350,12 +373,16 @@ impl<'de> ::serde::Deserialize<'de> for MetricFilterProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut filter_name: Option<::Value<String>> = None;
                 let mut filter_pattern: Option<::Value<String>> = None;
                 let mut log_group_name: Option<::Value<String>> = None;
                 let mut metric_transformations: Option<::ValueList<self::metric_filter::MetricTransformation>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "FilterName" => {
+                            filter_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "FilterPattern" => {
                             filter_pattern = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -370,6 +397,7 @@ impl<'de> ::serde::Deserialize<'de> for MetricFilterProperties {
                 }
 
                 Ok(MetricFilterProperties {
+                    filter_name: filter_name,
                     filter_pattern: filter_pattern.ok_or(::serde::de::Error::missing_field("FilterPattern"))?,
                     log_group_name: log_group_name.ok_or(::serde::de::Error::missing_field("LogGroupName"))?,
                     metric_transformations: metric_transformations.ok_or(::serde::de::Error::missing_field("MetricTransformations"))?,
@@ -500,6 +528,93 @@ impl From<QueryDefinitionProperties> for QueryDefinition {
     }
 }
 
+/// The [`AWS::Logs::ResourcePolicy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-resourcepolicy.html) resource type.
+#[derive(Debug, Default)]
+pub struct ResourcePolicy {
+    properties: ResourcePolicyProperties
+}
+
+/// Properties for the `ResourcePolicy` resource.
+#[derive(Debug, Default)]
+pub struct ResourcePolicyProperties {
+    /// Property [`PolicyDocument`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-resourcepolicy.html#cfn-logs-resourcepolicy-policydocument).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub policy_document: ::Value<String>,
+    /// Property [`PolicyName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-resourcepolicy.html#cfn-logs-resourcepolicy-policyname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub policy_name: ::Value<String>,
+}
+
+impl ::serde::Serialize for ResourcePolicyProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "PolicyDocument", &self.policy_document)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "PolicyName", &self.policy_name)?;
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ResourcePolicyProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ResourcePolicyProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ResourcePolicyProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ResourcePolicyProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut policy_document: Option<::Value<String>> = None;
+                let mut policy_name: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "PolicyDocument" => {
+                            policy_document = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PolicyName" => {
+                            policy_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ResourcePolicyProperties {
+                    policy_document: policy_document.ok_or(::serde::de::Error::missing_field("PolicyDocument"))?,
+                    policy_name: policy_name.ok_or(::serde::de::Error::missing_field("PolicyName"))?,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for ResourcePolicy {
+    type Properties = ResourcePolicyProperties;
+    const TYPE: &'static str = "AWS::Logs::ResourcePolicy";
+    fn properties(&self) -> &ResourcePolicyProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ResourcePolicyProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for ResourcePolicy {}
+
+impl From<ResourcePolicyProperties> for ResourcePolicy {
+    fn from(properties: ResourcePolicyProperties) -> ResourcePolicy {
+        ResourcePolicy { properties }
+    }
+}
+
 /// The [`AWS::Logs::SubscriptionFilter`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html) resource type.
 #[derive(Debug, Default)]
 pub struct SubscriptionFilter {
@@ -509,22 +624,22 @@ pub struct SubscriptionFilter {
 /// Properties for the `SubscriptionFilter` resource.
 #[derive(Debug, Default)]
 pub struct SubscriptionFilterProperties {
-    /// Property [`DestinationArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-cwl-subscriptionfilter-destinationarn).
+    /// Property [`DestinationArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-logs-subscriptionfilter-destinationarn).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub destination_arn: ::Value<String>,
-    /// Property [`FilterPattern`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-cwl-subscriptionfilter-filterpattern).
+    /// Property [`FilterPattern`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-logs-subscriptionfilter-filterpattern).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub filter_pattern: ::Value<String>,
-    /// Property [`LogGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-cwl-subscriptionfilter-loggroupname).
+    /// Property [`LogGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-logs-subscriptionfilter-loggroupname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub log_group_name: ::Value<String>,
-    /// Property [`RoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-cwl-subscriptionfilter-rolearn).
+    /// Property [`RoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-subscriptionfilter.html#cfn-logs-subscriptionfilter-rolearn).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
@@ -614,29 +729,101 @@ impl From<SubscriptionFilterProperties> for SubscriptionFilter {
 pub mod metric_filter {
     //! Property types for the `MetricFilter` resource.
 
+    /// The [`AWS::Logs::MetricFilter.Dimension`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-dimension.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Dimension {
+        /// Property [`Key`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-dimension.html#cfn-logs-metricfilter-dimension-key).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub key: ::Value<String>,
+        /// Property [`Value`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-dimension.html#cfn-logs-metricfilter-dimension-value).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub value: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for Dimension {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Key", &self.key)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Value", &self.value)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Dimension {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Dimension, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Dimension;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Dimension")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut key: Option<::Value<String>> = None;
+                    let mut value: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Key" => {
+                                key = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Value" => {
+                                value = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Dimension {
+                        key: key.ok_or(::serde::de::Error::missing_field("Key"))?,
+                        value: value.ok_or(::serde::de::Error::missing_field("Value"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::Logs::MetricFilter.MetricTransformation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html) property type.
     #[derive(Debug, Default)]
     pub struct MetricTransformation {
-        /// Property [`DefaultValue`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-cwl-metricfilter-metrictransformation-defaultvalue).
+        /// Property [`DefaultValue`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-logs-metricfilter-metrictransformation-defaultvalue).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub default_value: Option<::Value<f64>>,
-        /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-cwl-metricfilter-metrictransformation-metricname).
+        /// Property [`Dimensions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-logs-metricfilter-metrictransformation-dimensions).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub dimensions: Option<::ValueList<Dimension>>,
+        /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-logs-metricfilter-metrictransformation-metricname).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub metric_name: ::Value<String>,
-        /// Property [`MetricNamespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-cwl-metricfilter-metrictransformation-metricnamespace).
+        /// Property [`MetricNamespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-logs-metricfilter-metrictransformation-metricnamespace).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub metric_namespace: ::Value<String>,
-        /// Property [`MetricValue`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-cwl-metricfilter-metrictransformation-metricvalue).
+        /// Property [`MetricValue`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-logs-metricfilter-metrictransformation-metricvalue).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub metric_value: ::Value<String>,
+        /// Property [`Unit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-logs-metricfilter-metrictransformation.html#cfn-logs-metricfilter-metrictransformation-unit).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub unit: Option<::Value<String>>,
     }
 
     impl ::codec::SerializeValue for MetricTransformation {
@@ -645,9 +832,15 @@ pub mod metric_filter {
             if let Some(ref default_value) = self.default_value {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "DefaultValue", default_value)?;
             }
+            if let Some(ref dimensions) = self.dimensions {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Dimensions", dimensions)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricName", &self.metric_name)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricNamespace", &self.metric_namespace)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricValue", &self.metric_value)?;
+            if let Some(ref unit) = self.unit {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Unit", unit)?;
+            }
             ::serde::ser::SerializeMap::end(map)
         }
     }
@@ -665,14 +858,19 @@ pub mod metric_filter {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut default_value: Option<::Value<f64>> = None;
+                    let mut dimensions: Option<::ValueList<Dimension>> = None;
                     let mut metric_name: Option<::Value<String>> = None;
                     let mut metric_namespace: Option<::Value<String>> = None;
                     let mut metric_value: Option<::Value<String>> = None;
+                    let mut unit: Option<::Value<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "DefaultValue" => {
                                 default_value = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Dimensions" => {
+                                dimensions = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "MetricName" => {
                                 metric_name = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -683,15 +881,20 @@ pub mod metric_filter {
                             "MetricValue" => {
                                 metric_value = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "Unit" => {
+                                unit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             _ => {}
                         }
                     }
 
                     Ok(MetricTransformation {
                         default_value: default_value,
+                        dimensions: dimensions,
                         metric_name: metric_name.ok_or(::serde::de::Error::missing_field("MetricName"))?,
                         metric_namespace: metric_namespace.ok_or(::serde::de::Error::missing_field("MetricNamespace"))?,
                         metric_value: metric_value.ok_or(::serde::de::Error::missing_field("MetricValue"))?,
+                        unit: unit,
                     })
                 }
             }

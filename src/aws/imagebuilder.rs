@@ -561,8 +561,8 @@ pub struct Image {
 pub struct ImageProperties {
     /// Property [`ContainerRecipeArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-image.html#cfn-imagebuilder-image-containerrecipearn).
     ///
-    /// Update type: _Mutable_.
-    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
     pub container_recipe_arn: Option<::Value<String>>,
     /// Property [`DistributionConfigurationArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-image.html#cfn-imagebuilder-image-distributionconfigurationarn).
     ///
@@ -917,6 +917,11 @@ pub struct ImageRecipe {
 /// Properties for the `ImageRecipe` resource.
 #[derive(Debug, Default)]
 pub struct ImageRecipeProperties {
+    /// Property [`AdditionalInstanceConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-imagerecipe.html#cfn-imagebuilder-imagerecipe-additionalinstanceconfiguration).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub additional_instance_configuration: Option<::Value<self::image_recipe::AdditionalInstanceConfiguration>>,
     /// Property [`BlockDeviceMappings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-imagerecipe.html#cfn-imagebuilder-imagerecipe-blockdevicemappings).
     ///
     /// Update type: _Immutable_.
@@ -962,6 +967,9 @@ pub struct ImageRecipeProperties {
 impl ::serde::Serialize for ImageRecipeProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref additional_instance_configuration) = self.additional_instance_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AdditionalInstanceConfiguration", additional_instance_configuration)?;
+        }
         if let Some(ref block_device_mappings) = self.block_device_mappings {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "BlockDeviceMappings", block_device_mappings)?;
         }
@@ -994,6 +1002,7 @@ impl<'de> ::serde::Deserialize<'de> for ImageRecipeProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut additional_instance_configuration: Option<::Value<self::image_recipe::AdditionalInstanceConfiguration>> = None;
                 let mut block_device_mappings: Option<::ValueList<self::image_recipe::InstanceBlockDeviceMapping>> = None;
                 let mut components: Option<::ValueList<self::image_recipe::ComponentConfiguration>> = None;
                 let mut description: Option<::Value<String>> = None;
@@ -1005,6 +1014,9 @@ impl<'de> ::serde::Deserialize<'de> for ImageRecipeProperties {
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "AdditionalInstanceConfiguration" => {
+                            additional_instance_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "BlockDeviceMappings" => {
                             block_device_mappings = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -1034,6 +1046,7 @@ impl<'de> ::serde::Deserialize<'de> for ImageRecipeProperties {
                 }
 
                 Ok(ImageRecipeProperties {
+                    additional_instance_configuration: additional_instance_configuration,
                     block_device_mappings: block_device_mappings,
                     components: components.ok_or(::serde::de::Error::missing_field("Components"))?,
                     description: description,
@@ -1083,6 +1096,11 @@ pub struct InfrastructureConfigurationProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub description: Option<::Value<String>>,
+    /// Property [`InstanceMetadataOptions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-infrastructureconfiguration.html#cfn-imagebuilder-infrastructureconfiguration-instancemetadataoptions).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub instance_metadata_options: Option<::Value<self::infrastructure_configuration::InstanceMetadataOptions>>,
     /// Property [`InstanceProfileName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-imagebuilder-infrastructureconfiguration.html#cfn-imagebuilder-infrastructureconfiguration-instanceprofilename).
     ///
     /// Update type: _Mutable_.
@@ -1146,6 +1164,9 @@ impl ::serde::Serialize for InfrastructureConfigurationProperties {
         if let Some(ref description) = self.description {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
         }
+        if let Some(ref instance_metadata_options) = self.instance_metadata_options {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceMetadataOptions", instance_metadata_options)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceProfileName", &self.instance_profile_name)?;
         if let Some(ref instance_types) = self.instance_types {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceTypes", instance_types)?;
@@ -1192,6 +1213,7 @@ impl<'de> ::serde::Deserialize<'de> for InfrastructureConfigurationProperties {
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut description: Option<::Value<String>> = None;
+                let mut instance_metadata_options: Option<::Value<self::infrastructure_configuration::InstanceMetadataOptions>> = None;
                 let mut instance_profile_name: Option<::Value<String>> = None;
                 let mut instance_types: Option<::ValueList<String>> = None;
                 let mut key_pair: Option<::Value<String>> = None;
@@ -1208,6 +1230,9 @@ impl<'de> ::serde::Deserialize<'de> for InfrastructureConfigurationProperties {
                     match __cfn_key.as_ref() {
                         "Description" => {
                             description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "InstanceMetadataOptions" => {
+                            instance_metadata_options = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "InstanceProfileName" => {
                             instance_profile_name = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1248,6 +1273,7 @@ impl<'de> ::serde::Deserialize<'de> for InfrastructureConfigurationProperties {
 
                 Ok(InfrastructureConfigurationProperties {
                     description: description,
+                    instance_metadata_options: instance_metadata_options,
                     instance_profile_name: instance_profile_name.ok_or(::serde::de::Error::missing_field("InstanceProfileName"))?,
                     instance_types: instance_types,
                     key_pair: key_pair,
@@ -1297,6 +1323,11 @@ pub mod container_recipe {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub component_arn: Option<::Value<String>>,
+        /// Property [`Parameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-containerrecipe-componentconfiguration.html#cfn-imagebuilder-containerrecipe-componentconfiguration-parameters).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub parameters: Option<::ValueList<ComponentParameter>>,
     }
 
     impl ::codec::SerializeValue for ComponentConfiguration {
@@ -1304,6 +1335,9 @@ pub mod container_recipe {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref component_arn) = self.component_arn {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ComponentArn", component_arn)?;
+            }
+            if let Some(ref parameters) = self.parameters {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Parameters", parameters)?;
             }
             ::serde::ser::SerializeMap::end(map)
         }
@@ -1322,11 +1356,15 @@ pub mod container_recipe {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut component_arn: Option<::Value<String>> = None;
+                    let mut parameters: Option<::ValueList<ComponentParameter>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "ComponentArn" => {
                                 component_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Parameters" => {
+                                parameters = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             _ => {}
                         }
@@ -1334,6 +1372,69 @@ pub mod container_recipe {
 
                     Ok(ComponentConfiguration {
                         component_arn: component_arn,
+                        parameters: parameters,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::ContainerRecipe.ComponentParameter`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-containerrecipe-componentparameter.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ComponentParameter {
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-containerrecipe-componentparameter.html#cfn-imagebuilder-containerrecipe-componentparameter-name).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub name: ::Value<String>,
+        /// Property [`Value`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-containerrecipe-componentparameter.html#cfn-imagebuilder-containerrecipe-componentparameter-value).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub value: ::ValueList<String>,
+    }
+
+    impl ::codec::SerializeValue for ComponentParameter {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Value", &self.value)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ComponentParameter {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ComponentParameter, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ComponentParameter;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ComponentParameter")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut name: Option<::Value<String>> = None;
+                    let mut value: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Name" => {
+                                name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Value" => {
+                                value = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ComponentParameter {
+                        name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                        value: value.ok_or(::serde::de::Error::missing_field("Value"))?,
                     })
                 }
             }
@@ -1370,6 +1471,11 @@ pub mod container_recipe {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub snapshot_id: Option<::Value<String>>,
+        /// Property [`Throughput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-containerrecipe-ebsinstanceblockdevicespecification.html#cfn-imagebuilder-containerrecipe-ebsinstanceblockdevicespecification-throughput).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub throughput: Option<::Value<u32>>,
         /// Property [`VolumeSize`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-containerrecipe-ebsinstanceblockdevicespecification.html#cfn-imagebuilder-containerrecipe-ebsinstanceblockdevicespecification-volumesize).
         ///
         /// Update type: _Immutable_.
@@ -1400,6 +1506,9 @@ pub mod container_recipe {
             if let Some(ref snapshot_id) = self.snapshot_id {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SnapshotId", snapshot_id)?;
             }
+            if let Some(ref throughput) = self.throughput {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Throughput", throughput)?;
+            }
             if let Some(ref volume_size) = self.volume_size {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "VolumeSize", volume_size)?;
             }
@@ -1427,6 +1536,7 @@ pub mod container_recipe {
                     let mut iops: Option<::Value<u32>> = None;
                     let mut kms_key_id: Option<::Value<String>> = None;
                     let mut snapshot_id: Option<::Value<String>> = None;
+                    let mut throughput: Option<::Value<u32>> = None;
                     let mut volume_size: Option<::Value<u32>> = None;
                     let mut volume_type: Option<::Value<String>> = None;
 
@@ -1447,6 +1557,9 @@ pub mod container_recipe {
                             "SnapshotId" => {
                                 snapshot_id = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "Throughput" => {
+                                throughput = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "VolumeSize" => {
                                 volume_size = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -1463,6 +1576,7 @@ pub mod container_recipe {
                         iops: iops,
                         kms_key_id: kms_key_id,
                         snapshot_id: snapshot_id,
+                        throughput: throughput,
                         volume_size: volume_size,
                         volume_type: volume_type,
                     })
@@ -1701,6 +1815,203 @@ pub mod container_recipe {
 pub mod distribution_configuration {
     //! Property types for the `DistributionConfiguration` resource.
 
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.AmiDistributionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AmiDistributionConfiguration {
+        /// Property [`AmiTags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-amidistributionconfiguration-amitags).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub ami_tags: Option<::ValueMap<String>>,
+        /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-amidistributionconfiguration-description).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub description: Option<::Value<String>>,
+        /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-amidistributionconfiguration-kmskeyid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub kms_key_id: Option<::Value<String>>,
+        /// Property [`LaunchPermissionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-amidistributionconfiguration-launchpermissionconfiguration).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub launch_permission_configuration: Option<::Value<LaunchPermissionConfiguration>>,
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-amidistributionconfiguration-name).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub name: Option<::Value<String>>,
+        /// Property [`TargetAccountIds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-amidistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-amidistributionconfiguration-targetaccountids).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub target_account_ids: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for AmiDistributionConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref ami_tags) = self.ami_tags {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AmiTags", ami_tags)?;
+            }
+            if let Some(ref description) = self.description {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+            }
+            if let Some(ref kms_key_id) = self.kms_key_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
+            }
+            if let Some(ref launch_permission_configuration) = self.launch_permission_configuration {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LaunchPermissionConfiguration", launch_permission_configuration)?;
+            }
+            if let Some(ref name) = self.name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", name)?;
+            }
+            if let Some(ref target_account_ids) = self.target_account_ids {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "TargetAccountIds", target_account_ids)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AmiDistributionConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AmiDistributionConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AmiDistributionConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AmiDistributionConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut ami_tags: Option<::ValueMap<String>> = None;
+                    let mut description: Option<::Value<String>> = None;
+                    let mut kms_key_id: Option<::Value<String>> = None;
+                    let mut launch_permission_configuration: Option<::Value<LaunchPermissionConfiguration>> = None;
+                    let mut name: Option<::Value<String>> = None;
+                    let mut target_account_ids: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AmiTags" => {
+                                ami_tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Description" => {
+                                description = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "KmsKeyId" => {
+                                kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LaunchPermissionConfiguration" => {
+                                launch_permission_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Name" => {
+                                name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TargetAccountIds" => {
+                                target_account_ids = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AmiDistributionConfiguration {
+                        ami_tags: ami_tags,
+                        description: description,
+                        kms_key_id: kms_key_id,
+                        launch_permission_configuration: launch_permission_configuration,
+                        name: name,
+                        target_account_ids: target_account_ids,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.ContainerDistributionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-containerdistributionconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ContainerDistributionConfiguration {
+        /// Property [`ContainerTags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-containerdistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-containerdistributionconfiguration-containertags).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub container_tags: Option<::ValueList<String>>,
+        /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-containerdistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-containerdistributionconfiguration-description).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub description: Option<::Value<String>>,
+        /// Property [`TargetRepository`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-containerdistributionconfiguration.html#cfn-imagebuilder-distributionconfiguration-containerdistributionconfiguration-targetrepository).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub target_repository: Option<::Value<TargetContainerRepository>>,
+    }
+
+    impl ::codec::SerializeValue for ContainerDistributionConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref container_tags) = self.container_tags {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContainerTags", container_tags)?;
+            }
+            if let Some(ref description) = self.description {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+            }
+            if let Some(ref target_repository) = self.target_repository {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "TargetRepository", target_repository)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ContainerDistributionConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ContainerDistributionConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ContainerDistributionConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ContainerDistributionConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut container_tags: Option<::ValueList<String>> = None;
+                    let mut description: Option<::Value<String>> = None;
+                    let mut target_repository: Option<::Value<TargetContainerRepository>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ContainerTags" => {
+                                container_tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Description" => {
+                                description = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TargetRepository" => {
+                                target_repository = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ContainerDistributionConfiguration {
+                        container_tags: container_tags,
+                        description: description,
+                        target_repository: target_repository,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::ImageBuilder::DistributionConfiguration.Distribution`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-distribution.html) property type.
     #[derive(Debug, Default)]
     pub struct Distribution {
@@ -1708,12 +2019,17 @@ pub mod distribution_configuration {
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub ami_distribution_configuration: Option<::Value<::json::Value>>,
+        pub ami_distribution_configuration: Option<::Value<AmiDistributionConfiguration>>,
         /// Property [`ContainerDistributionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-distribution.html#cfn-imagebuilder-distributionconfiguration-distribution-containerdistributionconfiguration).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub container_distribution_configuration: Option<::Value<::json::Value>>,
+        pub container_distribution_configuration: Option<::Value<ContainerDistributionConfiguration>>,
+        /// Property [`FastLaunchConfigurations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-distribution.html#cfn-imagebuilder-distributionconfiguration-distribution-fastlaunchconfigurations).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub fast_launch_configurations: Option<::ValueList<FastLaunchConfiguration>>,
         /// Property [`LaunchTemplateConfigurations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-distribution.html#cfn-imagebuilder-distributionconfiguration-distribution-launchtemplateconfigurations).
         ///
         /// Update type: _Mutable_.
@@ -1740,6 +2056,9 @@ pub mod distribution_configuration {
             if let Some(ref container_distribution_configuration) = self.container_distribution_configuration {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContainerDistributionConfiguration", container_distribution_configuration)?;
             }
+            if let Some(ref fast_launch_configurations) = self.fast_launch_configurations {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "FastLaunchConfigurations", fast_launch_configurations)?;
+            }
             if let Some(ref launch_template_configurations) = self.launch_template_configurations {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "LaunchTemplateConfigurations", launch_template_configurations)?;
             }
@@ -1763,8 +2082,9 @@ pub mod distribution_configuration {
                 }
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
-                    let mut ami_distribution_configuration: Option<::Value<::json::Value>> = None;
-                    let mut container_distribution_configuration: Option<::Value<::json::Value>> = None;
+                    let mut ami_distribution_configuration: Option<::Value<AmiDistributionConfiguration>> = None;
+                    let mut container_distribution_configuration: Option<::Value<ContainerDistributionConfiguration>> = None;
+                    let mut fast_launch_configurations: Option<::ValueList<FastLaunchConfiguration>> = None;
                     let mut launch_template_configurations: Option<::ValueList<LaunchTemplateConfiguration>> = None;
                     let mut license_configuration_arns: Option<::ValueList<String>> = None;
                     let mut region: Option<::Value<String>> = None;
@@ -1776,6 +2096,9 @@ pub mod distribution_configuration {
                             }
                             "ContainerDistributionConfiguration" => {
                                 container_distribution_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "FastLaunchConfigurations" => {
+                                fast_launch_configurations = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "LaunchTemplateConfigurations" => {
                                 launch_template_configurations = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1793,9 +2116,339 @@ pub mod distribution_configuration {
                     Ok(Distribution {
                         ami_distribution_configuration: ami_distribution_configuration,
                         container_distribution_configuration: container_distribution_configuration,
+                        fast_launch_configurations: fast_launch_configurations,
                         launch_template_configurations: launch_template_configurations,
                         license_configuration_arns: license_configuration_arns,
                         region: region.ok_or(::serde::de::Error::missing_field("Region"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.FastLaunchConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct FastLaunchConfiguration {
+        /// Property [`AccountId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchconfiguration.html#cfn-imagebuilder-distributionconfiguration-fastlaunchconfiguration-accountid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub account_id: Option<::Value<String>>,
+        /// Property [`Enabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchconfiguration.html#cfn-imagebuilder-distributionconfiguration-fastlaunchconfiguration-enabled).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub enabled: Option<::Value<bool>>,
+        /// Property [`LaunchTemplate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchconfiguration.html#cfn-imagebuilder-distributionconfiguration-fastlaunchconfiguration-launchtemplate).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub launch_template: Option<::Value<FastLaunchLaunchTemplateSpecification>>,
+        /// Property [`MaxParallelLaunches`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchconfiguration.html#cfn-imagebuilder-distributionconfiguration-fastlaunchconfiguration-maxparallellaunches).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub max_parallel_launches: Option<::Value<u32>>,
+        /// Property [`SnapshotConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchconfiguration.html#cfn-imagebuilder-distributionconfiguration-fastlaunchconfiguration-snapshotconfiguration).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub snapshot_configuration: Option<::Value<FastLaunchSnapshotConfiguration>>,
+    }
+
+    impl ::codec::SerializeValue for FastLaunchConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref account_id) = self.account_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccountId", account_id)?;
+            }
+            if let Some(ref enabled) = self.enabled {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Enabled", enabled)?;
+            }
+            if let Some(ref launch_template) = self.launch_template {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LaunchTemplate", launch_template)?;
+            }
+            if let Some(ref max_parallel_launches) = self.max_parallel_launches {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxParallelLaunches", max_parallel_launches)?;
+            }
+            if let Some(ref snapshot_configuration) = self.snapshot_configuration {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SnapshotConfiguration", snapshot_configuration)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for FastLaunchConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<FastLaunchConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = FastLaunchConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type FastLaunchConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut account_id: Option<::Value<String>> = None;
+                    let mut enabled: Option<::Value<bool>> = None;
+                    let mut launch_template: Option<::Value<FastLaunchLaunchTemplateSpecification>> = None;
+                    let mut max_parallel_launches: Option<::Value<u32>> = None;
+                    let mut snapshot_configuration: Option<::Value<FastLaunchSnapshotConfiguration>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AccountId" => {
+                                account_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Enabled" => {
+                                enabled = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LaunchTemplate" => {
+                                launch_template = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MaxParallelLaunches" => {
+                                max_parallel_launches = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SnapshotConfiguration" => {
+                                snapshot_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(FastLaunchConfiguration {
+                        account_id: account_id,
+                        enabled: enabled,
+                        launch_template: launch_template,
+                        max_parallel_launches: max_parallel_launches,
+                        snapshot_configuration: snapshot_configuration,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.FastLaunchLaunchTemplateSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification.html) property type.
+    #[derive(Debug, Default)]
+    pub struct FastLaunchLaunchTemplateSpecification {
+        /// Property [`LaunchTemplateId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification.html#cfn-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification-launchtemplateid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub launch_template_id: Option<::Value<String>>,
+        /// Property [`LaunchTemplateName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification.html#cfn-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification-launchtemplatename).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub launch_template_name: Option<::Value<String>>,
+        /// Property [`LaunchTemplateVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification.html#cfn-imagebuilder-distributionconfiguration-fastlaunchlaunchtemplatespecification-launchtemplateversion).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub launch_template_version: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for FastLaunchLaunchTemplateSpecification {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref launch_template_id) = self.launch_template_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LaunchTemplateId", launch_template_id)?;
+            }
+            if let Some(ref launch_template_name) = self.launch_template_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LaunchTemplateName", launch_template_name)?;
+            }
+            if let Some(ref launch_template_version) = self.launch_template_version {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LaunchTemplateVersion", launch_template_version)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for FastLaunchLaunchTemplateSpecification {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<FastLaunchLaunchTemplateSpecification, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = FastLaunchLaunchTemplateSpecification;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type FastLaunchLaunchTemplateSpecification")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut launch_template_id: Option<::Value<String>> = None;
+                    let mut launch_template_name: Option<::Value<String>> = None;
+                    let mut launch_template_version: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "LaunchTemplateId" => {
+                                launch_template_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LaunchTemplateName" => {
+                                launch_template_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LaunchTemplateVersion" => {
+                                launch_template_version = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(FastLaunchLaunchTemplateSpecification {
+                        launch_template_id: launch_template_id,
+                        launch_template_name: launch_template_name,
+                        launch_template_version: launch_template_version,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.FastLaunchSnapshotConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchsnapshotconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct FastLaunchSnapshotConfiguration {
+        /// Property [`TargetResourceCount`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-fastlaunchsnapshotconfiguration.html#cfn-imagebuilder-distributionconfiguration-fastlaunchsnapshotconfiguration-targetresourcecount).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub target_resource_count: Option<::Value<u32>>,
+    }
+
+    impl ::codec::SerializeValue for FastLaunchSnapshotConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref target_resource_count) = self.target_resource_count {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "TargetResourceCount", target_resource_count)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for FastLaunchSnapshotConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<FastLaunchSnapshotConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = FastLaunchSnapshotConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type FastLaunchSnapshotConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut target_resource_count: Option<::Value<u32>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "TargetResourceCount" => {
+                                target_resource_count = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(FastLaunchSnapshotConfiguration {
+                        target_resource_count: target_resource_count,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.LaunchPermissionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-launchpermissionconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct LaunchPermissionConfiguration {
+        /// Property [`OrganizationArns`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-launchpermissionconfiguration.html#cfn-imagebuilder-distributionconfiguration-launchpermissionconfiguration-organizationarns).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub organization_arns: Option<::ValueList<String>>,
+        /// Property [`OrganizationalUnitArns`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-launchpermissionconfiguration.html#cfn-imagebuilder-distributionconfiguration-launchpermissionconfiguration-organizationalunitarns).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub organizational_unit_arns: Option<::ValueList<String>>,
+        /// Property [`UserGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-launchpermissionconfiguration.html#cfn-imagebuilder-distributionconfiguration-launchpermissionconfiguration-usergroups).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub user_groups: Option<::ValueList<String>>,
+        /// Property [`UserIds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-launchpermissionconfiguration.html#cfn-imagebuilder-distributionconfiguration-launchpermissionconfiguration-userids).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub user_ids: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for LaunchPermissionConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref organization_arns) = self.organization_arns {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "OrganizationArns", organization_arns)?;
+            }
+            if let Some(ref organizational_unit_arns) = self.organizational_unit_arns {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "OrganizationalUnitArns", organizational_unit_arns)?;
+            }
+            if let Some(ref user_groups) = self.user_groups {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserGroups", user_groups)?;
+            }
+            if let Some(ref user_ids) = self.user_ids {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserIds", user_ids)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for LaunchPermissionConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<LaunchPermissionConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = LaunchPermissionConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type LaunchPermissionConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut organization_arns: Option<::ValueList<String>> = None;
+                    let mut organizational_unit_arns: Option<::ValueList<String>> = None;
+                    let mut user_groups: Option<::ValueList<String>> = None;
+                    let mut user_ids: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "OrganizationArns" => {
+                                organization_arns = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "OrganizationalUnitArns" => {
+                                organizational_unit_arns = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserGroups" => {
+                                user_groups = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserIds" => {
+                                user_ids = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(LaunchPermissionConfiguration {
+                        organization_arns: organization_arns,
+                        organizational_unit_arns: organizational_unit_arns,
+                        user_groups: user_groups,
+                        user_ids: user_ids,
                     })
                 }
             }
@@ -1875,6 +2528,72 @@ pub mod distribution_configuration {
                         account_id: account_id,
                         launch_template_id: launch_template_id,
                         set_default_version: set_default_version,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::DistributionConfiguration.TargetContainerRepository`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-targetcontainerrepository.html) property type.
+    #[derive(Debug, Default)]
+    pub struct TargetContainerRepository {
+        /// Property [`RepositoryName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-targetcontainerrepository.html#cfn-imagebuilder-distributionconfiguration-targetcontainerrepository-repositoryname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub repository_name: Option<::Value<String>>,
+        /// Property [`Service`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-distributionconfiguration-targetcontainerrepository.html#cfn-imagebuilder-distributionconfiguration-targetcontainerrepository-service).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub service: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for TargetContainerRepository {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref repository_name) = self.repository_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RepositoryName", repository_name)?;
+            }
+            if let Some(ref service) = self.service {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Service", service)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for TargetContainerRepository {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<TargetContainerRepository, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = TargetContainerRepository;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type TargetContainerRepository")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut repository_name: Option<::Value<String>> = None;
+                    let mut service: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "RepositoryName" => {
+                                repository_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Service" => {
+                                service = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(TargetContainerRepository {
+                        repository_name: repository_name,
+                        service: service,
                     })
                 }
             }
@@ -2093,6 +2812,72 @@ pub mod image_pipeline {
 pub mod image_recipe {
     //! Property types for the `ImageRecipe` resource.
 
+    /// The [`AWS::ImageBuilder::ImageRecipe.AdditionalInstanceConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-additionalinstanceconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AdditionalInstanceConfiguration {
+        /// Property [`SystemsManagerAgent`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-additionalinstanceconfiguration.html#cfn-imagebuilder-imagerecipe-additionalinstanceconfiguration-systemsmanageragent).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub systems_manager_agent: Option<::Value<SystemsManagerAgent>>,
+        /// Property [`UserDataOverride`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-additionalinstanceconfiguration.html#cfn-imagebuilder-imagerecipe-additionalinstanceconfiguration-userdataoverride).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub user_data_override: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for AdditionalInstanceConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref systems_manager_agent) = self.systems_manager_agent {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SystemsManagerAgent", systems_manager_agent)?;
+            }
+            if let Some(ref user_data_override) = self.user_data_override {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserDataOverride", user_data_override)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AdditionalInstanceConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AdditionalInstanceConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AdditionalInstanceConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AdditionalInstanceConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut systems_manager_agent: Option<::Value<SystemsManagerAgent>> = None;
+                    let mut user_data_override: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "SystemsManagerAgent" => {
+                                systems_manager_agent = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserDataOverride" => {
+                                user_data_override = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AdditionalInstanceConfiguration {
+                        systems_manager_agent: systems_manager_agent,
+                        user_data_override: user_data_override,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::ImageBuilder::ImageRecipe.ComponentConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-componentconfiguration.html) property type.
     #[derive(Debug, Default)]
     pub struct ComponentConfiguration {
@@ -2101,6 +2886,11 @@ pub mod image_recipe {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub component_arn: Option<::Value<String>>,
+        /// Property [`Parameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-componentconfiguration.html#cfn-imagebuilder-imagerecipe-componentconfiguration-parameters).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub parameters: Option<::ValueList<ComponentParameter>>,
     }
 
     impl ::codec::SerializeValue for ComponentConfiguration {
@@ -2108,6 +2898,9 @@ pub mod image_recipe {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref component_arn) = self.component_arn {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ComponentArn", component_arn)?;
+            }
+            if let Some(ref parameters) = self.parameters {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Parameters", parameters)?;
             }
             ::serde::ser::SerializeMap::end(map)
         }
@@ -2126,11 +2919,15 @@ pub mod image_recipe {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut component_arn: Option<::Value<String>> = None;
+                    let mut parameters: Option<::ValueList<ComponentParameter>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "ComponentArn" => {
                                 component_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Parameters" => {
+                                parameters = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             _ => {}
                         }
@@ -2138,6 +2935,69 @@ pub mod image_recipe {
 
                     Ok(ComponentConfiguration {
                         component_arn: component_arn,
+                        parameters: parameters,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::ImageBuilder::ImageRecipe.ComponentParameter`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-componentparameter.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ComponentParameter {
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-componentparameter.html#cfn-imagebuilder-imagerecipe-componentparameter-name).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub name: ::Value<String>,
+        /// Property [`Value`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-componentparameter.html#cfn-imagebuilder-imagerecipe-componentparameter-value).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub value: ::ValueList<String>,
+    }
+
+    impl ::codec::SerializeValue for ComponentParameter {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Value", &self.value)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ComponentParameter {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ComponentParameter, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ComponentParameter;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ComponentParameter")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut name: Option<::Value<String>> = None;
+                    let mut value: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Name" => {
+                                name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Value" => {
+                                value = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ComponentParameter {
+                        name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                        value: value.ok_or(::serde::de::Error::missing_field("Value"))?,
                     })
                 }
             }
@@ -2174,6 +3034,11 @@ pub mod image_recipe {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub snapshot_id: Option<::Value<String>>,
+        /// Property [`Throughput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-ebsinstanceblockdevicespecification.html#cfn-imagebuilder-imagerecipe-ebsinstanceblockdevicespecification-throughput).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub throughput: Option<::Value<u32>>,
         /// Property [`VolumeSize`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-ebsinstanceblockdevicespecification.html#cfn-imagebuilder-imagerecipe-ebsinstanceblockdevicespecification-volumesize).
         ///
         /// Update type: _Immutable_.
@@ -2204,6 +3069,9 @@ pub mod image_recipe {
             if let Some(ref snapshot_id) = self.snapshot_id {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SnapshotId", snapshot_id)?;
             }
+            if let Some(ref throughput) = self.throughput {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Throughput", throughput)?;
+            }
             if let Some(ref volume_size) = self.volume_size {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "VolumeSize", volume_size)?;
             }
@@ -2231,6 +3099,7 @@ pub mod image_recipe {
                     let mut iops: Option<::Value<u32>> = None;
                     let mut kms_key_id: Option<::Value<String>> = None;
                     let mut snapshot_id: Option<::Value<String>> = None;
+                    let mut throughput: Option<::Value<u32>> = None;
                     let mut volume_size: Option<::Value<u32>> = None;
                     let mut volume_type: Option<::Value<String>> = None;
 
@@ -2251,6 +3120,9 @@ pub mod image_recipe {
                             "SnapshotId" => {
                                 snapshot_id = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "Throughput" => {
+                                throughput = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "VolumeSize" => {
                                 volume_size = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -2267,6 +3139,7 @@ pub mod image_recipe {
                         iops: iops,
                         kms_key_id: kms_key_id,
                         snapshot_id: snapshot_id,
+                        throughput: throughput,
                         volume_size: volume_size,
                         volume_type: volume_type,
                     })
@@ -2368,10 +3241,129 @@ pub mod image_recipe {
             d.deserialize_map(Visitor)
         }
     }
+
+    /// The [`AWS::ImageBuilder::ImageRecipe.SystemsManagerAgent`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-systemsmanageragent.html) property type.
+    #[derive(Debug, Default)]
+    pub struct SystemsManagerAgent {
+        /// Property [`UninstallAfterBuild`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-imagerecipe-systemsmanageragent.html#cfn-imagebuilder-imagerecipe-systemsmanageragent-uninstallafterbuild).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub uninstall_after_build: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for SystemsManagerAgent {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref uninstall_after_build) = self.uninstall_after_build {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UninstallAfterBuild", uninstall_after_build)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for SystemsManagerAgent {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<SystemsManagerAgent, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = SystemsManagerAgent;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type SystemsManagerAgent")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut uninstall_after_build: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "UninstallAfterBuild" => {
+                                uninstall_after_build = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(SystemsManagerAgent {
+                        uninstall_after_build: uninstall_after_build,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 }
 
 pub mod infrastructure_configuration {
     //! Property types for the `InfrastructureConfiguration` resource.
+
+    /// The [`AWS::ImageBuilder::InfrastructureConfiguration.InstanceMetadataOptions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-infrastructureconfiguration-instancemetadataoptions.html) property type.
+    #[derive(Debug, Default)]
+    pub struct InstanceMetadataOptions {
+        /// Property [`HttpPutResponseHopLimit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-infrastructureconfiguration-instancemetadataoptions.html#cfn-imagebuilder-infrastructureconfiguration-instancemetadataoptions-httpputresponsehoplimit).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub http_put_response_hop_limit: Option<::Value<u32>>,
+        /// Property [`HttpTokens`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-infrastructureconfiguration-instancemetadataoptions.html#cfn-imagebuilder-infrastructureconfiguration-instancemetadataoptions-httptokens).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub http_tokens: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for InstanceMetadataOptions {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref http_put_response_hop_limit) = self.http_put_response_hop_limit {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "HttpPutResponseHopLimit", http_put_response_hop_limit)?;
+            }
+            if let Some(ref http_tokens) = self.http_tokens {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "HttpTokens", http_tokens)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for InstanceMetadataOptions {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<InstanceMetadataOptions, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = InstanceMetadataOptions;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type InstanceMetadataOptions")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut http_put_response_hop_limit: Option<::Value<u32>> = None;
+                    let mut http_tokens: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "HttpPutResponseHopLimit" => {
+                                http_put_response_hop_limit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "HttpTokens" => {
+                                http_tokens = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(InstanceMetadataOptions {
+                        http_put_response_hop_limit: http_put_response_hop_limit,
+                        http_tokens: http_tokens,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 
     /// The [`AWS::ImageBuilder::InfrastructureConfiguration.Logging`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-imagebuilder-infrastructureconfiguration-logging.html) property type.
     #[derive(Debug, Default)]

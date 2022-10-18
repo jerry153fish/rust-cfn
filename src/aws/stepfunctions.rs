@@ -117,7 +117,7 @@ pub struct StateMachineProperties {
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub definition_substitutions: Option<::ValueMap<String>>,
+    pub definition_substitutions: Option<::ValueMap<::json::Value>>,
     /// Property [`LoggingConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-statemachine.html#cfn-stepfunctions-statemachine-loggingconfiguration).
     ///
     /// Update type: _Mutable_.
@@ -135,8 +135,8 @@ pub struct StateMachineProperties {
     pub state_machine_name: Option<::Value<String>>,
     /// Property [`StateMachineType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-statemachine.html#cfn-stepfunctions-statemachine-statemachinetype).
     ///
-    /// Update type: _Mutable_.
-    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
     pub state_machine_type: Option<::Value<String>>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-statemachine.html#cfn-stepfunctions-statemachine-tags).
     ///
@@ -200,7 +200,7 @@ impl<'de> ::serde::Deserialize<'de> for StateMachineProperties {
                 let mut definition: Option<::Value<self::state_machine::Definition>> = None;
                 let mut definition_s3_location: Option<::Value<self::state_machine::S3Location>> = None;
                 let mut definition_string: Option<::Value<String>> = None;
-                let mut definition_substitutions: Option<::ValueMap<String>> = None;
+                let mut definition_substitutions: Option<::ValueMap<::json::Value>> = None;
                 let mut logging_configuration: Option<::Value<self::state_machine::LoggingConfiguration>> = None;
                 let mut role_arn: Option<::Value<String>> = None;
                 let mut state_machine_name: Option<::Value<String>> = None;

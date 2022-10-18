@@ -471,6 +471,121 @@ pub mod response_plan {
         }
     }
 
+    /// The [`AWS::SSMIncidents::ResponsePlan.DynamicSsmParameter`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-dynamicssmparameter.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DynamicSsmParameter {
+        /// Property [`Key`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-dynamicssmparameter.html#cfn-ssmincidents-responseplan-dynamicssmparameter-key).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub key: ::Value<String>,
+        /// Property [`Value`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-dynamicssmparameter.html#cfn-ssmincidents-responseplan-dynamicssmparameter-value).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub value: ::Value<DynamicSsmParameterValue>,
+    }
+
+    impl ::codec::SerializeValue for DynamicSsmParameter {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Key", &self.key)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Value", &self.value)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DynamicSsmParameter {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DynamicSsmParameter, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DynamicSsmParameter;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DynamicSsmParameter")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut key: Option<::Value<String>> = None;
+                    let mut value: Option<::Value<DynamicSsmParameterValue>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Key" => {
+                                key = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Value" => {
+                                value = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DynamicSsmParameter {
+                        key: key.ok_or(::serde::de::Error::missing_field("Key"))?,
+                        value: value.ok_or(::serde::de::Error::missing_field("Value"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SSMIncidents::ResponsePlan.DynamicSsmParameterValue`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-dynamicssmparametervalue.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DynamicSsmParameterValue {
+        /// Property [`Variable`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-dynamicssmparametervalue.html#cfn-ssmincidents-responseplan-dynamicssmparametervalue-variable).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub variable: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for DynamicSsmParameterValue {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref variable) = self.variable {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Variable", variable)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DynamicSsmParameterValue {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DynamicSsmParameterValue, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DynamicSsmParameterValue;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DynamicSsmParameterValue")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut variable: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Variable" => {
+                                variable = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DynamicSsmParameterValue {
+                        variable: variable,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::SSMIncidents::ResponsePlan.IncidentTemplate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-incidenttemplate.html) property type.
     #[derive(Debug, Default)]
     pub struct IncidentTemplate {
@@ -484,6 +599,11 @@ pub mod response_plan {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub impact: ::Value<u32>,
+        /// Property [`IncidentTags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-incidenttemplate.html#cfn-ssmincidents-responseplan-incidenttemplate-incidenttags).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub incident_tags: Option<::ValueList<::Tag>>,
         /// Property [`NotificationTargets`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-incidenttemplate.html#cfn-ssmincidents-responseplan-incidenttemplate-notificationtargets).
         ///
         /// Update type: _Mutable_.
@@ -508,6 +628,9 @@ pub mod response_plan {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "DedupeString", dedupe_string)?;
             }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Impact", &self.impact)?;
+            if let Some(ref incident_tags) = self.incident_tags {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "IncidentTags", incident_tags)?;
+            }
             if let Some(ref notification_targets) = self.notification_targets {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "NotificationTargets", notification_targets)?;
             }
@@ -533,6 +656,7 @@ pub mod response_plan {
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut dedupe_string: Option<::Value<String>> = None;
                     let mut impact: Option<::Value<u32>> = None;
+                    let mut incident_tags: Option<::ValueList<::Tag>> = None;
                     let mut notification_targets: Option<::ValueList<NotificationTargetItem>> = None;
                     let mut summary: Option<::Value<String>> = None;
                     let mut title: Option<::Value<String>> = None;
@@ -544,6 +668,9 @@ pub mod response_plan {
                             }
                             "Impact" => {
                                 impact = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "IncidentTags" => {
+                                incident_tags = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "NotificationTargets" => {
                                 notification_targets = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -561,6 +688,7 @@ pub mod response_plan {
                     Ok(IncidentTemplate {
                         dedupe_string: dedupe_string,
                         impact: impact.ok_or(::serde::de::Error::missing_field("Impact"))?,
+                        incident_tags: incident_tags,
                         notification_targets: notification_targets,
                         summary: summary,
                         title: title.ok_or(::serde::de::Error::missing_field("Title"))?,
@@ -638,6 +766,11 @@ pub mod response_plan {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub document_version: Option<::Value<String>>,
+        /// Property [`DynamicParameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-ssmautomation.html#cfn-ssmincidents-responseplan-ssmautomation-dynamicparameters).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub dynamic_parameters: Option<::ValueList<DynamicSsmParameter>>,
         /// Property [`Parameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssmincidents-responseplan-ssmautomation.html#cfn-ssmincidents-responseplan-ssmautomation-parameters).
         ///
         /// Update type: _Mutable_.
@@ -661,6 +794,9 @@ pub mod response_plan {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DocumentName", &self.document_name)?;
             if let Some(ref document_version) = self.document_version {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "DocumentVersion", document_version)?;
+            }
+            if let Some(ref dynamic_parameters) = self.dynamic_parameters {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DynamicParameters", dynamic_parameters)?;
             }
             if let Some(ref parameters) = self.parameters {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Parameters", parameters)?;
@@ -687,6 +823,7 @@ pub mod response_plan {
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut document_name: Option<::Value<String>> = None;
                     let mut document_version: Option<::Value<String>> = None;
+                    let mut dynamic_parameters: Option<::ValueList<DynamicSsmParameter>> = None;
                     let mut parameters: Option<::ValueList<SsmParameter>> = None;
                     let mut role_arn: Option<::Value<String>> = None;
                     let mut target_account: Option<::Value<String>> = None;
@@ -698,6 +835,9 @@ pub mod response_plan {
                             }
                             "DocumentVersion" => {
                                 document_version = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DynamicParameters" => {
+                                dynamic_parameters = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "Parameters" => {
                                 parameters = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -715,6 +855,7 @@ pub mod response_plan {
                     Ok(SsmAutomation {
                         document_name: document_name.ok_or(::serde::de::Error::missing_field("DocumentName"))?,
                         document_version: document_version,
+                        dynamic_parameters: dynamic_parameters,
                         parameters: parameters,
                         role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
                         target_account: target_account,

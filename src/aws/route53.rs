@@ -1,5 +1,94 @@
 //! Types for the `Route53` service.
 
+/// The [`AWS::Route53::CidrCollection`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-cidrcollection.html) resource type.
+#[derive(Debug, Default)]
+pub struct CidrCollection {
+    properties: CidrCollectionProperties
+}
+
+/// Properties for the `CidrCollection` resource.
+#[derive(Debug, Default)]
+pub struct CidrCollectionProperties {
+    /// Property [`Locations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-cidrcollection.html#cfn-route53-cidrcollection-locations).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub locations: Option<::ValueList<self::cidr_collection::Location>>,
+    /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-cidrcollection.html#cfn-route53-cidrcollection-name).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub name: ::Value<String>,
+}
+
+impl ::serde::Serialize for CidrCollectionProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref locations) = self.locations {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Locations", locations)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for CidrCollectionProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<CidrCollectionProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = CidrCollectionProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type CidrCollectionProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut locations: Option<::ValueList<self::cidr_collection::Location>> = None;
+                let mut name: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "Locations" => {
+                            locations = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Name" => {
+                            name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(CidrCollectionProperties {
+                    locations: locations,
+                    name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for CidrCollection {
+    type Properties = CidrCollectionProperties;
+    const TYPE: &'static str = "AWS::Route53::CidrCollection";
+    fn properties(&self) -> &CidrCollectionProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut CidrCollectionProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for CidrCollection {}
+
+impl From<CidrCollectionProperties> for CidrCollection {
+    fn from(properties: CidrCollectionProperties) -> CidrCollection {
+        CidrCollection { properties }
+    }
+}
+
 /// The [`AWS::Route53::DNSSEC`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-dnssec.html) resource type.
 #[derive(Debug, Default)]
 pub struct DNSSEC {
@@ -188,7 +277,7 @@ pub struct HostedZoneProperties {
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
-    pub name: ::Value<String>,
+    pub name: Option<::Value<String>>,
     /// Property [`QueryLoggingConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html#cfn-route53-hostedzone-queryloggingconfig).
     ///
     /// Update type: _Mutable_.
@@ -210,7 +299,9 @@ impl ::serde::Serialize for HostedZoneProperties {
         if let Some(ref hosted_zone_tags) = self.hosted_zone_tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "HostedZoneTags", hosted_zone_tags)?;
         }
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+        if let Some(ref name) = self.name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", name)?;
+        }
         if let Some(ref query_logging_config) = self.query_logging_config {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "QueryLoggingConfig", query_logging_config)?;
         }
@@ -263,7 +354,7 @@ impl<'de> ::serde::Deserialize<'de> for HostedZoneProperties {
                 Ok(HostedZoneProperties {
                     hosted_zone_config: hosted_zone_config,
                     hosted_zone_tags: hosted_zone_tags,
-                    name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                    name: name,
                     query_logging_config: query_logging_config,
                     vp_cs: vp_cs,
                 })
@@ -416,6 +507,11 @@ pub struct RecordSetProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub alias_target: Option<::Value<self::record_set::AliasTarget>>,
+    /// Property [`CidrRoutingConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-cidrroutingconfig).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub cidr_routing_config: Option<::Value<self::record_set::CidrRoutingConfig>>,
     /// Property [`Comment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-comment).
     ///
     /// Update type: _Mutable_.
@@ -494,6 +590,9 @@ impl ::serde::Serialize for RecordSetProperties {
         if let Some(ref alias_target) = self.alias_target {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AliasTarget", alias_target)?;
         }
+        if let Some(ref cidr_routing_config) = self.cidr_routing_config {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CidrRoutingConfig", cidr_routing_config)?;
+        }
         if let Some(ref comment) = self.comment {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Comment", comment)?;
         }
@@ -549,6 +648,7 @@ impl<'de> ::serde::Deserialize<'de> for RecordSetProperties {
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut alias_target: Option<::Value<self::record_set::AliasTarget>> = None;
+                let mut cidr_routing_config: Option<::Value<self::record_set::CidrRoutingConfig>> = None;
                 let mut comment: Option<::Value<String>> = None;
                 let mut failover: Option<::Value<String>> = None;
                 let mut geo_location: Option<::Value<self::record_set::GeoLocation>> = None;
@@ -568,6 +668,9 @@ impl<'de> ::serde::Deserialize<'de> for RecordSetProperties {
                     match __cfn_key.as_ref() {
                         "AliasTarget" => {
                             alias_target = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CidrRoutingConfig" => {
+                            cidr_routing_config = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Comment" => {
                             comment = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -617,6 +720,7 @@ impl<'de> ::serde::Deserialize<'de> for RecordSetProperties {
 
                 Ok(RecordSetProperties {
                     alias_target: alias_target,
+                    cidr_routing_config: cidr_routing_config,
                     comment: comment,
                     failover: failover,
                     geo_location: geo_location,
@@ -772,6 +876,72 @@ impl ::private::Sealed for RecordSetGroup {}
 impl From<RecordSetGroupProperties> for RecordSetGroup {
     fn from(properties: RecordSetGroupProperties) -> RecordSetGroup {
         RecordSetGroup { properties }
+    }
+}
+
+pub mod cidr_collection {
+    //! Property types for the `CidrCollection` resource.
+
+    /// The [`AWS::Route53::CidrCollection.Location`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrcollection-location.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Location {
+        /// Property [`CidrList`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrcollection-location.html#cfn-route53-cidrcollection-location-cidrlist).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub cidr_list: ::ValueList<String>,
+        /// Property [`LocationName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrcollection-location.html#cfn-route53-cidrcollection-location-locationname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub location_name: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for Location {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CidrList", &self.cidr_list)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "LocationName", &self.location_name)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Location {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Location, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Location;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Location")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut cidr_list: Option<::ValueList<String>> = None;
+                    let mut location_name: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CidrList" => {
+                                cidr_list = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LocationName" => {
+                                location_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Location {
+                        cidr_list: cidr_list.ok_or(::serde::de::Error::missing_field("CidrList"))?,
+                        location_name: location_name.ok_or(::serde::de::Error::missing_field("LocationName"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
     }
 }
 
@@ -1151,6 +1321,68 @@ pub mod record_set {
         }
     }
 
+    /// The [`AWS::Route53::RecordSet.CidrRoutingConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrroutingconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CidrRoutingConfig {
+        /// Property [`CollectionId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrroutingconfig.html#cfn-route53-cidrroutingconfig-collectionid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub collection_id: ::Value<String>,
+        /// Property [`LocationName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrroutingconfig.html#cfn-route53-cidrroutingconfig-locationname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub location_name: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for CidrRoutingConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CollectionId", &self.collection_id)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "LocationName", &self.location_name)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CidrRoutingConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CidrRoutingConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CidrRoutingConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CidrRoutingConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut collection_id: Option<::Value<String>> = None;
+                    let mut location_name: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CollectionId" => {
+                                collection_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LocationName" => {
+                                location_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CidrRoutingConfig {
+                        collection_id: collection_id.ok_or(::serde::de::Error::missing_field("CollectionId"))?,
+                        location_name: location_name.ok_or(::serde::de::Error::missing_field("LocationName"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::Route53::RecordSet.GeoLocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-geolocation.html) property type.
     #[derive(Debug, Default)]
     pub struct GeoLocation {
@@ -1309,6 +1541,68 @@ pub mod record_set_group {
         }
     }
 
+    /// The [`AWS::Route53::RecordSetGroup.CidrRoutingConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrroutingconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CidrRoutingConfig {
+        /// Property [`CollectionId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrroutingconfig.html#cfn-route53-cidrroutingconfig-collectionid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub collection_id: ::Value<String>,
+        /// Property [`LocationName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-cidrroutingconfig.html#cfn-route53-cidrroutingconfig-locationname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub location_name: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for CidrRoutingConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CollectionId", &self.collection_id)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "LocationName", &self.location_name)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CidrRoutingConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CidrRoutingConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CidrRoutingConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CidrRoutingConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut collection_id: Option<::Value<String>> = None;
+                    let mut location_name: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CollectionId" => {
+                                collection_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LocationName" => {
+                                location_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CidrRoutingConfig {
+                        collection_id: collection_id.ok_or(::serde::de::Error::missing_field("CollectionId"))?,
+                        location_name: location_name.ok_or(::serde::de::Error::missing_field("LocationName"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::Route53::RecordSetGroup.GeoLocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-geolocation.html) property type.
     #[derive(Debug, Default)]
     pub struct GeoLocation {
@@ -1396,11 +1690,11 @@ pub mod record_set_group {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub alias_target: Option<::Value<AliasTarget>>,
-        /// Property [`Comment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-comment).
+        /// Property [`CidrRoutingConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-cidrroutingconfig).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub comment: Option<::Value<String>>,
+        pub cidr_routing_config: Option<::Value<CidrRoutingConfig>>,
         /// Property [`Failover`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-failover).
         ///
         /// Update type: _Mutable_.
@@ -1474,8 +1768,8 @@ pub mod record_set_group {
             if let Some(ref alias_target) = self.alias_target {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "AliasTarget", alias_target)?;
             }
-            if let Some(ref comment) = self.comment {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Comment", comment)?;
+            if let Some(ref cidr_routing_config) = self.cidr_routing_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CidrRoutingConfig", cidr_routing_config)?;
             }
             if let Some(ref failover) = self.failover {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Failover", failover)?;
@@ -1529,7 +1823,7 @@ pub mod record_set_group {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut alias_target: Option<::Value<AliasTarget>> = None;
-                    let mut comment: Option<::Value<String>> = None;
+                    let mut cidr_routing_config: Option<::Value<CidrRoutingConfig>> = None;
                     let mut failover: Option<::Value<String>> = None;
                     let mut geo_location: Option<::Value<GeoLocation>> = None;
                     let mut health_check_id: Option<::Value<String>> = None;
@@ -1549,8 +1843,8 @@ pub mod record_set_group {
                             "AliasTarget" => {
                                 alias_target = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
-                            "Comment" => {
-                                comment = ::serde::de::MapAccess::next_value(&mut map)?;
+                            "CidrRoutingConfig" => {
+                                cidr_routing_config = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "Failover" => {
                                 failover = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1597,7 +1891,7 @@ pub mod record_set_group {
 
                     Ok(RecordSet {
                         alias_target: alias_target,
-                        comment: comment,
+                        cidr_routing_config: cidr_routing_config,
                         failover: failover,
                         geo_location: geo_location,
                         health_check_id: health_check_id,

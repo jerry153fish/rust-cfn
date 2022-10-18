@@ -969,6 +969,11 @@ pub mod origin_endpoint {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub constant_initialization_vector: Option<::Value<String>>,
+        /// Property [`EncryptionMethod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-cmafencryption.html#cfn-mediapackage-originendpoint-cmafencryption-encryptionmethod).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub encryption_method: Option<::Value<String>>,
         /// Property [`KeyRotationIntervalSeconds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-cmafencryption.html#cfn-mediapackage-originendpoint-cmafencryption-keyrotationintervalseconds).
         ///
         /// Update type: _Mutable_.
@@ -986,6 +991,9 @@ pub mod origin_endpoint {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref constant_initialization_vector) = self.constant_initialization_vector {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ConstantInitializationVector", constant_initialization_vector)?;
+            }
+            if let Some(ref encryption_method) = self.encryption_method {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EncryptionMethod", encryption_method)?;
             }
             if let Some(ref key_rotation_interval_seconds) = self.key_rotation_interval_seconds {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "KeyRotationIntervalSeconds", key_rotation_interval_seconds)?;
@@ -1008,6 +1016,7 @@ pub mod origin_endpoint {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut constant_initialization_vector: Option<::Value<String>> = None;
+                    let mut encryption_method: Option<::Value<String>> = None;
                     let mut key_rotation_interval_seconds: Option<::Value<u32>> = None;
                     let mut speke_key_provider: Option<::Value<SpekeKeyProvider>> = None;
 
@@ -1015,6 +1024,9 @@ pub mod origin_endpoint {
                         match __cfn_key.as_ref() {
                             "ConstantInitializationVector" => {
                                 constant_initialization_vector = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "EncryptionMethod" => {
+                                encryption_method = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "KeyRotationIntervalSeconds" => {
                                 key_rotation_interval_seconds = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1028,6 +1040,7 @@ pub mod origin_endpoint {
 
                     Ok(CmafEncryption {
                         constant_initialization_vector: constant_initialization_vector,
+                        encryption_method: encryption_method,
                         key_rotation_interval_seconds: key_rotation_interval_seconds,
                         speke_key_provider: speke_key_provider.ok_or(::serde::de::Error::missing_field("SpekeKeyProvider"))?,
                     })
@@ -1225,6 +1238,11 @@ pub mod origin_endpoint {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub encryption: Option<::Value<DashEncryption>>,
+        /// Property [`IncludeIframeOnlyStream`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-dashpackage.html#cfn-mediapackage-originendpoint-dashpackage-includeiframeonlystream).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub include_iframe_only_stream: Option<::Value<bool>>,
         /// Property [`ManifestLayout`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-dashpackage.html#cfn-mediapackage-originendpoint-dashpackage-manifestlayout).
         ///
         /// Update type: _Mutable_.
@@ -1299,6 +1317,9 @@ pub mod origin_endpoint {
             if let Some(ref encryption) = self.encryption {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Encryption", encryption)?;
             }
+            if let Some(ref include_iframe_only_stream) = self.include_iframe_only_stream {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "IncludeIframeOnlyStream", include_iframe_only_stream)?;
+            }
             if let Some(ref manifest_layout) = self.manifest_layout {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ManifestLayout", manifest_layout)?;
             }
@@ -1354,6 +1375,7 @@ pub mod origin_endpoint {
                     let mut ad_triggers: Option<::ValueList<String>> = None;
                     let mut ads_on_delivery_restrictions: Option<::Value<String>> = None;
                     let mut encryption: Option<::Value<DashEncryption>> = None;
+                    let mut include_iframe_only_stream: Option<::Value<bool>> = None;
                     let mut manifest_layout: Option<::Value<String>> = None;
                     let mut manifest_window_seconds: Option<::Value<u32>> = None;
                     let mut min_buffer_time_seconds: Option<::Value<u32>> = None;
@@ -1377,6 +1399,9 @@ pub mod origin_endpoint {
                             }
                             "Encryption" => {
                                 encryption = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "IncludeIframeOnlyStream" => {
+                                include_iframe_only_stream = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "ManifestLayout" => {
                                 manifest_layout = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1422,6 +1447,7 @@ pub mod origin_endpoint {
                         ad_triggers: ad_triggers,
                         ads_on_delivery_restrictions: ads_on_delivery_restrictions,
                         encryption: encryption,
+                        include_iframe_only_stream: include_iframe_only_stream,
                         manifest_layout: manifest_layout,
                         manifest_window_seconds: manifest_window_seconds,
                         min_buffer_time_seconds: min_buffer_time_seconds,
@@ -1434,6 +1460,68 @@ pub mod origin_endpoint {
                         suggested_presentation_delay_seconds: suggested_presentation_delay_seconds,
                         utc_timing: utc_timing,
                         utc_timing_uri: utc_timing_uri,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::MediaPackage::OriginEndpoint.EncryptionContractConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-encryptioncontractconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct EncryptionContractConfiguration {
+        /// Property [`PresetSpeke20Audio`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-encryptioncontractconfiguration.html#cfn-mediapackage-originendpoint-encryptioncontractconfiguration-presetspeke20audio).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub preset_speke20_audio: ::Value<String>,
+        /// Property [`PresetSpeke20Video`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-encryptioncontractconfiguration.html#cfn-mediapackage-originendpoint-encryptioncontractconfiguration-presetspeke20video).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub preset_speke20_video: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for EncryptionContractConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PresetSpeke20Audio", &self.preset_speke20_audio)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PresetSpeke20Video", &self.preset_speke20_video)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for EncryptionContractConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<EncryptionContractConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = EncryptionContractConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type EncryptionContractConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut preset_speke20_audio: Option<::Value<String>> = None;
+                    let mut preset_speke20_video: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "PresetSpeke20Audio" => {
+                                preset_speke20_audio = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "PresetSpeke20Video" => {
+                                preset_speke20_video = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(EncryptionContractConfiguration {
+                        preset_speke20_audio: preset_speke20_audio.ok_or(::serde::de::Error::missing_field("PresetSpeke20Audio"))?,
+                        preset_speke20_video: preset_speke20_video.ok_or(::serde::de::Error::missing_field("PresetSpeke20Video"))?,
                     })
                 }
             }
@@ -2047,6 +2135,11 @@ pub mod origin_endpoint {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub certificate_arn: Option<::Value<String>>,
+        /// Property [`EncryptionContractConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-spekekeyprovider.html#cfn-mediapackage-originendpoint-spekekeyprovider-encryptioncontractconfiguration).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub encryption_contract_configuration: Option<::Value<EncryptionContractConfiguration>>,
         /// Property [`ResourceId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-originendpoint-spekekeyprovider.html#cfn-mediapackage-originendpoint-spekekeyprovider-resourceid).
         ///
         /// Update type: _Mutable_.
@@ -2075,6 +2168,9 @@ pub mod origin_endpoint {
             if let Some(ref certificate_arn) = self.certificate_arn {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "CertificateArn", certificate_arn)?;
             }
+            if let Some(ref encryption_contract_configuration) = self.encryption_contract_configuration {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EncryptionContractConfiguration", encryption_contract_configuration)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ResourceId", &self.resource_id)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "RoleArn", &self.role_arn)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "SystemIds", &self.system_ids)?;
@@ -2096,6 +2192,7 @@ pub mod origin_endpoint {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut certificate_arn: Option<::Value<String>> = None;
+                    let mut encryption_contract_configuration: Option<::Value<EncryptionContractConfiguration>> = None;
                     let mut resource_id: Option<::Value<String>> = None;
                     let mut role_arn: Option<::Value<String>> = None;
                     let mut system_ids: Option<::ValueList<String>> = None;
@@ -2105,6 +2202,9 @@ pub mod origin_endpoint {
                         match __cfn_key.as_ref() {
                             "CertificateArn" => {
                                 certificate_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "EncryptionContractConfiguration" => {
+                                encryption_contract_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "ResourceId" => {
                                 resource_id = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -2124,6 +2224,7 @@ pub mod origin_endpoint {
 
                     Ok(SpekeKeyProvider {
                         certificate_arn: certificate_arn,
+                        encryption_contract_configuration: encryption_contract_configuration,
                         resource_id: resource_id.ok_or(::serde::de::Error::missing_field("ResourceId"))?,
                         role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
                         system_ids: system_ids.ok_or(::serde::de::Error::missing_field("SystemIds"))?,
@@ -2434,6 +2535,11 @@ pub mod packaging_configuration {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub profile: Option<::Value<String>>,
+        /// Property [`ScteMarkersSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-packagingconfiguration-dashmanifest.html#cfn-mediapackage-packagingconfiguration-dashmanifest-sctemarkerssource).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub scte_markers_source: Option<::Value<String>>,
         /// Property [`StreamSelection`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediapackage-packagingconfiguration-dashmanifest.html#cfn-mediapackage-packagingconfiguration-dashmanifest-streamselection).
         ///
         /// Update type: _Mutable_.
@@ -2455,6 +2561,9 @@ pub mod packaging_configuration {
             }
             if let Some(ref profile) = self.profile {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Profile", profile)?;
+            }
+            if let Some(ref scte_markers_source) = self.scte_markers_source {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ScteMarkersSource", scte_markers_source)?;
             }
             if let Some(ref stream_selection) = self.stream_selection {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "StreamSelection", stream_selection)?;
@@ -2479,6 +2588,7 @@ pub mod packaging_configuration {
                     let mut manifest_name: Option<::Value<String>> = None;
                     let mut min_buffer_time_seconds: Option<::Value<u32>> = None;
                     let mut profile: Option<::Value<String>> = None;
+                    let mut scte_markers_source: Option<::Value<String>> = None;
                     let mut stream_selection: Option<::Value<StreamSelection>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -2495,6 +2605,9 @@ pub mod packaging_configuration {
                             "Profile" => {
                                 profile = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "ScteMarkersSource" => {
+                                scte_markers_source = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "StreamSelection" => {
                                 stream_selection = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -2507,6 +2620,7 @@ pub mod packaging_configuration {
                         manifest_name: manifest_name,
                         min_buffer_time_seconds: min_buffer_time_seconds,
                         profile: profile,
+                        scte_markers_source: scte_markers_source,
                         stream_selection: stream_selection,
                     })
                 }

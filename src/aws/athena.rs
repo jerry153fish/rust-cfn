@@ -16,8 +16,8 @@ pub struct DataCatalogProperties {
     pub description: Option<::Value<String>>,
     /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-datacatalog.html#cfn-athena-datacatalog-name).
     ///
-    /// Update type: _Mutable_.
-    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
     pub name: ::Value<String>,
     /// Property [`Parameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-datacatalog.html#cfn-athena-datacatalog-parameters).
     ///
@@ -252,6 +252,117 @@ impl From<NamedQueryProperties> for NamedQuery {
     }
 }
 
+/// The [`AWS::Athena::PreparedStatement`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-preparedstatement.html) resource type.
+#[derive(Debug, Default)]
+pub struct PreparedStatement {
+    properties: PreparedStatementProperties
+}
+
+/// Properties for the `PreparedStatement` resource.
+#[derive(Debug, Default)]
+pub struct PreparedStatementProperties {
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-preparedstatement.html#cfn-athena-preparedstatement-description).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub description: Option<::Value<String>>,
+    /// Property [`QueryStatement`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-preparedstatement.html#cfn-athena-preparedstatement-querystatement).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub query_statement: ::Value<String>,
+    /// Property [`StatementName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-preparedstatement.html#cfn-athena-preparedstatement-statementname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub statement_name: ::Value<String>,
+    /// Property [`WorkGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-preparedstatement.html#cfn-athena-preparedstatement-workgroup).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub work_group: ::Value<String>,
+}
+
+impl ::serde::Serialize for PreparedStatementProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref description) = self.description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "QueryStatement", &self.query_statement)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "StatementName", &self.statement_name)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkGroup", &self.work_group)?;
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for PreparedStatementProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<PreparedStatementProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = PreparedStatementProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type PreparedStatementProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut description: Option<::Value<String>> = None;
+                let mut query_statement: Option<::Value<String>> = None;
+                let mut statement_name: Option<::Value<String>> = None;
+                let mut work_group: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "Description" => {
+                            description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "QueryStatement" => {
+                            query_statement = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "StatementName" => {
+                            statement_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "WorkGroup" => {
+                            work_group = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(PreparedStatementProperties {
+                    description: description,
+                    query_statement: query_statement.ok_or(::serde::de::Error::missing_field("QueryStatement"))?,
+                    statement_name: statement_name.ok_or(::serde::de::Error::missing_field("StatementName"))?,
+                    work_group: work_group.ok_or(::serde::de::Error::missing_field("WorkGroup"))?,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for PreparedStatement {
+    type Properties = PreparedStatementProperties;
+    const TYPE: &'static str = "AWS::Athena::PreparedStatement";
+    fn properties(&self) -> &PreparedStatementProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut PreparedStatementProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for PreparedStatement {}
+
+impl From<PreparedStatementProperties> for PreparedStatement {
+    fn from(properties: PreparedStatementProperties) -> PreparedStatement {
+        PreparedStatement { properties }
+    }
+}
+
 /// The [`AWS::Athena::WorkGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-workgroup.html) resource type.
 #[derive(Debug, Default)]
 pub struct WorkGroup {
@@ -291,11 +402,6 @@ pub struct WorkGroupProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub work_group_configuration: Option<::Value<self::work_group::WorkGroupConfiguration>>,
-    /// Property [`WorkGroupConfigurationUpdates`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-athena-workgroup.html#cfn-athena-workgroup-workgroupconfigurationupdates).
-    ///
-    /// Update type: _Mutable_.
-    /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub work_group_configuration_updates: Option<::Value<self::work_group::WorkGroupConfigurationUpdates>>,
 }
 
 impl ::serde::Serialize for WorkGroupProperties {
@@ -316,9 +422,6 @@ impl ::serde::Serialize for WorkGroupProperties {
         }
         if let Some(ref work_group_configuration) = self.work_group_configuration {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkGroupConfiguration", work_group_configuration)?;
-        }
-        if let Some(ref work_group_configuration_updates) = self.work_group_configuration_updates {
-            ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkGroupConfigurationUpdates", work_group_configuration_updates)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -342,7 +445,6 @@ impl<'de> ::serde::Deserialize<'de> for WorkGroupProperties {
                 let mut state: Option<::Value<String>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
                 let mut work_group_configuration: Option<::Value<self::work_group::WorkGroupConfiguration>> = None;
-                let mut work_group_configuration_updates: Option<::Value<self::work_group::WorkGroupConfigurationUpdates>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -364,9 +466,6 @@ impl<'de> ::serde::Deserialize<'de> for WorkGroupProperties {
                         "WorkGroupConfiguration" => {
                             work_group_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
-                        "WorkGroupConfigurationUpdates" => {
-                            work_group_configuration_updates = ::serde::de::MapAccess::next_value(&mut map)?;
-                        }
                         _ => {}
                     }
                 }
@@ -378,7 +477,6 @@ impl<'de> ::serde::Deserialize<'de> for WorkGroupProperties {
                     state: state,
                     tags: tags,
                     work_group_configuration: work_group_configuration,
-                    work_group_configuration_updates: work_group_configuration_updates,
                 })
             }
         }
@@ -605,98 +703,6 @@ pub mod work_group {
         }
     }
 
-    /// The [`AWS::Athena::WorkGroup.ResultConfigurationUpdates`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-resultconfigurationupdates.html) property type.
-    #[derive(Debug, Default)]
-    pub struct ResultConfigurationUpdates {
-        /// Property [`EncryptionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-resultconfigurationupdates.html#cfn-athena-workgroup-resultconfigurationupdates-encryptionconfiguration).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub encryption_configuration: Option<::Value<EncryptionConfiguration>>,
-        /// Property [`OutputLocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-resultconfigurationupdates.html#cfn-athena-workgroup-resultconfigurationupdates-outputlocation).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub output_location: Option<::Value<String>>,
-        /// Property [`RemoveEncryptionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-resultconfigurationupdates.html#cfn-athena-workgroup-resultconfigurationupdates-removeencryptionconfiguration).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub remove_encryption_configuration: Option<::Value<bool>>,
-        /// Property [`RemoveOutputLocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-resultconfigurationupdates.html#cfn-athena-workgroup-resultconfigurationupdates-removeoutputlocation).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub remove_output_location: Option<::Value<bool>>,
-    }
-
-    impl ::codec::SerializeValue for ResultConfigurationUpdates {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let mut map = ::serde::Serializer::serialize_map(s, None)?;
-            if let Some(ref encryption_configuration) = self.encryption_configuration {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EncryptionConfiguration", encryption_configuration)?;
-            }
-            if let Some(ref output_location) = self.output_location {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "OutputLocation", output_location)?;
-            }
-            if let Some(ref remove_encryption_configuration) = self.remove_encryption_configuration {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RemoveEncryptionConfiguration", remove_encryption_configuration)?;
-            }
-            if let Some(ref remove_output_location) = self.remove_output_location {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RemoveOutputLocation", remove_output_location)?;
-            }
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for ResultConfigurationUpdates {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ResultConfigurationUpdates, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = ResultConfigurationUpdates;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type ResultConfigurationUpdates")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
-                    let mut encryption_configuration: Option<::Value<EncryptionConfiguration>> = None;
-                    let mut output_location: Option<::Value<String>> = None;
-                    let mut remove_encryption_configuration: Option<::Value<bool>> = None;
-                    let mut remove_output_location: Option<::Value<bool>> = None;
-
-                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
-                        match __cfn_key.as_ref() {
-                            "EncryptionConfiguration" => {
-                                encryption_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "OutputLocation" => {
-                                output_location = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "RemoveEncryptionConfiguration" => {
-                                remove_encryption_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "RemoveOutputLocation" => {
-                                remove_output_location = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            _ => {}
-                        }
-                    }
-
-                    Ok(ResultConfigurationUpdates {
-                        encryption_configuration: encryption_configuration,
-                        output_location: output_location,
-                        remove_encryption_configuration: remove_encryption_configuration,
-                        remove_output_location: remove_output_location,
-                    })
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
     /// The [`AWS::Athena::WorkGroup.WorkGroupConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfiguration.html) property type.
     #[derive(Debug, Default)]
     pub struct WorkGroupConfiguration {
@@ -807,137 +813,6 @@ pub mod work_group {
                         publish_cloud_watch_metrics_enabled: publish_cloud_watch_metrics_enabled,
                         requester_pays_enabled: requester_pays_enabled,
                         result_configuration: result_configuration,
-                    })
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
-    /// The [`AWS::Athena::WorkGroup.WorkGroupConfigurationUpdates`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html) property type.
-    #[derive(Debug, Default)]
-    pub struct WorkGroupConfigurationUpdates {
-        /// Property [`BytesScannedCutoffPerQuery`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-bytesscannedcutoffperquery).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub bytes_scanned_cutoff_per_query: Option<::Value<u32>>,
-        /// Property [`EnforceWorkGroupConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-enforceworkgroupconfiguration).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub enforce_work_group_configuration: Option<::Value<bool>>,
-        /// Property [`EngineVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-engineversion).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub engine_version: Option<::Value<EngineVersion>>,
-        /// Property [`PublishCloudWatchMetricsEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-publishcloudwatchmetricsenabled).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub publish_cloud_watch_metrics_enabled: Option<::Value<bool>>,
-        /// Property [`RemoveBytesScannedCutoffPerQuery`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-removebytesscannedcutoffperquery).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub remove_bytes_scanned_cutoff_per_query: Option<::Value<bool>>,
-        /// Property [`RequesterPaysEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-requesterpaysenabled).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub requester_pays_enabled: Option<::Value<bool>>,
-        /// Property [`ResultConfigurationUpdates`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-athena-workgroup-workgroupconfigurationupdates.html#cfn-athena-workgroup-workgroupconfigurationupdates-resultconfigurationupdates).
-        ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub result_configuration_updates: Option<::Value<ResultConfigurationUpdates>>,
-    }
-
-    impl ::codec::SerializeValue for WorkGroupConfigurationUpdates {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let mut map = ::serde::Serializer::serialize_map(s, None)?;
-            if let Some(ref bytes_scanned_cutoff_per_query) = self.bytes_scanned_cutoff_per_query {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "BytesScannedCutoffPerQuery", bytes_scanned_cutoff_per_query)?;
-            }
-            if let Some(ref enforce_work_group_configuration) = self.enforce_work_group_configuration {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EnforceWorkGroupConfiguration", enforce_work_group_configuration)?;
-            }
-            if let Some(ref engine_version) = self.engine_version {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EngineVersion", engine_version)?;
-            }
-            if let Some(ref publish_cloud_watch_metrics_enabled) = self.publish_cloud_watch_metrics_enabled {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PublishCloudWatchMetricsEnabled", publish_cloud_watch_metrics_enabled)?;
-            }
-            if let Some(ref remove_bytes_scanned_cutoff_per_query) = self.remove_bytes_scanned_cutoff_per_query {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RemoveBytesScannedCutoffPerQuery", remove_bytes_scanned_cutoff_per_query)?;
-            }
-            if let Some(ref requester_pays_enabled) = self.requester_pays_enabled {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RequesterPaysEnabled", requester_pays_enabled)?;
-            }
-            if let Some(ref result_configuration_updates) = self.result_configuration_updates {
-                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ResultConfigurationUpdates", result_configuration_updates)?;
-            }
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for WorkGroupConfigurationUpdates {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<WorkGroupConfigurationUpdates, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = WorkGroupConfigurationUpdates;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type WorkGroupConfigurationUpdates")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
-                    let mut bytes_scanned_cutoff_per_query: Option<::Value<u32>> = None;
-                    let mut enforce_work_group_configuration: Option<::Value<bool>> = None;
-                    let mut engine_version: Option<::Value<EngineVersion>> = None;
-                    let mut publish_cloud_watch_metrics_enabled: Option<::Value<bool>> = None;
-                    let mut remove_bytes_scanned_cutoff_per_query: Option<::Value<bool>> = None;
-                    let mut requester_pays_enabled: Option<::Value<bool>> = None;
-                    let mut result_configuration_updates: Option<::Value<ResultConfigurationUpdates>> = None;
-
-                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
-                        match __cfn_key.as_ref() {
-                            "BytesScannedCutoffPerQuery" => {
-                                bytes_scanned_cutoff_per_query = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "EnforceWorkGroupConfiguration" => {
-                                enforce_work_group_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "EngineVersion" => {
-                                engine_version = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "PublishCloudWatchMetricsEnabled" => {
-                                publish_cloud_watch_metrics_enabled = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "RemoveBytesScannedCutoffPerQuery" => {
-                                remove_bytes_scanned_cutoff_per_query = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "RequesterPaysEnabled" => {
-                                requester_pays_enabled = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            "ResultConfigurationUpdates" => {
-                                result_configuration_updates = ::serde::de::MapAccess::next_value(&mut map)?;
-                            }
-                            _ => {}
-                        }
-                    }
-
-                    Ok(WorkGroupConfigurationUpdates {
-                        bytes_scanned_cutoff_per_query: bytes_scanned_cutoff_per_query,
-                        enforce_work_group_configuration: enforce_work_group_configuration,
-                        engine_version: engine_version,
-                        publish_cloud_watch_metrics_enabled: publish_cloud_watch_metrics_enabled,
-                        remove_bytes_scanned_cutoff_per_query: remove_bytes_scanned_cutoff_per_query,
-                        requester_pays_enabled: requester_pays_enabled,
-                        result_configuration_updates: result_configuration_updates,
                     })
                 }
             }

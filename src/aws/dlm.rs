@@ -195,6 +195,108 @@ pub mod lifecycle_policy {
         }
     }
 
+    /// The [`AWS::DLM::LifecyclePolicy.ArchiveRetainRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-archiveretainrule.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ArchiveRetainRule {
+        /// Property [`RetentionArchiveTier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-archiveretainrule.html#cfn-dlm-lifecyclepolicy-archiveretainrule-retentionarchivetier).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub retention_archive_tier: ::Value<RetentionArchiveTier>,
+    }
+
+    impl ::codec::SerializeValue for ArchiveRetainRule {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "RetentionArchiveTier", &self.retention_archive_tier)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ArchiveRetainRule {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ArchiveRetainRule, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ArchiveRetainRule;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ArchiveRetainRule")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut retention_archive_tier: Option<::Value<RetentionArchiveTier>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "RetentionArchiveTier" => {
+                                retention_archive_tier = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ArchiveRetainRule {
+                        retention_archive_tier: retention_archive_tier.ok_or(::serde::de::Error::missing_field("RetentionArchiveTier"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::DLM::LifecyclePolicy.ArchiveRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-archiverule.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ArchiveRule {
+        /// Property [`RetainRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-archiverule.html#cfn-dlm-lifecyclepolicy-archiverule-retainrule).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub retain_rule: ::Value<ArchiveRetainRule>,
+    }
+
+    impl ::codec::SerializeValue for ArchiveRule {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "RetainRule", &self.retain_rule)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ArchiveRule {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ArchiveRule, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ArchiveRule;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ArchiveRule")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut retain_rule: Option<::Value<ArchiveRetainRule>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "RetainRule" => {
+                                retain_rule = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ArchiveRule {
+                        retain_rule: retain_rule.ok_or(::serde::de::Error::missing_field("RetainRule"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::DLM::LifecyclePolicy.CreateRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-createrule.html) property type.
     #[derive(Debug, Default)]
     pub struct CreateRule {
@@ -375,6 +477,68 @@ pub mod lifecycle_policy {
         }
     }
 
+    /// The [`AWS::DLM::LifecyclePolicy.CrossRegionCopyDeprecateRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-crossregioncopydeprecaterule.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CrossRegionCopyDeprecateRule {
+        /// Property [`Interval`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-crossregioncopydeprecaterule.html#cfn-dlm-lifecyclepolicy-crossregioncopydeprecaterule-interval).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub interval: ::Value<u32>,
+        /// Property [`IntervalUnit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-crossregioncopydeprecaterule.html#cfn-dlm-lifecyclepolicy-crossregioncopydeprecaterule-intervalunit).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub interval_unit: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for CrossRegionCopyDeprecateRule {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Interval", &self.interval)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "IntervalUnit", &self.interval_unit)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CrossRegionCopyDeprecateRule {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CrossRegionCopyDeprecateRule, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CrossRegionCopyDeprecateRule;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CrossRegionCopyDeprecateRule")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut interval: Option<::Value<u32>> = None;
+                    let mut interval_unit: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Interval" => {
+                                interval = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "IntervalUnit" => {
+                                interval_unit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CrossRegionCopyDeprecateRule {
+                        interval: interval.ok_or(::serde::de::Error::missing_field("Interval"))?,
+                        interval_unit: interval_unit.ok_or(::serde::de::Error::missing_field("IntervalUnit"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::DLM::LifecyclePolicy.CrossRegionCopyRetainRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-crossregioncopyretainrule.html) property type.
     #[derive(Debug, Default)]
     pub struct CrossRegionCopyRetainRule {
@@ -450,6 +614,11 @@ pub mod lifecycle_policy {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub copy_tags: Option<::Value<bool>>,
+        /// Property [`DeprecateRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-crossregioncopyrule.html#cfn-dlm-lifecyclepolicy-crossregioncopyrule-deprecaterule).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub deprecate_rule: Option<::Value<CrossRegionCopyDeprecateRule>>,
         /// Property [`Encrypted`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-crossregioncopyrule.html#cfn-dlm-lifecyclepolicy-crossregioncopyrule-encrypted).
         ///
         /// Update type: _Mutable_.
@@ -481,6 +650,9 @@ pub mod lifecycle_policy {
             if let Some(ref copy_tags) = self.copy_tags {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "CopyTags", copy_tags)?;
             }
+            if let Some(ref deprecate_rule) = self.deprecate_rule {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DeprecateRule", deprecate_rule)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Encrypted", &self.encrypted)?;
             if let Some(ref retain_rule) = self.retain_rule {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "RetainRule", retain_rule)?;
@@ -509,6 +681,7 @@ pub mod lifecycle_policy {
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut cmk_arn: Option<::Value<String>> = None;
                     let mut copy_tags: Option<::Value<bool>> = None;
+                    let mut deprecate_rule: Option<::Value<CrossRegionCopyDeprecateRule>> = None;
                     let mut encrypted: Option<::Value<bool>> = None;
                     let mut retain_rule: Option<::Value<CrossRegionCopyRetainRule>> = None;
                     let mut target: Option<::Value<String>> = None;
@@ -521,6 +694,9 @@ pub mod lifecycle_policy {
                             }
                             "CopyTags" => {
                                 copy_tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DeprecateRule" => {
+                                deprecate_rule = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "Encrypted" => {
                                 encrypted = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -541,10 +717,90 @@ pub mod lifecycle_policy {
                     Ok(CrossRegionCopyRule {
                         cmk_arn: cmk_arn,
                         copy_tags: copy_tags,
+                        deprecate_rule: deprecate_rule,
                         encrypted: encrypted.ok_or(::serde::de::Error::missing_field("Encrypted"))?,
                         retain_rule: retain_rule,
                         target: target,
                         target_region: target_region,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::DLM::LifecyclePolicy.DeprecateRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-deprecaterule.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DeprecateRule {
+        /// Property [`Count`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-deprecaterule.html#cfn-dlm-lifecyclepolicy-deprecaterule-count).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub count: Option<::Value<u32>>,
+        /// Property [`Interval`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-deprecaterule.html#cfn-dlm-lifecyclepolicy-deprecaterule-interval).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub interval: Option<::Value<u32>>,
+        /// Property [`IntervalUnit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-deprecaterule.html#cfn-dlm-lifecyclepolicy-deprecaterule-intervalunit).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub interval_unit: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for DeprecateRule {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref count) = self.count {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Count", count)?;
+            }
+            if let Some(ref interval) = self.interval {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Interval", interval)?;
+            }
+            if let Some(ref interval_unit) = self.interval_unit {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "IntervalUnit", interval_unit)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DeprecateRule {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DeprecateRule, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DeprecateRule;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DeprecateRule")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut count: Option<::Value<u32>> = None;
+                    let mut interval: Option<::Value<u32>> = None;
+                    let mut interval_unit: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Count" => {
+                                count = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Interval" => {
+                                interval = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "IntervalUnit" => {
+                                interval_unit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DeprecateRule {
+                        count: count,
+                        interval: interval,
+                        interval_unit: interval_unit,
                     })
                 }
             }
@@ -856,6 +1112,11 @@ pub mod lifecycle_policy {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub exclude_boot_volume: Option<::Value<bool>>,
+        /// Property [`ExcludeDataVolumeTags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-parameters.html#cfn-dlm-lifecyclepolicy-parameters-excludedatavolumetags).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub exclude_data_volume_tags: Option<::ValueList<::Tag>>,
         /// Property [`NoReboot`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-parameters.html#cfn-dlm-lifecyclepolicy-parameters-noreboot).
         ///
         /// Update type: _Mutable_.
@@ -868,6 +1129,9 @@ pub mod lifecycle_policy {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref exclude_boot_volume) = self.exclude_boot_volume {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ExcludeBootVolume", exclude_boot_volume)?;
+            }
+            if let Some(ref exclude_data_volume_tags) = self.exclude_data_volume_tags {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ExcludeDataVolumeTags", exclude_data_volume_tags)?;
             }
             if let Some(ref no_reboot) = self.no_reboot {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "NoReboot", no_reboot)?;
@@ -889,12 +1153,16 @@ pub mod lifecycle_policy {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut exclude_boot_volume: Option<::Value<bool>> = None;
+                    let mut exclude_data_volume_tags: Option<::ValueList<::Tag>> = None;
                     let mut no_reboot: Option<::Value<bool>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "ExcludeBootVolume" => {
                                 exclude_boot_volume = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ExcludeDataVolumeTags" => {
+                                exclude_data_volume_tags = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "NoReboot" => {
                                 no_reboot = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -905,6 +1173,7 @@ pub mod lifecycle_policy {
 
                     Ok(Parameters {
                         exclude_boot_volume: exclude_boot_volume,
+                        exclude_data_volume_tags: exclude_data_volume_tags,
                         no_reboot: no_reboot,
                     })
                 }
@@ -1137,9 +1406,93 @@ pub mod lifecycle_policy {
         }
     }
 
+    /// The [`AWS::DLM::LifecyclePolicy.RetentionArchiveTier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-retentionarchivetier.html) property type.
+    #[derive(Debug, Default)]
+    pub struct RetentionArchiveTier {
+        /// Property [`Count`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-retentionarchivetier.html#cfn-dlm-lifecyclepolicy-retentionarchivetier-count).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub count: Option<::Value<u32>>,
+        /// Property [`Interval`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-retentionarchivetier.html#cfn-dlm-lifecyclepolicy-retentionarchivetier-interval).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub interval: Option<::Value<u32>>,
+        /// Property [`IntervalUnit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-retentionarchivetier.html#cfn-dlm-lifecyclepolicy-retentionarchivetier-intervalunit).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub interval_unit: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for RetentionArchiveTier {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref count) = self.count {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Count", count)?;
+            }
+            if let Some(ref interval) = self.interval {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Interval", interval)?;
+            }
+            if let Some(ref interval_unit) = self.interval_unit {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "IntervalUnit", interval_unit)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for RetentionArchiveTier {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<RetentionArchiveTier, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = RetentionArchiveTier;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type RetentionArchiveTier")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut count: Option<::Value<u32>> = None;
+                    let mut interval: Option<::Value<u32>> = None;
+                    let mut interval_unit: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Count" => {
+                                count = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Interval" => {
+                                interval = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "IntervalUnit" => {
+                                interval_unit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(RetentionArchiveTier {
+                        count: count,
+                        interval: interval,
+                        interval_unit: interval_unit,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::DLM::LifecyclePolicy.Schedule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-schedule.html) property type.
     #[derive(Debug, Default)]
     pub struct Schedule {
+        /// Property [`ArchiveRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-schedule.html#cfn-dlm-lifecyclepolicy-schedule-archiverule).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub archive_rule: Option<::Value<ArchiveRule>>,
         /// Property [`CopyTags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-schedule.html#cfn-dlm-lifecyclepolicy-schedule-copytags).
         ///
         /// Update type: _Mutable_.
@@ -1155,6 +1508,11 @@ pub mod lifecycle_policy {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub cross_region_copy_rules: Option<::ValueList<CrossRegionCopyRule>>,
+        /// Property [`DeprecateRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-schedule.html#cfn-dlm-lifecyclepolicy-schedule-deprecaterule).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub deprecate_rule: Option<::Value<DeprecateRule>>,
         /// Property [`FastRestoreRule`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dlm-lifecyclepolicy-schedule.html#cfn-dlm-lifecyclepolicy-schedule-fastrestorerule).
         ///
         /// Update type: _Mutable_.
@@ -1190,6 +1548,9 @@ pub mod lifecycle_policy {
     impl ::codec::SerializeValue for Schedule {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref archive_rule) = self.archive_rule {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ArchiveRule", archive_rule)?;
+            }
             if let Some(ref copy_tags) = self.copy_tags {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "CopyTags", copy_tags)?;
             }
@@ -1198,6 +1559,9 @@ pub mod lifecycle_policy {
             }
             if let Some(ref cross_region_copy_rules) = self.cross_region_copy_rules {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "CrossRegionCopyRules", cross_region_copy_rules)?;
+            }
+            if let Some(ref deprecate_rule) = self.deprecate_rule {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DeprecateRule", deprecate_rule)?;
             }
             if let Some(ref fast_restore_rule) = self.fast_restore_rule {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "FastRestoreRule", fast_restore_rule)?;
@@ -1233,9 +1597,11 @@ pub mod lifecycle_policy {
                 }
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut archive_rule: Option<::Value<ArchiveRule>> = None;
                     let mut copy_tags: Option<::Value<bool>> = None;
                     let mut create_rule: Option<::Value<CreateRule>> = None;
                     let mut cross_region_copy_rules: Option<::ValueList<CrossRegionCopyRule>> = None;
+                    let mut deprecate_rule: Option<::Value<DeprecateRule>> = None;
                     let mut fast_restore_rule: Option<::Value<FastRestoreRule>> = None;
                     let mut name: Option<::Value<String>> = None;
                     let mut retain_rule: Option<::Value<RetainRule>> = None;
@@ -1245,6 +1611,9 @@ pub mod lifecycle_policy {
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
+                            "ArchiveRule" => {
+                                archive_rule = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "CopyTags" => {
                                 copy_tags = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -1253,6 +1622,9 @@ pub mod lifecycle_policy {
                             }
                             "CrossRegionCopyRules" => {
                                 cross_region_copy_rules = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DeprecateRule" => {
+                                deprecate_rule = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "FastRestoreRule" => {
                                 fast_restore_rule = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1277,9 +1649,11 @@ pub mod lifecycle_policy {
                     }
 
                     Ok(Schedule {
+                        archive_rule: archive_rule,
                         copy_tags: copy_tags,
                         create_rule: create_rule,
                         cross_region_copy_rules: cross_region_copy_rules,
+                        deprecate_rule: deprecate_rule,
                         fast_restore_rule: fast_restore_rule,
                         name: name,
                         retain_rule: retain_rule,

@@ -163,8 +163,8 @@ pub struct ListenerCertificate {
 pub struct ListenerCertificateProperties {
     /// Property [`Certificates`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenercertificate.html#cfn-elasticloadbalancingv2-listenercertificate-certificates).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub certificates: ::ValueList<self::listener_certificate::Certificate>,
     /// Property [`ListenerArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenercertificate.html#cfn-elasticloadbalancingv2-listenercertificate-listenerarn).
     ///
@@ -574,6 +574,11 @@ pub struct TargetGroupProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub healthy_threshold_count: Option<::Value<u32>>,
+    /// Property [`IpAddressType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-ipaddresstype).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub ip_address_type: Option<::Value<String>>,
     /// Property [`Matcher`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-matcher).
     ///
     /// Update type: _Mutable_.
@@ -655,6 +660,9 @@ impl ::serde::Serialize for TargetGroupProperties {
         if let Some(ref healthy_threshold_count) = self.healthy_threshold_count {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "HealthyThresholdCount", healthy_threshold_count)?;
         }
+        if let Some(ref ip_address_type) = self.ip_address_type {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "IpAddressType", ip_address_type)?;
+        }
         if let Some(ref matcher) = self.matcher {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Matcher", matcher)?;
         }
@@ -711,6 +719,7 @@ impl<'de> ::serde::Deserialize<'de> for TargetGroupProperties {
                 let mut health_check_protocol: Option<::Value<String>> = None;
                 let mut health_check_timeout_seconds: Option<::Value<u32>> = None;
                 let mut healthy_threshold_count: Option<::Value<u32>> = None;
+                let mut ip_address_type: Option<::Value<String>> = None;
                 let mut matcher: Option<::Value<self::target_group::Matcher>> = None;
                 let mut name: Option<::Value<String>> = None;
                 let mut port: Option<::Value<u32>> = None;
@@ -745,6 +754,9 @@ impl<'de> ::serde::Deserialize<'de> for TargetGroupProperties {
                         }
                         "HealthyThresholdCount" => {
                             healthy_threshold_count = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "IpAddressType" => {
+                            ip_address_type = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Matcher" => {
                             matcher = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -791,6 +803,7 @@ impl<'de> ::serde::Deserialize<'de> for TargetGroupProperties {
                     health_check_protocol: health_check_protocol,
                     health_check_timeout_seconds: health_check_timeout_seconds,
                     healthy_threshold_count: healthy_threshold_count,
+                    ip_address_type: ip_address_type,
                     matcher: matcher,
                     name: name,
                     port: port,
@@ -1134,7 +1147,7 @@ pub mod listener {
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub client_secret: ::Value<String>,
+        pub client_secret: Option<::Value<String>>,
         /// Property [`Issuer`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listener-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listener-authenticateoidcconfig-issuer).
         ///
         /// Update type: _Mutable_.
@@ -1165,6 +1178,11 @@ pub mod listener {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub token_endpoint: ::Value<String>,
+        /// Property [`UseExistingClientSecret`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listener-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listener-authenticateoidcconfig-useexistingclientsecret).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub use_existing_client_secret: Option<::Value<bool>>,
         /// Property [`UserInfoEndpoint`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listener-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listener-authenticateoidcconfig-userinfoendpoint).
         ///
         /// Update type: _Mutable_.
@@ -1180,7 +1198,9 @@ pub mod listener {
             }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AuthorizationEndpoint", &self.authorization_endpoint)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientId", &self.client_id)?;
-            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientSecret", &self.client_secret)?;
+            if let Some(ref client_secret) = self.client_secret {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientSecret", client_secret)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Issuer", &self.issuer)?;
             if let Some(ref on_unauthenticated_request) = self.on_unauthenticated_request {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "OnUnauthenticatedRequest", on_unauthenticated_request)?;
@@ -1195,6 +1215,9 @@ pub mod listener {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SessionTimeout", session_timeout)?;
             }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "TokenEndpoint", &self.token_endpoint)?;
+            if let Some(ref use_existing_client_secret) = self.use_existing_client_secret {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UseExistingClientSecret", use_existing_client_secret)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserInfoEndpoint", &self.user_info_endpoint)?;
             ::serde::ser::SerializeMap::end(map)
         }
@@ -1222,6 +1245,7 @@ pub mod listener {
                     let mut session_cookie_name: Option<::Value<String>> = None;
                     let mut session_timeout: Option<::Value<String>> = None;
                     let mut token_endpoint: Option<::Value<String>> = None;
+                    let mut use_existing_client_secret: Option<::Value<bool>> = None;
                     let mut user_info_endpoint: Option<::Value<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -1256,6 +1280,9 @@ pub mod listener {
                             "TokenEndpoint" => {
                                 token_endpoint = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "UseExistingClientSecret" => {
+                                use_existing_client_secret = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "UserInfoEndpoint" => {
                                 user_info_endpoint = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -1267,13 +1294,14 @@ pub mod listener {
                         authentication_request_extra_params: authentication_request_extra_params,
                         authorization_endpoint: authorization_endpoint.ok_or(::serde::de::Error::missing_field("AuthorizationEndpoint"))?,
                         client_id: client_id.ok_or(::serde::de::Error::missing_field("ClientId"))?,
-                        client_secret: client_secret.ok_or(::serde::de::Error::missing_field("ClientSecret"))?,
+                        client_secret: client_secret,
                         issuer: issuer.ok_or(::serde::de::Error::missing_field("Issuer"))?,
                         on_unauthenticated_request: on_unauthenticated_request,
                         scope: scope,
                         session_cookie_name: session_cookie_name,
                         session_timeout: session_timeout,
                         token_endpoint: token_endpoint.ok_or(::serde::de::Error::missing_field("TokenEndpoint"))?,
+                        use_existing_client_secret: use_existing_client_secret,
                         user_info_endpoint: user_info_endpoint.ok_or(::serde::de::Error::missing_field("UserInfoEndpoint"))?,
                     })
                 }
@@ -2090,7 +2118,7 @@ pub mod listener_rule {
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub client_secret: ::Value<String>,
+        pub client_secret: Option<::Value<String>>,
         /// Property [`Issuer`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-issuer).
         ///
         /// Update type: _Mutable_.
@@ -2141,7 +2169,9 @@ pub mod listener_rule {
             }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AuthorizationEndpoint", &self.authorization_endpoint)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientId", &self.client_id)?;
-            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientSecret", &self.client_secret)?;
+            if let Some(ref client_secret) = self.client_secret {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientSecret", client_secret)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Issuer", &self.issuer)?;
             if let Some(ref on_unauthenticated_request) = self.on_unauthenticated_request {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "OnUnauthenticatedRequest", on_unauthenticated_request)?;
@@ -2235,7 +2265,7 @@ pub mod listener_rule {
                         authentication_request_extra_params: authentication_request_extra_params,
                         authorization_endpoint: authorization_endpoint.ok_or(::serde::de::Error::missing_field("AuthorizationEndpoint"))?,
                         client_id: client_id.ok_or(::serde::de::Error::missing_field("ClientId"))?,
-                        client_secret: client_secret.ok_or(::serde::de::Error::missing_field("ClientSecret"))?,
+                        client_secret: client_secret,
                         issuer: issuer.ok_or(::serde::de::Error::missing_field("Issuer"))?,
                         on_unauthenticated_request: on_unauthenticated_request,
                         scope: scope,

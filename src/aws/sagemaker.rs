@@ -368,6 +368,11 @@ pub struct DataQualityJobDefinitionProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub data_quality_job_output_config: ::Value<self::data_quality_job_definition::MonitoringOutputConfig>,
+    /// Property [`EndpointName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-dataqualityjobdefinition.html#cfn-sagemaker-dataqualityjobdefinition-endpointname).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub endpoint_name: Option<::Value<String>>,
     /// Property [`JobDefinitionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-dataqualityjobdefinition.html#cfn-sagemaker-dataqualityjobdefinition-jobdefinitionname).
     ///
     /// Update type: _Immutable_.
@@ -409,6 +414,9 @@ impl ::serde::Serialize for DataQualityJobDefinitionProperties {
         }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "DataQualityJobInput", &self.data_quality_job_input)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "DataQualityJobOutputConfig", &self.data_quality_job_output_config)?;
+        if let Some(ref endpoint_name) = self.endpoint_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EndpointName", endpoint_name)?;
+        }
         if let Some(ref job_definition_name) = self.job_definition_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "JobDefinitionName", job_definition_name)?;
         }
@@ -443,6 +451,7 @@ impl<'de> ::serde::Deserialize<'de> for DataQualityJobDefinitionProperties {
                 let mut data_quality_baseline_config: Option<::Value<self::data_quality_job_definition::DataQualityBaselineConfig>> = None;
                 let mut data_quality_job_input: Option<::Value<self::data_quality_job_definition::DataQualityJobInput>> = None;
                 let mut data_quality_job_output_config: Option<::Value<self::data_quality_job_definition::MonitoringOutputConfig>> = None;
+                let mut endpoint_name: Option<::Value<String>> = None;
                 let mut job_definition_name: Option<::Value<String>> = None;
                 let mut job_resources: Option<::Value<self::data_quality_job_definition::MonitoringResources>> = None;
                 let mut network_config: Option<::Value<self::data_quality_job_definition::NetworkConfig>> = None;
@@ -463,6 +472,9 @@ impl<'de> ::serde::Deserialize<'de> for DataQualityJobDefinitionProperties {
                         }
                         "DataQualityJobOutputConfig" => {
                             data_quality_job_output_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "EndpointName" => {
+                            endpoint_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "JobDefinitionName" => {
                             job_definition_name = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -491,6 +503,7 @@ impl<'de> ::serde::Deserialize<'de> for DataQualityJobDefinitionProperties {
                     data_quality_baseline_config: data_quality_baseline_config,
                     data_quality_job_input: data_quality_job_input.ok_or(::serde::de::Error::missing_field("DataQualityJobInput"))?,
                     data_quality_job_output_config: data_quality_job_output_config.ok_or(::serde::de::Error::missing_field("DataQualityJobOutputConfig"))?,
+                    endpoint_name: endpoint_name,
                     job_definition_name: job_definition_name,
                     job_resources: job_resources.ok_or(::serde::de::Error::missing_field("JobResources"))?,
                     network_config: network_config,
@@ -540,8 +553,8 @@ pub struct DeviceProperties {
     pub device: Option<::Value<self::device::Device>>,
     /// Property [`DeviceFleetName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-device.html#cfn-sagemaker-device-devicefleetname).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub device_fleet_name: ::Value<String>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-device.html#cfn-sagemaker-device-tags).
     ///
@@ -764,6 +777,11 @@ pub struct DomainProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub app_network_access_type: Option<::Value<String>>,
+    /// Property [`AppSecurityGroupManagement`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-domain.html#cfn-sagemaker-domain-appsecuritygroupmanagement).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub app_security_group_management: Option<::Value<String>>,
     /// Property [`AuthMode`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-domain.html#cfn-sagemaker-domain-authmode).
     ///
     /// Update type: _Immutable_.
@@ -779,6 +797,11 @@ pub struct DomainProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub domain_name: ::Value<String>,
+    /// Property [`DomainSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-domain.html#cfn-sagemaker-domain-domainsettings).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub domain_settings: Option<::Value<self::domain::DomainSettings>>,
     /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-domain.html#cfn-sagemaker-domain-kmskeyid).
     ///
     /// Update type: _Immutable_.
@@ -807,9 +830,15 @@ impl ::serde::Serialize for DomainProperties {
         if let Some(ref app_network_access_type) = self.app_network_access_type {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AppNetworkAccessType", app_network_access_type)?;
         }
+        if let Some(ref app_security_group_management) = self.app_security_group_management {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AppSecurityGroupManagement", app_security_group_management)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "AuthMode", &self.auth_mode)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "DefaultUserSettings", &self.default_user_settings)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "DomainName", &self.domain_name)?;
+        if let Some(ref domain_settings) = self.domain_settings {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DomainSettings", domain_settings)?;
+        }
         if let Some(ref kms_key_id) = self.kms_key_id {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
         }
@@ -835,9 +864,11 @@ impl<'de> ::serde::Deserialize<'de> for DomainProperties {
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut app_network_access_type: Option<::Value<String>> = None;
+                let mut app_security_group_management: Option<::Value<String>> = None;
                 let mut auth_mode: Option<::Value<String>> = None;
                 let mut default_user_settings: Option<::Value<self::domain::UserSettings>> = None;
                 let mut domain_name: Option<::Value<String>> = None;
+                let mut domain_settings: Option<::Value<self::domain::DomainSettings>> = None;
                 let mut kms_key_id: Option<::Value<String>> = None;
                 let mut subnet_ids: Option<::ValueList<String>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
@@ -848,6 +879,9 @@ impl<'de> ::serde::Deserialize<'de> for DomainProperties {
                         "AppNetworkAccessType" => {
                             app_network_access_type = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "AppSecurityGroupManagement" => {
+                            app_security_group_management = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "AuthMode" => {
                             auth_mode = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -856,6 +890,9 @@ impl<'de> ::serde::Deserialize<'de> for DomainProperties {
                         }
                         "DomainName" => {
                             domain_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "DomainSettings" => {
+                            domain_settings = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "KmsKeyId" => {
                             kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -875,9 +912,11 @@ impl<'de> ::serde::Deserialize<'de> for DomainProperties {
 
                 Ok(DomainProperties {
                     app_network_access_type: app_network_access_type,
+                    app_security_group_management: app_security_group_management,
                     auth_mode: auth_mode.ok_or(::serde::de::Error::missing_field("AuthMode"))?,
                     default_user_settings: default_user_settings.ok_or(::serde::de::Error::missing_field("DefaultUserSettings"))?,
                     domain_name: domain_name.ok_or(::serde::de::Error::missing_field("DomainName"))?,
+                    domain_settings: domain_settings,
                     kms_key_id: kms_key_id,
                     subnet_ids: subnet_ids.ok_or(::serde::de::Error::missing_field("SubnetIds"))?,
                     tags: tags,
@@ -943,6 +982,11 @@ pub struct EndpointProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub retain_all_variant_properties: Option<::Value<bool>>,
+    /// Property [`RetainDeploymentConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpoint.html#cfn-sagemaker-endpoint-retaindeploymentconfig).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub retain_deployment_config: Option<::Value<bool>>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpoint.html#cfn-sagemaker-endpoint-tags).
     ///
     /// Update type: _Mutable_.
@@ -965,6 +1009,9 @@ impl ::serde::Serialize for EndpointProperties {
         }
         if let Some(ref retain_all_variant_properties) = self.retain_all_variant_properties {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "RetainAllVariantProperties", retain_all_variant_properties)?;
+        }
+        if let Some(ref retain_deployment_config) = self.retain_deployment_config {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "RetainDeploymentConfig", retain_deployment_config)?;
         }
         if let Some(ref tags) = self.tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
@@ -990,6 +1037,7 @@ impl<'de> ::serde::Deserialize<'de> for EndpointProperties {
                 let mut endpoint_name: Option<::Value<String>> = None;
                 let mut exclude_retained_variant_properties: Option<::ValueList<self::endpoint::VariantProperty>> = None;
                 let mut retain_all_variant_properties: Option<::Value<bool>> = None;
+                let mut retain_deployment_config: Option<::Value<bool>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -1009,6 +1057,9 @@ impl<'de> ::serde::Deserialize<'de> for EndpointProperties {
                         "RetainAllVariantProperties" => {
                             retain_all_variant_properties = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "RetainDeploymentConfig" => {
+                            retain_deployment_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "Tags" => {
                             tags = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -1022,6 +1073,7 @@ impl<'de> ::serde::Deserialize<'de> for EndpointProperties {
                     endpoint_name: endpoint_name,
                     exclude_retained_variant_properties: exclude_retained_variant_properties,
                     retain_all_variant_properties: retain_all_variant_properties,
+                    retain_deployment_config: retain_deployment_config,
                     tags: tags,
                 })
             }
@@ -1059,6 +1111,11 @@ pub struct EndpointConfig {
 /// Properties for the `EndpointConfig` resource.
 #[derive(Debug, Default)]
 pub struct EndpointConfigProperties {
+    /// Property [`AsyncInferenceConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceconfig).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub async_inference_config: Option<::Value<self::endpoint_config::AsyncInferenceConfig>>,
     /// Property [`DataCaptureConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html#cfn-sagemaker-endpointconfig-datacaptureconfig).
     ///
     /// Update type: _Immutable_.
@@ -1069,6 +1126,11 @@ pub struct EndpointConfigProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub endpoint_config_name: Option<::Value<String>>,
+    /// Property [`ExplainerConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html#cfn-sagemaker-endpointconfig-explainerconfig).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub explainer_config: Option<::Value<self::endpoint_config::ExplainerConfig>>,
     /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html#cfn-sagemaker-endpointconfig-kmskeyid).
     ///
     /// Update type: _Immutable_.
@@ -1089,11 +1151,17 @@ pub struct EndpointConfigProperties {
 impl ::serde::Serialize for EndpointConfigProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref async_inference_config) = self.async_inference_config {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AsyncInferenceConfig", async_inference_config)?;
+        }
         if let Some(ref data_capture_config) = self.data_capture_config {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DataCaptureConfig", data_capture_config)?;
         }
         if let Some(ref endpoint_config_name) = self.endpoint_config_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "EndpointConfigName", endpoint_config_name)?;
+        }
+        if let Some(ref explainer_config) = self.explainer_config {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ExplainerConfig", explainer_config)?;
         }
         if let Some(ref kms_key_id) = self.kms_key_id {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
@@ -1118,19 +1186,27 @@ impl<'de> ::serde::Deserialize<'de> for EndpointConfigProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut async_inference_config: Option<::Value<self::endpoint_config::AsyncInferenceConfig>> = None;
                 let mut data_capture_config: Option<::Value<self::endpoint_config::DataCaptureConfig>> = None;
                 let mut endpoint_config_name: Option<::Value<String>> = None;
+                let mut explainer_config: Option<::Value<self::endpoint_config::ExplainerConfig>> = None;
                 let mut kms_key_id: Option<::Value<String>> = None;
                 let mut production_variants: Option<::ValueList<self::endpoint_config::ProductionVariant>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "AsyncInferenceConfig" => {
+                            async_inference_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "DataCaptureConfig" => {
                             data_capture_config = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "EndpointConfigName" => {
                             endpoint_config_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ExplainerConfig" => {
+                            explainer_config = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "KmsKeyId" => {
                             kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1146,8 +1222,10 @@ impl<'de> ::serde::Deserialize<'de> for EndpointConfigProperties {
                 }
 
                 Ok(EndpointConfigProperties {
+                    async_inference_config: async_inference_config,
                     data_capture_config: data_capture_config,
                     endpoint_config_name: endpoint_config_name,
+                    explainer_config: explainer_config,
                     kms_key_id: kms_key_id,
                     production_variants: production_variants.ok_or(::serde::de::Error::missing_field("ProductionVariants"))?,
                     tags: tags,
@@ -1741,6 +1819,11 @@ pub struct ModelBiasJobDefinition {
 /// Properties for the `ModelBiasJobDefinition` resource.
 #[derive(Debug, Default)]
 pub struct ModelBiasJobDefinitionProperties {
+    /// Property [`EndpointName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelbiasjobdefinition.html#cfn-sagemaker-modelbiasjobdefinition-endpointname).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub endpoint_name: Option<::Value<String>>,
     /// Property [`JobDefinitionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelbiasjobdefinition.html#cfn-sagemaker-modelbiasjobdefinition-jobdefinitionname).
     ///
     /// Update type: _Immutable_.
@@ -1796,6 +1879,9 @@ pub struct ModelBiasJobDefinitionProperties {
 impl ::serde::Serialize for ModelBiasJobDefinitionProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref endpoint_name) = self.endpoint_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EndpointName", endpoint_name)?;
+        }
         if let Some(ref job_definition_name) = self.job_definition_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "JobDefinitionName", job_definition_name)?;
         }
@@ -1832,6 +1918,7 @@ impl<'de> ::serde::Deserialize<'de> for ModelBiasJobDefinitionProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut endpoint_name: Option<::Value<String>> = None;
                 let mut job_definition_name: Option<::Value<String>> = None;
                 let mut job_resources: Option<::Value<self::model_bias_job_definition::MonitoringResources>> = None;
                 let mut model_bias_app_specification: Option<::Value<self::model_bias_job_definition::ModelBiasAppSpecification>> = None;
@@ -1845,6 +1932,9 @@ impl<'de> ::serde::Deserialize<'de> for ModelBiasJobDefinitionProperties {
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "EndpointName" => {
+                            endpoint_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "JobDefinitionName" => {
                             job_definition_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -1880,6 +1970,7 @@ impl<'de> ::serde::Deserialize<'de> for ModelBiasJobDefinitionProperties {
                 }
 
                 Ok(ModelBiasJobDefinitionProperties {
+                    endpoint_name: endpoint_name,
                     job_definition_name: job_definition_name,
                     job_resources: job_resources.ok_or(::serde::de::Error::missing_field("JobResources"))?,
                     model_bias_app_specification: model_bias_app_specification.ok_or(::serde::de::Error::missing_field("ModelBiasAppSpecification"))?,
@@ -1926,6 +2017,11 @@ pub struct ModelExplainabilityJobDefinition {
 /// Properties for the `ModelExplainabilityJobDefinition` resource.
 #[derive(Debug, Default)]
 pub struct ModelExplainabilityJobDefinitionProperties {
+    /// Property [`EndpointName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelexplainabilityjobdefinition.html#cfn-sagemaker-modelexplainabilityjobdefinition-endpointname).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub endpoint_name: Option<::Value<String>>,
     /// Property [`JobDefinitionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelexplainabilityjobdefinition.html#cfn-sagemaker-modelexplainabilityjobdefinition-jobdefinitionname).
     ///
     /// Update type: _Immutable_.
@@ -1981,6 +2077,9 @@ pub struct ModelExplainabilityJobDefinitionProperties {
 impl ::serde::Serialize for ModelExplainabilityJobDefinitionProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref endpoint_name) = self.endpoint_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EndpointName", endpoint_name)?;
+        }
         if let Some(ref job_definition_name) = self.job_definition_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "JobDefinitionName", job_definition_name)?;
         }
@@ -2017,6 +2116,7 @@ impl<'de> ::serde::Deserialize<'de> for ModelExplainabilityJobDefinitionProperti
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut endpoint_name: Option<::Value<String>> = None;
                 let mut job_definition_name: Option<::Value<String>> = None;
                 let mut job_resources: Option<::Value<self::model_explainability_job_definition::MonitoringResources>> = None;
                 let mut model_explainability_app_specification: Option<::Value<self::model_explainability_job_definition::ModelExplainabilityAppSpecification>> = None;
@@ -2030,6 +2130,9 @@ impl<'de> ::serde::Deserialize<'de> for ModelExplainabilityJobDefinitionProperti
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "EndpointName" => {
+                            endpoint_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "JobDefinitionName" => {
                             job_definition_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -2065,6 +2168,7 @@ impl<'de> ::serde::Deserialize<'de> for ModelExplainabilityJobDefinitionProperti
                 }
 
                 Ok(ModelExplainabilityJobDefinitionProperties {
+                    endpoint_name: endpoint_name,
                     job_definition_name: job_definition_name,
                     job_resources: job_resources.ok_or(::serde::de::Error::missing_field("JobResources"))?,
                     model_explainability_app_specification: model_explainability_app_specification.ok_or(::serde::de::Error::missing_field("ModelExplainabilityAppSpecification"))?,
@@ -2099,6 +2203,448 @@ impl ::private::Sealed for ModelExplainabilityJobDefinition {}
 impl From<ModelExplainabilityJobDefinitionProperties> for ModelExplainabilityJobDefinition {
     fn from(properties: ModelExplainabilityJobDefinitionProperties) -> ModelExplainabilityJobDefinition {
         ModelExplainabilityJobDefinition { properties }
+    }
+}
+
+/// The [`AWS::SageMaker::ModelPackage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html) resource type.
+#[derive(Debug, Default)]
+pub struct ModelPackage {
+    properties: ModelPackageProperties
+}
+
+/// Properties for the `ModelPackage` resource.
+#[derive(Debug, Default)]
+pub struct ModelPackageProperties {
+    /// Property [`AdditionalInferenceSpecificationDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub additional_inference_specification_definition: Option<::Value<self::model_package::AdditionalInferenceSpecificationDefinition>>,
+    /// Property [`AdditionalInferenceSpecifications`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-additionalinferencespecifications).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub additional_inference_specifications: Option<::ValueList<self::model_package::AdditionalInferenceSpecificationDefinition>>,
+    /// Property [`AdditionalInferenceSpecificationsToAdd`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-additionalinferencespecificationstoadd).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub additional_inference_specifications_to_add: Option<::ValueList<self::model_package::AdditionalInferenceSpecificationDefinition>>,
+    /// Property [`ApprovalDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-approvaldescription).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub approval_description: Option<::Value<String>>,
+    /// Property [`CertifyForMarketplace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-certifyformarketplace).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub certify_for_marketplace: Option<::Value<bool>>,
+    /// Property [`ClientToken`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-clienttoken).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub client_token: Option<::Value<String>>,
+    /// Property [`CreatedBy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-createdby).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub created_by: Option<::Value<self::model_package::UserContext>>,
+    /// Property [`CustomerMetadataProperties`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-customermetadataproperties).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub customer_metadata_properties: Option<::ValueMap<String>>,
+    /// Property [`Domain`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-domain).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub domain: Option<::Value<String>>,
+    /// Property [`DriftCheckBaselines`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-driftcheckbaselines).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub drift_check_baselines: Option<::Value<self::model_package::DriftCheckBaselines>>,
+    /// Property [`Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-environment).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub environment: Option<::ValueMap<String>>,
+    /// Property [`InferenceSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-inferencespecification).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub inference_specification: Option<::Value<self::model_package::InferenceSpecification>>,
+    /// Property [`LastModifiedBy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-lastmodifiedby).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub last_modified_by: Option<::Value<self::model_package::UserContext>>,
+    /// Property [`LastModifiedTime`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-lastmodifiedtime).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub last_modified_time: Option<::Value<String>>,
+    /// Property [`MetadataProperties`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-metadataproperties).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub metadata_properties: Option<::Value<self::model_package::MetadataProperties>>,
+    /// Property [`ModelApprovalStatus`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelapprovalstatus).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub model_approval_status: Option<::Value<String>>,
+    /// Property [`ModelMetrics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelmetrics).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub model_metrics: Option<::Value<self::model_package::ModelMetrics>>,
+    /// Property [`ModelPackageDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelpackagedescription).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub model_package_description: Option<::Value<String>>,
+    /// Property [`ModelPackageGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelpackagegroupname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub model_package_group_name: Option<::Value<String>>,
+    /// Property [`ModelPackageName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelpackagename).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub model_package_name: Option<::Value<String>>,
+    /// Property [`ModelPackageStatusDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelpackagestatusdetails).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub model_package_status_details: Option<::Value<self::model_package::ModelPackageStatusDetails>>,
+    /// Property [`ModelPackageStatusItem`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelpackagestatusitem).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub model_package_status_item: Option<::Value<self::model_package::ModelPackageStatusItem>>,
+    /// Property [`ModelPackageVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-modelpackageversion).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub model_package_version: Option<::Value<u32>>,
+    /// Property [`SamplePayloadUrl`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-samplepayloadurl).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub sample_payload_url: Option<::Value<String>>,
+    /// Property [`SourceAlgorithmSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-sourcealgorithmspecification).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub source_algorithm_specification: Option<::Value<self::model_package::SourceAlgorithmSpecification>>,
+    /// Property [`Tag`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-tag).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tag: Option<::Value<::Tag>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`Task`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-task).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub task: Option<::Value<String>>,
+    /// Property [`ValidationSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelpackage.html#cfn-sagemaker-modelpackage-validationspecification).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub validation_specification: Option<::Value<self::model_package::ValidationSpecification>>,
+}
+
+impl ::serde::Serialize for ModelPackageProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref additional_inference_specification_definition) = self.additional_inference_specification_definition {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AdditionalInferenceSpecificationDefinition", additional_inference_specification_definition)?;
+        }
+        if let Some(ref additional_inference_specifications) = self.additional_inference_specifications {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AdditionalInferenceSpecifications", additional_inference_specifications)?;
+        }
+        if let Some(ref additional_inference_specifications_to_add) = self.additional_inference_specifications_to_add {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AdditionalInferenceSpecificationsToAdd", additional_inference_specifications_to_add)?;
+        }
+        if let Some(ref approval_description) = self.approval_description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ApprovalDescription", approval_description)?;
+        }
+        if let Some(ref certify_for_marketplace) = self.certify_for_marketplace {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CertifyForMarketplace", certify_for_marketplace)?;
+        }
+        if let Some(ref client_token) = self.client_token {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientToken", client_token)?;
+        }
+        if let Some(ref created_by) = self.created_by {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CreatedBy", created_by)?;
+        }
+        if let Some(ref customer_metadata_properties) = self.customer_metadata_properties {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CustomerMetadataProperties", customer_metadata_properties)?;
+        }
+        if let Some(ref domain) = self.domain {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Domain", domain)?;
+        }
+        if let Some(ref drift_check_baselines) = self.drift_check_baselines {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DriftCheckBaselines", drift_check_baselines)?;
+        }
+        if let Some(ref environment) = self.environment {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Environment", environment)?;
+        }
+        if let Some(ref inference_specification) = self.inference_specification {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InferenceSpecification", inference_specification)?;
+        }
+        if let Some(ref last_modified_by) = self.last_modified_by {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "LastModifiedBy", last_modified_by)?;
+        }
+        if let Some(ref last_modified_time) = self.last_modified_time {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "LastModifiedTime", last_modified_time)?;
+        }
+        if let Some(ref metadata_properties) = self.metadata_properties {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetadataProperties", metadata_properties)?;
+        }
+        if let Some(ref model_approval_status) = self.model_approval_status {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelApprovalStatus", model_approval_status)?;
+        }
+        if let Some(ref model_metrics) = self.model_metrics {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelMetrics", model_metrics)?;
+        }
+        if let Some(ref model_package_description) = self.model_package_description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelPackageDescription", model_package_description)?;
+        }
+        if let Some(ref model_package_group_name) = self.model_package_group_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelPackageGroupName", model_package_group_name)?;
+        }
+        if let Some(ref model_package_name) = self.model_package_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelPackageName", model_package_name)?;
+        }
+        if let Some(ref model_package_status_details) = self.model_package_status_details {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelPackageStatusDetails", model_package_status_details)?;
+        }
+        if let Some(ref model_package_status_item) = self.model_package_status_item {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelPackageStatusItem", model_package_status_item)?;
+        }
+        if let Some(ref model_package_version) = self.model_package_version {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelPackageVersion", model_package_version)?;
+        }
+        if let Some(ref sample_payload_url) = self.sample_payload_url {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SamplePayloadUrl", sample_payload_url)?;
+        }
+        if let Some(ref source_algorithm_specification) = self.source_algorithm_specification {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SourceAlgorithmSpecification", source_algorithm_specification)?;
+        }
+        if let Some(ref tag) = self.tag {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tag", tag)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref task) = self.task {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Task", task)?;
+        }
+        if let Some(ref validation_specification) = self.validation_specification {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ValidationSpecification", validation_specification)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ModelPackageProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelPackageProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ModelPackageProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ModelPackageProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut additional_inference_specification_definition: Option<::Value<self::model_package::AdditionalInferenceSpecificationDefinition>> = None;
+                let mut additional_inference_specifications: Option<::ValueList<self::model_package::AdditionalInferenceSpecificationDefinition>> = None;
+                let mut additional_inference_specifications_to_add: Option<::ValueList<self::model_package::AdditionalInferenceSpecificationDefinition>> = None;
+                let mut approval_description: Option<::Value<String>> = None;
+                let mut certify_for_marketplace: Option<::Value<bool>> = None;
+                let mut client_token: Option<::Value<String>> = None;
+                let mut created_by: Option<::Value<self::model_package::UserContext>> = None;
+                let mut customer_metadata_properties: Option<::ValueMap<String>> = None;
+                let mut domain: Option<::Value<String>> = None;
+                let mut drift_check_baselines: Option<::Value<self::model_package::DriftCheckBaselines>> = None;
+                let mut environment: Option<::ValueMap<String>> = None;
+                let mut inference_specification: Option<::Value<self::model_package::InferenceSpecification>> = None;
+                let mut last_modified_by: Option<::Value<self::model_package::UserContext>> = None;
+                let mut last_modified_time: Option<::Value<String>> = None;
+                let mut metadata_properties: Option<::Value<self::model_package::MetadataProperties>> = None;
+                let mut model_approval_status: Option<::Value<String>> = None;
+                let mut model_metrics: Option<::Value<self::model_package::ModelMetrics>> = None;
+                let mut model_package_description: Option<::Value<String>> = None;
+                let mut model_package_group_name: Option<::Value<String>> = None;
+                let mut model_package_name: Option<::Value<String>> = None;
+                let mut model_package_status_details: Option<::Value<self::model_package::ModelPackageStatusDetails>> = None;
+                let mut model_package_status_item: Option<::Value<self::model_package::ModelPackageStatusItem>> = None;
+                let mut model_package_version: Option<::Value<u32>> = None;
+                let mut sample_payload_url: Option<::Value<String>> = None;
+                let mut source_algorithm_specification: Option<::Value<self::model_package::SourceAlgorithmSpecification>> = None;
+                let mut tag: Option<::Value<::Tag>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut task: Option<::Value<String>> = None;
+                let mut validation_specification: Option<::Value<self::model_package::ValidationSpecification>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "AdditionalInferenceSpecificationDefinition" => {
+                            additional_inference_specification_definition = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "AdditionalInferenceSpecifications" => {
+                            additional_inference_specifications = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "AdditionalInferenceSpecificationsToAdd" => {
+                            additional_inference_specifications_to_add = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ApprovalDescription" => {
+                            approval_description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CertifyForMarketplace" => {
+                            certify_for_marketplace = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ClientToken" => {
+                            client_token = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CreatedBy" => {
+                            created_by = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CustomerMetadataProperties" => {
+                            customer_metadata_properties = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Domain" => {
+                            domain = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "DriftCheckBaselines" => {
+                            drift_check_baselines = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Environment" => {
+                            environment = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "InferenceSpecification" => {
+                            inference_specification = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "LastModifiedBy" => {
+                            last_modified_by = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "LastModifiedTime" => {
+                            last_modified_time = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "MetadataProperties" => {
+                            metadata_properties = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelApprovalStatus" => {
+                            model_approval_status = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelMetrics" => {
+                            model_metrics = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelPackageDescription" => {
+                            model_package_description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelPackageGroupName" => {
+                            model_package_group_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelPackageName" => {
+                            model_package_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelPackageStatusDetails" => {
+                            model_package_status_details = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelPackageStatusItem" => {
+                            model_package_status_item = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ModelPackageVersion" => {
+                            model_package_version = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "SamplePayloadUrl" => {
+                            sample_payload_url = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "SourceAlgorithmSpecification" => {
+                            source_algorithm_specification = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tag" => {
+                            tag = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Task" => {
+                            task = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ValidationSpecification" => {
+                            validation_specification = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ModelPackageProperties {
+                    additional_inference_specification_definition: additional_inference_specification_definition,
+                    additional_inference_specifications: additional_inference_specifications,
+                    additional_inference_specifications_to_add: additional_inference_specifications_to_add,
+                    approval_description: approval_description,
+                    certify_for_marketplace: certify_for_marketplace,
+                    client_token: client_token,
+                    created_by: created_by,
+                    customer_metadata_properties: customer_metadata_properties,
+                    domain: domain,
+                    drift_check_baselines: drift_check_baselines,
+                    environment: environment,
+                    inference_specification: inference_specification,
+                    last_modified_by: last_modified_by,
+                    last_modified_time: last_modified_time,
+                    metadata_properties: metadata_properties,
+                    model_approval_status: model_approval_status,
+                    model_metrics: model_metrics,
+                    model_package_description: model_package_description,
+                    model_package_group_name: model_package_group_name,
+                    model_package_name: model_package_name,
+                    model_package_status_details: model_package_status_details,
+                    model_package_status_item: model_package_status_item,
+                    model_package_version: model_package_version,
+                    sample_payload_url: sample_payload_url,
+                    source_algorithm_specification: source_algorithm_specification,
+                    tag: tag,
+                    tags: tags,
+                    task: task,
+                    validation_specification: validation_specification,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for ModelPackage {
+    type Properties = ModelPackageProperties;
+    const TYPE: &'static str = "AWS::SageMaker::ModelPackage";
+    fn properties(&self) -> &ModelPackageProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ModelPackageProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for ModelPackage {}
+
+impl From<ModelPackageProperties> for ModelPackage {
+    fn from(properties: ModelPackageProperties) -> ModelPackage {
+        ModelPackage { properties }
     }
 }
 
@@ -2226,6 +2772,11 @@ pub struct ModelQualityJobDefinition {
 /// Properties for the `ModelQualityJobDefinition` resource.
 #[derive(Debug, Default)]
 pub struct ModelQualityJobDefinitionProperties {
+    /// Property [`EndpointName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelqualityjobdefinition.html#cfn-sagemaker-modelqualityjobdefinition-endpointname).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub endpoint_name: Option<::Value<String>>,
     /// Property [`JobDefinitionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-modelqualityjobdefinition.html#cfn-sagemaker-modelqualityjobdefinition-jobdefinitionname).
     ///
     /// Update type: _Immutable_.
@@ -2281,6 +2832,9 @@ pub struct ModelQualityJobDefinitionProperties {
 impl ::serde::Serialize for ModelQualityJobDefinitionProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref endpoint_name) = self.endpoint_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EndpointName", endpoint_name)?;
+        }
         if let Some(ref job_definition_name) = self.job_definition_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "JobDefinitionName", job_definition_name)?;
         }
@@ -2317,6 +2871,7 @@ impl<'de> ::serde::Deserialize<'de> for ModelQualityJobDefinitionProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut endpoint_name: Option<::Value<String>> = None;
                 let mut job_definition_name: Option<::Value<String>> = None;
                 let mut job_resources: Option<::Value<self::model_quality_job_definition::MonitoringResources>> = None;
                 let mut model_quality_app_specification: Option<::Value<self::model_quality_job_definition::ModelQualityAppSpecification>> = None;
@@ -2330,6 +2885,9 @@ impl<'de> ::serde::Deserialize<'de> for ModelQualityJobDefinitionProperties {
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "EndpointName" => {
+                            endpoint_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "JobDefinitionName" => {
                             job_definition_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -2365,6 +2923,7 @@ impl<'de> ::serde::Deserialize<'de> for ModelQualityJobDefinitionProperties {
                 }
 
                 Ok(ModelQualityJobDefinitionProperties {
+                    endpoint_name: endpoint_name,
                     job_definition_name: job_definition_name,
                     job_resources: job_resources.ok_or(::serde::de::Error::missing_field("JobResources"))?,
                     model_quality_app_specification: model_quality_app_specification.ok_or(::serde::de::Error::missing_field("ModelQualityAppSpecification"))?,
@@ -2583,6 +3142,11 @@ pub struct NotebookInstanceProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub direct_internet_access: Option<::Value<String>>,
+    /// Property [`InstanceMetadataServiceConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-instancemetadataserviceconfiguration).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub instance_metadata_service_configuration: Option<::Value<self::notebook_instance::InstanceMetadataServiceConfiguration>>,
     /// Property [`InstanceType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-instancetype).
     ///
     /// Update type: _Mutable_.
@@ -2603,6 +3167,11 @@ pub struct NotebookInstanceProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub notebook_instance_name: Option<::Value<String>>,
+    /// Property [`PlatformIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-platformidentifier).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub platform_identifier: Option<::Value<String>>,
     /// Property [`RoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-rolearn).
     ///
     /// Update type: _Mutable_.
@@ -2650,6 +3219,9 @@ impl ::serde::Serialize for NotebookInstanceProperties {
         if let Some(ref direct_internet_access) = self.direct_internet_access {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DirectInternetAccess", direct_internet_access)?;
         }
+        if let Some(ref instance_metadata_service_configuration) = self.instance_metadata_service_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceMetadataServiceConfiguration", instance_metadata_service_configuration)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceType", &self.instance_type)?;
         if let Some(ref kms_key_id) = self.kms_key_id {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
@@ -2659,6 +3231,9 @@ impl ::serde::Serialize for NotebookInstanceProperties {
         }
         if let Some(ref notebook_instance_name) = self.notebook_instance_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "NotebookInstanceName", notebook_instance_name)?;
+        }
+        if let Some(ref platform_identifier) = self.platform_identifier {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PlatformIdentifier", platform_identifier)?;
         }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "RoleArn", &self.role_arn)?;
         if let Some(ref root_access) = self.root_access {
@@ -2696,10 +3271,12 @@ impl<'de> ::serde::Deserialize<'de> for NotebookInstanceProperties {
                 let mut additional_code_repositories: Option<::ValueList<String>> = None;
                 let mut default_code_repository: Option<::Value<String>> = None;
                 let mut direct_internet_access: Option<::Value<String>> = None;
+                let mut instance_metadata_service_configuration: Option<::Value<self::notebook_instance::InstanceMetadataServiceConfiguration>> = None;
                 let mut instance_type: Option<::Value<String>> = None;
                 let mut kms_key_id: Option<::Value<String>> = None;
                 let mut lifecycle_config_name: Option<::Value<String>> = None;
                 let mut notebook_instance_name: Option<::Value<String>> = None;
+                let mut platform_identifier: Option<::Value<String>> = None;
                 let mut role_arn: Option<::Value<String>> = None;
                 let mut root_access: Option<::Value<String>> = None;
                 let mut security_group_ids: Option<::ValueList<String>> = None;
@@ -2721,6 +3298,9 @@ impl<'de> ::serde::Deserialize<'de> for NotebookInstanceProperties {
                         "DirectInternetAccess" => {
                             direct_internet_access = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "InstanceMetadataServiceConfiguration" => {
+                            instance_metadata_service_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "InstanceType" => {
                             instance_type = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -2732,6 +3312,9 @@ impl<'de> ::serde::Deserialize<'de> for NotebookInstanceProperties {
                         }
                         "NotebookInstanceName" => {
                             notebook_instance_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PlatformIdentifier" => {
+                            platform_identifier = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "RoleArn" => {
                             role_arn = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -2760,10 +3343,12 @@ impl<'de> ::serde::Deserialize<'de> for NotebookInstanceProperties {
                     additional_code_repositories: additional_code_repositories,
                     default_code_repository: default_code_repository,
                     direct_internet_access: direct_internet_access,
+                    instance_metadata_service_configuration: instance_metadata_service_configuration,
                     instance_type: instance_type.ok_or(::serde::de::Error::missing_field("InstanceType"))?,
                     kms_key_id: kms_key_id,
                     lifecycle_config_name: lifecycle_config_name,
                     notebook_instance_name: notebook_instance_name,
+                    platform_identifier: platform_identifier,
                     role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
                     root_access: root_access,
                     security_group_ids: security_group_ids,
@@ -2910,6 +3495,11 @@ pub struct Pipeline {
 /// Properties for the `Pipeline` resource.
 #[derive(Debug, Default)]
 pub struct PipelineProperties {
+    /// Property [`ParallelismConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-pipeline.html#cfn-sagemaker-pipeline-parallelismconfiguration).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub parallelism_configuration: Option<::Value<::json::Value>>,
     /// Property [`PipelineDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-pipeline.html#cfn-sagemaker-pipeline-pipelinedefinition).
     ///
     /// Update type: _Mutable_.
@@ -2945,6 +3535,9 @@ pub struct PipelineProperties {
 impl ::serde::Serialize for PipelineProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref parallelism_configuration) = self.parallelism_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ParallelismConfiguration", parallelism_configuration)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "PipelineDefinition", &self.pipeline_definition)?;
         if let Some(ref pipeline_description) = self.pipeline_description {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "PipelineDescription", pipeline_description)?;
@@ -2973,6 +3566,7 @@ impl<'de> ::serde::Deserialize<'de> for PipelineProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut parallelism_configuration: Option<::Value<::json::Value>> = None;
                 let mut pipeline_definition: Option<::Value<::json::Value>> = None;
                 let mut pipeline_description: Option<::Value<String>> = None;
                 let mut pipeline_display_name: Option<::Value<String>> = None;
@@ -2982,6 +3576,9 @@ impl<'de> ::serde::Deserialize<'de> for PipelineProperties {
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "ParallelismConfiguration" => {
+                            parallelism_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "PipelineDefinition" => {
                             pipeline_definition = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -3005,6 +3602,7 @@ impl<'de> ::serde::Deserialize<'de> for PipelineProperties {
                 }
 
                 Ok(PipelineProperties {
+                    parallelism_configuration: parallelism_configuration,
                     pipeline_definition: pipeline_definition.ok_or(::serde::de::Error::missing_field("PipelineDefinition"))?,
                     pipeline_description: pipeline_description,
                     pipeline_display_name: pipeline_display_name,
@@ -3319,6 +3917,11 @@ pub struct WorkteamProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`WorkforceName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-workteam.html#cfn-sagemaker-workteam-workforcename).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub workforce_name: Option<::Value<String>>,
     /// Property [`WorkteamName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-workteam.html#cfn-sagemaker-workteam-workteamname).
     ///
     /// Update type: _Immutable_.
@@ -3340,6 +3943,9 @@ impl ::serde::Serialize for WorkteamProperties {
         }
         if let Some(ref tags) = self.tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref workforce_name) = self.workforce_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkforceName", workforce_name)?;
         }
         if let Some(ref workteam_name) = self.workteam_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkteamName", workteam_name)?;
@@ -3364,6 +3970,7 @@ impl<'de> ::serde::Deserialize<'de> for WorkteamProperties {
                 let mut member_definitions: Option<::ValueList<self::workteam::MemberDefinition>> = None;
                 let mut notification_configuration: Option<::Value<self::workteam::NotificationConfiguration>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut workforce_name: Option<::Value<String>> = None;
                 let mut workteam_name: Option<::Value<String>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -3380,6 +3987,9 @@ impl<'de> ::serde::Deserialize<'de> for WorkteamProperties {
                         "Tags" => {
                             tags = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "WorkforceName" => {
+                            workforce_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "WorkteamName" => {
                             workteam_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -3392,6 +4002,7 @@ impl<'de> ::serde::Deserialize<'de> for WorkteamProperties {
                     member_definitions: member_definitions,
                     notification_configuration: notification_configuration,
                     tags: tags,
+                    workforce_name: workforce_name,
                     workteam_name: workteam_name,
                 })
             }
@@ -3954,7 +4565,7 @@ pub mod data_quality_job_definition {
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
-        pub environment: Option<::Value<Environment>>,
+        pub environment: Option<::ValueMap<String>>,
         /// Property [`ImageUri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-dataqualityjobdefinition-dataqualityappspecification.html#cfn-sagemaker-dataqualityjobdefinition-dataqualityappspecification-imageuri).
         ///
         /// Update type: _Immutable_.
@@ -4009,7 +4620,7 @@ pub mod data_quality_job_definition {
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut container_arguments: Option<::ValueList<String>> = None;
                     let mut container_entrypoint: Option<::ValueList<String>> = None;
-                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut environment: Option<::ValueMap<String>> = None;
                     let mut image_uri: Option<::Value<String>> = None;
                     let mut post_analytics_processor_source_uri: Option<::Value<String>> = None;
                     let mut record_preprocessor_source_uri: Option<::Value<String>> = None;
@@ -4264,38 +4875,6 @@ pub mod data_quality_job_definition {
                         s3_data_distribution_type: s3_data_distribution_type,
                         s3_input_mode: s3_input_mode,
                     })
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
-    /// The [`AWS::SageMaker::DataQualityJobDefinition.Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-dataqualityjobdefinition-environment.html) property type.
-    #[derive(Debug, Default)]
-    pub struct Environment {
-    }
-
-    impl ::codec::SerializeValue for Environment {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let map = ::serde::Serializer::serialize_map(s, None)?;
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for Environment {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Environment, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = Environment;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type Environment")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
-                    Ok(Environment {})
                 }
             }
 
@@ -4803,8 +5382,8 @@ pub mod device {
         pub description: Option<::Value<String>>,
         /// Property [`DeviceName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-device-device.html#cfn-sagemaker-device-device-devicename).
         ///
-        /// Update type: _Mutable_.
-        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
         pub device_name: ::Value<String>,
         /// Property [`IotThingName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-device-device.html#cfn-sagemaker-device-device-iotthingname).
         ///
@@ -5017,6 +5596,72 @@ pub mod domain {
         }
     }
 
+    /// The [`AWS::SageMaker::Domain.DomainSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-domainsettings.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DomainSettings {
+        /// Property [`RStudioServerProDomainSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-domainsettings.html#cfn-sagemaker-domain-domainsettings-rstudioserverprodomainsettings).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r_studio_server_pro_domain_settings: Option<::Value<RStudioServerProDomainSettings>>,
+        /// Property [`SecurityGroupIds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-domainsettings.html#cfn-sagemaker-domain-domainsettings-securitygroupids).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub security_group_ids: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for DomainSettings {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref r_studio_server_pro_domain_settings) = self.r_studio_server_pro_domain_settings {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RStudioServerProDomainSettings", r_studio_server_pro_domain_settings)?;
+            }
+            if let Some(ref security_group_ids) = self.security_group_ids {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SecurityGroupIds", security_group_ids)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DomainSettings {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DomainSettings, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DomainSettings;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DomainSettings")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut r_studio_server_pro_domain_settings: Option<::Value<RStudioServerProDomainSettings>> = None;
+                    let mut security_group_ids: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "RStudioServerProDomainSettings" => {
+                                r_studio_server_pro_domain_settings = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SecurityGroupIds" => {
+                                security_group_ids = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DomainSettings {
+                        r_studio_server_pro_domain_settings: r_studio_server_pro_domain_settings,
+                        security_group_ids: security_group_ids,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::SageMaker::Domain.JupyterServerAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-jupyterserverappsettings.html) property type.
     #[derive(Debug, Default)]
     pub struct JupyterServerAppSettings {
@@ -5136,6 +5781,228 @@ pub mod domain {
         }
     }
 
+    /// The [`AWS::SageMaker::Domain.RSessionAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rsessionappsettings.html) property type.
+    #[derive(Debug, Default)]
+    pub struct RSessionAppSettings {
+        /// Property [`CustomImages`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rsessionappsettings.html#cfn-sagemaker-domain-rsessionappsettings-customimages).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub custom_images: Option<::ValueList<CustomImage>>,
+        /// Property [`DefaultResourceSpec`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rsessionappsettings.html#cfn-sagemaker-domain-rsessionappsettings-defaultresourcespec).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub default_resource_spec: Option<::Value<ResourceSpec>>,
+    }
+
+    impl ::codec::SerializeValue for RSessionAppSettings {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref custom_images) = self.custom_images {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CustomImages", custom_images)?;
+            }
+            if let Some(ref default_resource_spec) = self.default_resource_spec {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DefaultResourceSpec", default_resource_spec)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for RSessionAppSettings {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<RSessionAppSettings, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = RSessionAppSettings;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type RSessionAppSettings")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut custom_images: Option<::ValueList<CustomImage>> = None;
+                    let mut default_resource_spec: Option<::Value<ResourceSpec>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CustomImages" => {
+                                custom_images = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DefaultResourceSpec" => {
+                                default_resource_spec = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(RSessionAppSettings {
+                        custom_images: custom_images,
+                        default_resource_spec: default_resource_spec,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::Domain.RStudioServerProAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverproappsettings.html) property type.
+    #[derive(Debug, Default)]
+    pub struct RStudioServerProAppSettings {
+        /// Property [`AccessStatus`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverproappsettings.html#cfn-sagemaker-domain-rstudioserverproappsettings-accessstatus).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub access_status: Option<::Value<String>>,
+        /// Property [`UserGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverproappsettings.html#cfn-sagemaker-domain-rstudioserverproappsettings-usergroup).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub user_group: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for RStudioServerProAppSettings {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref access_status) = self.access_status {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccessStatus", access_status)?;
+            }
+            if let Some(ref user_group) = self.user_group {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserGroup", user_group)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for RStudioServerProAppSettings {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<RStudioServerProAppSettings, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = RStudioServerProAppSettings;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type RStudioServerProAppSettings")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut access_status: Option<::Value<String>> = None;
+                    let mut user_group: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AccessStatus" => {
+                                access_status = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserGroup" => {
+                                user_group = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(RStudioServerProAppSettings {
+                        access_status: access_status,
+                        user_group: user_group,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::Domain.RStudioServerProDomainSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverprodomainsettings.html) property type.
+    #[derive(Debug, Default)]
+    pub struct RStudioServerProDomainSettings {
+        /// Property [`DefaultResourceSpec`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverprodomainsettings.html#cfn-sagemaker-domain-rstudioserverprodomainsettings-defaultresourcespec).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub default_resource_spec: Option<::Value<ResourceSpec>>,
+        /// Property [`DomainExecutionRoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverprodomainsettings.html#cfn-sagemaker-domain-rstudioserverprodomainsettings-domainexecutionrolearn).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub domain_execution_role_arn: ::Value<String>,
+        /// Property [`RStudioConnectUrl`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverprodomainsettings.html#cfn-sagemaker-domain-rstudioserverprodomainsettings-rstudioconnecturl).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r_studio_connect_url: Option<::Value<String>>,
+        /// Property [`RStudioPackageManagerUrl`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-rstudioserverprodomainsettings.html#cfn-sagemaker-domain-rstudioserverprodomainsettings-rstudiopackagemanagerurl).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r_studio_package_manager_url: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for RStudioServerProDomainSettings {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref default_resource_spec) = self.default_resource_spec {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DefaultResourceSpec", default_resource_spec)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DomainExecutionRoleArn", &self.domain_execution_role_arn)?;
+            if let Some(ref r_studio_connect_url) = self.r_studio_connect_url {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RStudioConnectUrl", r_studio_connect_url)?;
+            }
+            if let Some(ref r_studio_package_manager_url) = self.r_studio_package_manager_url {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RStudioPackageManagerUrl", r_studio_package_manager_url)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for RStudioServerProDomainSettings {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<RStudioServerProDomainSettings, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = RStudioServerProDomainSettings;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type RStudioServerProDomainSettings")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut default_resource_spec: Option<::Value<ResourceSpec>> = None;
+                    let mut domain_execution_role_arn: Option<::Value<String>> = None;
+                    let mut r_studio_connect_url: Option<::Value<String>> = None;
+                    let mut r_studio_package_manager_url: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "DefaultResourceSpec" => {
+                                default_resource_spec = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DomainExecutionRoleArn" => {
+                                domain_execution_role_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "RStudioConnectUrl" => {
+                                r_studio_connect_url = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "RStudioPackageManagerUrl" => {
+                                r_studio_package_manager_url = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(RStudioServerProDomainSettings {
+                        default_resource_spec: default_resource_spec,
+                        domain_execution_role_arn: domain_execution_role_arn.ok_or(::serde::de::Error::missing_field("DomainExecutionRoleArn"))?,
+                        r_studio_connect_url: r_studio_connect_url,
+                        r_studio_package_manager_url: r_studio_package_manager_url,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::SageMaker::Domain.ResourceSpec`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-resourcespec.html) property type.
     #[derive(Debug, Default)]
     pub struct ResourceSpec {
@@ -5144,6 +6011,11 @@ pub mod domain {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub instance_type: Option<::Value<String>>,
+        /// Property [`LifecycleConfigArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-resourcespec.html#cfn-sagemaker-domain-resourcespec-lifecycleconfigarn).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub lifecycle_config_arn: Option<::Value<String>>,
         /// Property [`SageMakerImageArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-resourcespec.html#cfn-sagemaker-domain-resourcespec-sagemakerimagearn).
         ///
         /// Update type: _Mutable_.
@@ -5161,6 +6033,9 @@ pub mod domain {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref instance_type) = self.instance_type {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceType", instance_type)?;
+            }
+            if let Some(ref lifecycle_config_arn) = self.lifecycle_config_arn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LifecycleConfigArn", lifecycle_config_arn)?;
             }
             if let Some(ref sage_maker_image_arn) = self.sage_maker_image_arn {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SageMakerImageArn", sage_maker_image_arn)?;
@@ -5185,6 +6060,7 @@ pub mod domain {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut instance_type: Option<::Value<String>> = None;
+                    let mut lifecycle_config_arn: Option<::Value<String>> = None;
                     let mut sage_maker_image_arn: Option<::Value<String>> = None;
                     let mut sage_maker_image_version_arn: Option<::Value<String>> = None;
 
@@ -5192,6 +6068,9 @@ pub mod domain {
                         match __cfn_key.as_ref() {
                             "InstanceType" => {
                                 instance_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LifecycleConfigArn" => {
+                                lifecycle_config_arn = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "SageMakerImageArn" => {
                                 sage_maker_image_arn = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -5205,6 +6084,7 @@ pub mod domain {
 
                     Ok(ResourceSpec {
                         instance_type: instance_type,
+                        lifecycle_config_arn: lifecycle_config_arn,
                         sage_maker_image_arn: sage_maker_image_arn,
                         sage_maker_image_version_arn: sage_maker_image_version_arn,
                     })
@@ -5312,6 +6192,16 @@ pub mod domain {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub kernel_gateway_app_settings: Option<::Value<KernelGatewayAppSettings>>,
+        /// Property [`RSessionAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-usersettings.html#cfn-sagemaker-domain-usersettings-rsessionappsettings).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r_session_app_settings: Option<::Value<RSessionAppSettings>>,
+        /// Property [`RStudioServerProAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-usersettings.html#cfn-sagemaker-domain-usersettings-rstudioserverproappsettings).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r_studio_server_pro_app_settings: Option<::Value<RStudioServerProAppSettings>>,
         /// Property [`SecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-domain-usersettings.html#cfn-sagemaker-domain-usersettings-securitygroups).
         ///
         /// Update type: _Mutable_.
@@ -5335,6 +6225,12 @@ pub mod domain {
             }
             if let Some(ref kernel_gateway_app_settings) = self.kernel_gateway_app_settings {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "KernelGatewayAppSettings", kernel_gateway_app_settings)?;
+            }
+            if let Some(ref r_session_app_settings) = self.r_session_app_settings {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RSessionAppSettings", r_session_app_settings)?;
+            }
+            if let Some(ref r_studio_server_pro_app_settings) = self.r_studio_server_pro_app_settings {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RStudioServerProAppSettings", r_studio_server_pro_app_settings)?;
             }
             if let Some(ref security_groups) = self.security_groups {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SecurityGroups", security_groups)?;
@@ -5361,6 +6257,8 @@ pub mod domain {
                     let mut execution_role: Option<::Value<String>> = None;
                     let mut jupyter_server_app_settings: Option<::Value<JupyterServerAppSettings>> = None;
                     let mut kernel_gateway_app_settings: Option<::Value<KernelGatewayAppSettings>> = None;
+                    let mut r_session_app_settings: Option<::Value<RSessionAppSettings>> = None;
+                    let mut r_studio_server_pro_app_settings: Option<::Value<RStudioServerProAppSettings>> = None;
                     let mut security_groups: Option<::ValueList<String>> = None;
                     let mut sharing_settings: Option<::Value<SharingSettings>> = None;
 
@@ -5374,6 +6272,12 @@ pub mod domain {
                             }
                             "KernelGatewayAppSettings" => {
                                 kernel_gateway_app_settings = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "RSessionAppSettings" => {
+                                r_session_app_settings = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "RStudioServerProAppSettings" => {
+                                r_studio_server_pro_app_settings = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "SecurityGroups" => {
                                 security_groups = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -5389,6 +6293,8 @@ pub mod domain {
                         execution_role: execution_role,
                         jupyter_server_app_settings: jupyter_server_app_settings,
                         kernel_gateway_app_settings: kernel_gateway_app_settings,
+                        r_session_app_settings: r_session_app_settings,
+                        r_studio_server_pro_app_settings: r_studio_server_pro_app_settings,
                         security_groups: security_groups,
                         sharing_settings: sharing_settings,
                     })
@@ -5716,6 +6622,11 @@ pub mod endpoint {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub canary_size: Option<::Value<CapacitySize>>,
+        /// Property [`LinearStepSize`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpoint-trafficroutingconfig.html#cfn-sagemaker-endpoint-trafficroutingconfig-linearstepsize).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub linear_step_size: Option<::Value<CapacitySize>>,
         /// Property [`Type`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpoint-trafficroutingconfig.html#cfn-sagemaker-endpoint-trafficroutingconfig-type).
         ///
         /// Update type: _Mutable_.
@@ -5733,6 +6644,9 @@ pub mod endpoint {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref canary_size) = self.canary_size {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "CanarySize", canary_size)?;
+            }
+            if let Some(ref linear_step_size) = self.linear_step_size {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LinearStepSize", linear_step_size)?;
             }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Type", &self.r#type)?;
             if let Some(ref wait_interval_in_seconds) = self.wait_interval_in_seconds {
@@ -5755,6 +6669,7 @@ pub mod endpoint {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut canary_size: Option<::Value<CapacitySize>> = None;
+                    let mut linear_step_size: Option<::Value<CapacitySize>> = None;
                     let mut r#type: Option<::Value<String>> = None;
                     let mut wait_interval_in_seconds: Option<::Value<u32>> = None;
 
@@ -5762,6 +6677,9 @@ pub mod endpoint {
                         match __cfn_key.as_ref() {
                             "CanarySize" => {
                                 canary_size = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LinearStepSize" => {
+                                linear_step_size = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "Type" => {
                                 r#type = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -5775,6 +6693,7 @@ pub mod endpoint {
 
                     Ok(TrafficRoutingConfig {
                         canary_size: canary_size,
+                        linear_step_size: linear_step_size,
                         r#type: r#type.ok_or(::serde::de::Error::missing_field("Type"))?,
                         wait_interval_in_seconds: wait_interval_in_seconds,
                     })
@@ -5841,6 +6760,266 @@ pub mod endpoint {
 
 pub mod endpoint_config {
     //! Property types for the `EndpointConfig` resource.
+
+    /// The [`AWS::SageMaker::EndpointConfig.AsyncInferenceClientConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceclientconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AsyncInferenceClientConfig {
+        /// Property [`MaxConcurrentInvocationsPerInstance`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceclientconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceclientconfig-maxconcurrentinvocationsperinstance).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub max_concurrent_invocations_per_instance: Option<::Value<u32>>,
+    }
+
+    impl ::codec::SerializeValue for AsyncInferenceClientConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref max_concurrent_invocations_per_instance) = self.max_concurrent_invocations_per_instance {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxConcurrentInvocationsPerInstance", max_concurrent_invocations_per_instance)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AsyncInferenceClientConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AsyncInferenceClientConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AsyncInferenceClientConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AsyncInferenceClientConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut max_concurrent_invocations_per_instance: Option<::Value<u32>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MaxConcurrentInvocationsPerInstance" => {
+                                max_concurrent_invocations_per_instance = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AsyncInferenceClientConfig {
+                        max_concurrent_invocations_per_instance: max_concurrent_invocations_per_instance,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.AsyncInferenceConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AsyncInferenceConfig {
+        /// Property [`ClientConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceconfig-clientconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub client_config: Option<::Value<AsyncInferenceClientConfig>>,
+        /// Property [`OutputConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceconfig-outputconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub output_config: ::Value<AsyncInferenceOutputConfig>,
+    }
+
+    impl ::codec::SerializeValue for AsyncInferenceConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref client_config) = self.client_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClientConfig", client_config)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "OutputConfig", &self.output_config)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AsyncInferenceConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AsyncInferenceConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AsyncInferenceConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AsyncInferenceConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut client_config: Option<::Value<AsyncInferenceClientConfig>> = None;
+                    let mut output_config: Option<::Value<AsyncInferenceOutputConfig>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ClientConfig" => {
+                                client_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "OutputConfig" => {
+                                output_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AsyncInferenceConfig {
+                        client_config: client_config,
+                        output_config: output_config.ok_or(::serde::de::Error::missing_field("OutputConfig"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.AsyncInferenceNotificationConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferencenotificationconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AsyncInferenceNotificationConfig {
+        /// Property [`ErrorTopic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferencenotificationconfig.html#cfn-sagemaker-endpointconfig-asyncinferencenotificationconfig-errortopic).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub error_topic: Option<::Value<String>>,
+        /// Property [`SuccessTopic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferencenotificationconfig.html#cfn-sagemaker-endpointconfig-asyncinferencenotificationconfig-successtopic).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub success_topic: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for AsyncInferenceNotificationConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref error_topic) = self.error_topic {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ErrorTopic", error_topic)?;
+            }
+            if let Some(ref success_topic) = self.success_topic {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SuccessTopic", success_topic)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AsyncInferenceNotificationConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AsyncInferenceNotificationConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AsyncInferenceNotificationConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AsyncInferenceNotificationConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut error_topic: Option<::Value<String>> = None;
+                    let mut success_topic: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ErrorTopic" => {
+                                error_topic = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SuccessTopic" => {
+                                success_topic = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AsyncInferenceNotificationConfig {
+                        error_topic: error_topic,
+                        success_topic: success_topic,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.AsyncInferenceOutputConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceoutputconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AsyncInferenceOutputConfig {
+        /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceoutputconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceoutputconfig-kmskeyid).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub kms_key_id: Option<::Value<String>>,
+        /// Property [`NotificationConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceoutputconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceoutputconfig-notificationconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub notification_config: Option<::Value<AsyncInferenceNotificationConfig>>,
+        /// Property [`S3OutputPath`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-asyncinferenceoutputconfig.html#cfn-sagemaker-endpointconfig-asyncinferenceoutputconfig-s3outputpath).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_output_path: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for AsyncInferenceOutputConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref kms_key_id) = self.kms_key_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
+            }
+            if let Some(ref notification_config) = self.notification_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "NotificationConfig", notification_config)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3OutputPath", &self.s3_output_path)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AsyncInferenceOutputConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AsyncInferenceOutputConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AsyncInferenceOutputConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AsyncInferenceOutputConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut kms_key_id: Option<::Value<String>> = None;
+                    let mut notification_config: Option<::Value<AsyncInferenceNotificationConfig>> = None;
+                    let mut s3_output_path: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "KmsKeyId" => {
+                                kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "NotificationConfig" => {
+                                notification_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "S3OutputPath" => {
+                                s3_output_path = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AsyncInferenceOutputConfig {
+                        kms_key_id: kms_key_id,
+                        notification_config: notification_config,
+                        s3_output_path: s3_output_path.ok_or(::serde::de::Error::missing_field("S3OutputPath"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 
     /// The [`AWS::SageMaker::EndpointConfig.CaptureContentTypeHeader`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-datacaptureconfig-capturecontenttypeheader.html) property type.
     #[derive(Debug, Default)]
@@ -5951,6 +7130,574 @@ pub mod endpoint_config {
 
                     Ok(CaptureOption {
                         capture_mode: capture_mode.ok_or(::serde::de::Error::missing_field("CaptureMode"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyExplainerConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyexplainerconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyExplainerConfig {
+        /// Property [`EnableExplanations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyexplainerconfig.html#cfn-sagemaker-endpointconfig-clarifyexplainerconfig-enableexplanations).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub enable_explanations: Option<::Value<String>>,
+        /// Property [`InferenceConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyexplainerconfig.html#cfn-sagemaker-endpointconfig-clarifyexplainerconfig-inferenceconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub inference_config: Option<::Value<ClarifyInferenceConfig>>,
+        /// Property [`ShapConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyexplainerconfig.html#cfn-sagemaker-endpointconfig-clarifyexplainerconfig-shapconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub shap_config: ::Value<ClarifyShapConfig>,
+    }
+
+    impl ::codec::SerializeValue for ClarifyExplainerConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref enable_explanations) = self.enable_explanations {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EnableExplanations", enable_explanations)?;
+            }
+            if let Some(ref inference_config) = self.inference_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "InferenceConfig", inference_config)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ShapConfig", &self.shap_config)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyExplainerConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyExplainerConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyExplainerConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyExplainerConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut enable_explanations: Option<::Value<String>> = None;
+                    let mut inference_config: Option<::Value<ClarifyInferenceConfig>> = None;
+                    let mut shap_config: Option<::Value<ClarifyShapConfig>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "EnableExplanations" => {
+                                enable_explanations = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "InferenceConfig" => {
+                                inference_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ShapConfig" => {
+                                shap_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ClarifyExplainerConfig {
+                        enable_explanations: enable_explanations,
+                        inference_config: inference_config,
+                        shap_config: shap_config.ok_or(::serde::de::Error::missing_field("ShapConfig"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyFeatureType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyfeaturetype.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyFeatureType {
+    }
+
+    impl ::codec::SerializeValue for ClarifyFeatureType {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyFeatureType {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyFeatureType, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyFeatureType;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyFeatureType")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
+                    Ok(ClarifyFeatureType {})
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyHeader`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyheader.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyHeader {
+    }
+
+    impl ::codec::SerializeValue for ClarifyHeader {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyHeader {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyHeader, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyHeader;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyHeader")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
+                    Ok(ClarifyHeader {})
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyInferenceConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyInferenceConfig {
+        /// Property [`ContentTemplate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-contenttemplate).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub content_template: Option<::Value<String>>,
+        /// Property [`FeatureHeaders`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-featureheaders).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub feature_headers: Option<::ValueList<ClarifyHeader>>,
+        /// Property [`FeatureTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-featuretypes).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub feature_types: Option<::ValueList<ClarifyFeatureType>>,
+        /// Property [`FeaturesAttribute`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-featuresattribute).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub features_attribute: Option<::Value<String>>,
+        /// Property [`LabelAttribute`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-labelattribute).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub label_attribute: Option<::Value<String>>,
+        /// Property [`LabelHeaders`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-labelheaders).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub label_headers: Option<::ValueList<ClarifyHeader>>,
+        /// Property [`LabelIndex`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-labelindex).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub label_index: Option<::Value<u32>>,
+        /// Property [`MaxPayloadInMB`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-maxpayloadinmb).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub max_payload_in_mb: Option<::Value<u32>>,
+        /// Property [`MaxRecordCount`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-maxrecordcount).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub max_record_count: Option<::Value<u32>>,
+        /// Property [`ProbabilityAttribute`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-probabilityattribute).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub probability_attribute: Option<::Value<String>>,
+        /// Property [`ProbabilityIndex`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyinferenceconfig.html#cfn-sagemaker-endpointconfig-clarifyinferenceconfig-probabilityindex).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub probability_index: Option<::Value<u32>>,
+    }
+
+    impl ::codec::SerializeValue for ClarifyInferenceConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref content_template) = self.content_template {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentTemplate", content_template)?;
+            }
+            if let Some(ref feature_headers) = self.feature_headers {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "FeatureHeaders", feature_headers)?;
+            }
+            if let Some(ref feature_types) = self.feature_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "FeatureTypes", feature_types)?;
+            }
+            if let Some(ref features_attribute) = self.features_attribute {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "FeaturesAttribute", features_attribute)?;
+            }
+            if let Some(ref label_attribute) = self.label_attribute {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LabelAttribute", label_attribute)?;
+            }
+            if let Some(ref label_headers) = self.label_headers {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LabelHeaders", label_headers)?;
+            }
+            if let Some(ref label_index) = self.label_index {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LabelIndex", label_index)?;
+            }
+            if let Some(ref max_payload_in_mb) = self.max_payload_in_mb {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxPayloadInMB", max_payload_in_mb)?;
+            }
+            if let Some(ref max_record_count) = self.max_record_count {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxRecordCount", max_record_count)?;
+            }
+            if let Some(ref probability_attribute) = self.probability_attribute {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProbabilityAttribute", probability_attribute)?;
+            }
+            if let Some(ref probability_index) = self.probability_index {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProbabilityIndex", probability_index)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyInferenceConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyInferenceConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyInferenceConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyInferenceConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut content_template: Option<::Value<String>> = None;
+                    let mut feature_headers: Option<::ValueList<ClarifyHeader>> = None;
+                    let mut feature_types: Option<::ValueList<ClarifyFeatureType>> = None;
+                    let mut features_attribute: Option<::Value<String>> = None;
+                    let mut label_attribute: Option<::Value<String>> = None;
+                    let mut label_headers: Option<::ValueList<ClarifyHeader>> = None;
+                    let mut label_index: Option<::Value<u32>> = None;
+                    let mut max_payload_in_mb: Option<::Value<u32>> = None;
+                    let mut max_record_count: Option<::Value<u32>> = None;
+                    let mut probability_attribute: Option<::Value<String>> = None;
+                    let mut probability_index: Option<::Value<u32>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ContentTemplate" => {
+                                content_template = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "FeatureHeaders" => {
+                                feature_headers = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "FeatureTypes" => {
+                                feature_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "FeaturesAttribute" => {
+                                features_attribute = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LabelAttribute" => {
+                                label_attribute = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LabelHeaders" => {
+                                label_headers = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LabelIndex" => {
+                                label_index = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MaxPayloadInMB" => {
+                                max_payload_in_mb = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MaxRecordCount" => {
+                                max_record_count = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ProbabilityAttribute" => {
+                                probability_attribute = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ProbabilityIndex" => {
+                                probability_index = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ClarifyInferenceConfig {
+                        content_template: content_template,
+                        feature_headers: feature_headers,
+                        feature_types: feature_types,
+                        features_attribute: features_attribute,
+                        label_attribute: label_attribute,
+                        label_headers: label_headers,
+                        label_index: label_index,
+                        max_payload_in_mb: max_payload_in_mb,
+                        max_record_count: max_record_count,
+                        probability_attribute: probability_attribute,
+                        probability_index: probability_index,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyShapBaselineConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapbaselineconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyShapBaselineConfig {
+        /// Property [`MimeType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapbaselineconfig.html#cfn-sagemaker-endpointconfig-clarifyshapbaselineconfig-mimetype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub mime_type: Option<::Value<String>>,
+        /// Property [`ShapBaseline`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapbaselineconfig.html#cfn-sagemaker-endpointconfig-clarifyshapbaselineconfig-shapbaseline).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub shap_baseline: Option<::Value<String>>,
+        /// Property [`ShapBaselineUri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapbaselineconfig.html#cfn-sagemaker-endpointconfig-clarifyshapbaselineconfig-shapbaselineuri).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub shap_baseline_uri: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for ClarifyShapBaselineConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref mime_type) = self.mime_type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MimeType", mime_type)?;
+            }
+            if let Some(ref shap_baseline) = self.shap_baseline {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ShapBaseline", shap_baseline)?;
+            }
+            if let Some(ref shap_baseline_uri) = self.shap_baseline_uri {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ShapBaselineUri", shap_baseline_uri)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyShapBaselineConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyShapBaselineConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyShapBaselineConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyShapBaselineConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut mime_type: Option<::Value<String>> = None;
+                    let mut shap_baseline: Option<::Value<String>> = None;
+                    let mut shap_baseline_uri: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MimeType" => {
+                                mime_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ShapBaseline" => {
+                                shap_baseline = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ShapBaselineUri" => {
+                                shap_baseline_uri = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ClarifyShapBaselineConfig {
+                        mime_type: mime_type,
+                        shap_baseline: shap_baseline,
+                        shap_baseline_uri: shap_baseline_uri,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyShapConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyShapConfig {
+        /// Property [`NumberOfSamples`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapconfig.html#cfn-sagemaker-endpointconfig-clarifyshapconfig-numberofsamples).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub number_of_samples: Option<::Value<u32>>,
+        /// Property [`Seed`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapconfig.html#cfn-sagemaker-endpointconfig-clarifyshapconfig-seed).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub seed: Option<::Value<u32>>,
+        /// Property [`ShapBaselineConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapconfig.html#cfn-sagemaker-endpointconfig-clarifyshapconfig-shapbaselineconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub shap_baseline_config: ::Value<ClarifyShapBaselineConfig>,
+        /// Property [`TextConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapconfig.html#cfn-sagemaker-endpointconfig-clarifyshapconfig-textconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub text_config: Option<::Value<ClarifyTextConfig>>,
+        /// Property [`UseLogit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifyshapconfig.html#cfn-sagemaker-endpointconfig-clarifyshapconfig-uselogit).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub use_logit: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for ClarifyShapConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref number_of_samples) = self.number_of_samples {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "NumberOfSamples", number_of_samples)?;
+            }
+            if let Some(ref seed) = self.seed {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Seed", seed)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ShapBaselineConfig", &self.shap_baseline_config)?;
+            if let Some(ref text_config) = self.text_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "TextConfig", text_config)?;
+            }
+            if let Some(ref use_logit) = self.use_logit {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UseLogit", use_logit)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyShapConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyShapConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyShapConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyShapConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut number_of_samples: Option<::Value<u32>> = None;
+                    let mut seed: Option<::Value<u32>> = None;
+                    let mut shap_baseline_config: Option<::Value<ClarifyShapBaselineConfig>> = None;
+                    let mut text_config: Option<::Value<ClarifyTextConfig>> = None;
+                    let mut use_logit: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "NumberOfSamples" => {
+                                number_of_samples = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Seed" => {
+                                seed = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ShapBaselineConfig" => {
+                                shap_baseline_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TextConfig" => {
+                                text_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UseLogit" => {
+                                use_logit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ClarifyShapConfig {
+                        number_of_samples: number_of_samples,
+                        seed: seed,
+                        shap_baseline_config: shap_baseline_config.ok_or(::serde::de::Error::missing_field("ShapBaselineConfig"))?,
+                        text_config: text_config,
+                        use_logit: use_logit,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ClarifyTextConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifytextconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ClarifyTextConfig {
+        /// Property [`Granularity`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifytextconfig.html#cfn-sagemaker-endpointconfig-clarifytextconfig-granularity).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub granularity: ::Value<String>,
+        /// Property [`Language`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-clarifytextconfig.html#cfn-sagemaker-endpointconfig-clarifytextconfig-language).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub language: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for ClarifyTextConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Granularity", &self.granularity)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Language", &self.language)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ClarifyTextConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ClarifyTextConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ClarifyTextConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ClarifyTextConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut granularity: Option<::Value<String>> = None;
+                    let mut language: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Granularity" => {
+                                granularity = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Language" => {
+                                language = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ClarifyTextConfig {
+                        granularity: granularity.ok_or(::serde::de::Error::missing_field("Granularity"))?,
+                        language: language.ok_or(::serde::de::Error::missing_field("Language"))?,
                     })
                 }
             }
@@ -6071,6 +7818,59 @@ pub mod endpoint_config {
         }
     }
 
+    /// The [`AWS::SageMaker::EndpointConfig.ExplainerConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-explainerconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ExplainerConfig {
+        /// Property [`ClarifyExplainerConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-explainerconfig.html#cfn-sagemaker-endpointconfig-explainerconfig-clarifyexplainerconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub clarify_explainer_config: Option<::Value<ClarifyExplainerConfig>>,
+    }
+
+    impl ::codec::SerializeValue for ExplainerConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref clarify_explainer_config) = self.clarify_explainer_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ClarifyExplainerConfig", clarify_explainer_config)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ExplainerConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ExplainerConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ExplainerConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ExplainerConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut clarify_explainer_config: Option<::Value<ClarifyExplainerConfig>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ClarifyExplainerConfig" => {
+                                clarify_explainer_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ExplainerConfig {
+                        clarify_explainer_config: clarify_explainer_config,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::SageMaker::EndpointConfig.ProductionVariant`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html) property type.
     #[derive(Debug, Default)]
     pub struct ProductionVariant {
@@ -6079,11 +7879,16 @@ pub mod endpoint_config {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub accelerator_type: Option<::Value<String>>,
+        /// Property [`ContainerStartupHealthCheckTimeoutInSeconds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-containerstartuphealthchecktimeoutinseconds).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub container_startup_health_check_timeout_in_seconds: Option<::Value<u32>>,
         /// Property [`InitialInstanceCount`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-initialinstancecount).
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
-        pub initial_instance_count: ::Value<u32>,
+        pub initial_instance_count: Option<::Value<u32>>,
         /// Property [`InitialVariantWeight`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-initialvariantweight).
         ///
         /// Update type: _Immutable_.
@@ -6093,17 +7898,32 @@ pub mod endpoint_config {
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
-        pub instance_type: ::Value<String>,
+        pub instance_type: Option<::Value<String>>,
+        /// Property [`ModelDataDownloadTimeoutInSeconds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-modeldatadownloadtimeoutinseconds).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub model_data_download_timeout_in_seconds: Option<::Value<u32>>,
         /// Property [`ModelName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-modelname).
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub model_name: ::Value<String>,
+        /// Property [`ServerlessConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-serverlessconfig).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub serverless_config: Option<::Value<ServerlessConfig>>,
         /// Property [`VariantName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-variantname).
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub variant_name: ::Value<String>,
+        /// Property [`VolumeSizeInGB`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant.html#cfn-sagemaker-endpointconfig-productionvariant-volumesizeingb).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub volume_size_in_gb: Option<::Value<u32>>,
     }
 
     impl ::codec::SerializeValue for ProductionVariant {
@@ -6112,11 +7932,27 @@ pub mod endpoint_config {
             if let Some(ref accelerator_type) = self.accelerator_type {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "AcceleratorType", accelerator_type)?;
             }
-            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InitialInstanceCount", &self.initial_instance_count)?;
+            if let Some(ref container_startup_health_check_timeout_in_seconds) = self.container_startup_health_check_timeout_in_seconds {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContainerStartupHealthCheckTimeoutInSeconds", container_startup_health_check_timeout_in_seconds)?;
+            }
+            if let Some(ref initial_instance_count) = self.initial_instance_count {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "InitialInstanceCount", initial_instance_count)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "InitialVariantWeight", &self.initial_variant_weight)?;
-            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceType", &self.instance_type)?;
+            if let Some(ref instance_type) = self.instance_type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceType", instance_type)?;
+            }
+            if let Some(ref model_data_download_timeout_in_seconds) = self.model_data_download_timeout_in_seconds {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelDataDownloadTimeoutInSeconds", model_data_download_timeout_in_seconds)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelName", &self.model_name)?;
+            if let Some(ref serverless_config) = self.serverless_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ServerlessConfig", serverless_config)?;
+            }
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "VariantName", &self.variant_name)?;
+            if let Some(ref volume_size_in_gb) = self.volume_size_in_gb {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "VolumeSizeInGB", volume_size_in_gb)?;
+            }
             ::serde::ser::SerializeMap::end(map)
         }
     }
@@ -6134,16 +7970,23 @@ pub mod endpoint_config {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut accelerator_type: Option<::Value<String>> = None;
+                    let mut container_startup_health_check_timeout_in_seconds: Option<::Value<u32>> = None;
                     let mut initial_instance_count: Option<::Value<u32>> = None;
                     let mut initial_variant_weight: Option<::Value<f64>> = None;
                     let mut instance_type: Option<::Value<String>> = None;
+                    let mut model_data_download_timeout_in_seconds: Option<::Value<u32>> = None;
                     let mut model_name: Option<::Value<String>> = None;
+                    let mut serverless_config: Option<::Value<ServerlessConfig>> = None;
                     let mut variant_name: Option<::Value<String>> = None;
+                    let mut volume_size_in_gb: Option<::Value<u32>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "AcceleratorType" => {
                                 accelerator_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ContainerStartupHealthCheckTimeoutInSeconds" => {
+                                container_startup_health_check_timeout_in_seconds = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "InitialInstanceCount" => {
                                 initial_instance_count = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -6154,11 +7997,20 @@ pub mod endpoint_config {
                             "InstanceType" => {
                                 instance_type = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "ModelDataDownloadTimeoutInSeconds" => {
+                                model_data_download_timeout_in_seconds = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "ModelName" => {
                                 model_name = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "ServerlessConfig" => {
+                                serverless_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "VariantName" => {
                                 variant_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "VolumeSizeInGB" => {
+                                volume_size_in_gb = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             _ => {}
                         }
@@ -6166,11 +8018,77 @@ pub mod endpoint_config {
 
                     Ok(ProductionVariant {
                         accelerator_type: accelerator_type,
-                        initial_instance_count: initial_instance_count.ok_or(::serde::de::Error::missing_field("InitialInstanceCount"))?,
+                        container_startup_health_check_timeout_in_seconds: container_startup_health_check_timeout_in_seconds,
+                        initial_instance_count: initial_instance_count,
                         initial_variant_weight: initial_variant_weight.ok_or(::serde::de::Error::missing_field("InitialVariantWeight"))?,
-                        instance_type: instance_type.ok_or(::serde::de::Error::missing_field("InstanceType"))?,
+                        instance_type: instance_type,
+                        model_data_download_timeout_in_seconds: model_data_download_timeout_in_seconds,
                         model_name: model_name.ok_or(::serde::de::Error::missing_field("ModelName"))?,
+                        serverless_config: serverless_config,
                         variant_name: variant_name.ok_or(::serde::de::Error::missing_field("VariantName"))?,
+                        volume_size_in_gb: volume_size_in_gb,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::EndpointConfig.ServerlessConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant-serverlessconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ServerlessConfig {
+        /// Property [`MaxConcurrency`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant-serverlessconfig.html#cfn-sagemaker-endpointconfig-productionvariant-serverlessconfig-maxconcurrency).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub max_concurrency: ::Value<u32>,
+        /// Property [`MemorySizeInMB`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-endpointconfig-productionvariant-serverlessconfig.html#cfn-sagemaker-endpointconfig-productionvariant-serverlessconfig-memorysizeinmb).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub memory_size_in_mb: ::Value<u32>,
+    }
+
+    impl ::codec::SerializeValue for ServerlessConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxConcurrency", &self.max_concurrency)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MemorySizeInMB", &self.memory_size_in_mb)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ServerlessConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ServerlessConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ServerlessConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ServerlessConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut max_concurrency: Option<::Value<u32>> = None;
+                    let mut memory_size_in_mb: Option<::Value<u32>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MaxConcurrency" => {
+                                max_concurrency = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MemorySizeInMB" => {
+                                memory_size_in_mb = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ServerlessConfig {
+                        max_concurrency: max_concurrency.ok_or(::serde::de::Error::missing_field("MaxConcurrency"))?,
+                        memory_size_in_mb: memory_size_in_mb.ok_or(::serde::de::Error::missing_field("MemorySizeInMB"))?,
                     })
                 }
             }
@@ -6272,6 +8190,11 @@ pub mod model {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub image_config: Option<::Value<ImageConfig>>,
+        /// Property [`InferenceSpecificationName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-model-containerdefinition.html#cfn-sagemaker-model-containerdefinition-inferencespecificationname).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub inference_specification_name: Option<::Value<String>>,
         /// Property [`Mode`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-model-containerdefinition.html#cfn-sagemaker-model-containerdefinition-mode).
         ///
         /// Update type: _Immutable_.
@@ -6309,6 +8232,9 @@ pub mod model {
             if let Some(ref image_config) = self.image_config {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "ImageConfig", image_config)?;
             }
+            if let Some(ref inference_specification_name) = self.inference_specification_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "InferenceSpecificationName", inference_specification_name)?;
+            }
             if let Some(ref mode) = self.mode {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Mode", mode)?;
             }
@@ -6341,6 +8267,7 @@ pub mod model {
                     let mut environment: Option<::Value<::json::Value>> = None;
                     let mut image: Option<::Value<String>> = None;
                     let mut image_config: Option<::Value<ImageConfig>> = None;
+                    let mut inference_specification_name: Option<::Value<String>> = None;
                     let mut mode: Option<::Value<String>> = None;
                     let mut model_data_url: Option<::Value<String>> = None;
                     let mut model_package_name: Option<::Value<String>> = None;
@@ -6359,6 +8286,9 @@ pub mod model {
                             }
                             "ImageConfig" => {
                                 image_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "InferenceSpecificationName" => {
+                                inference_specification_name = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "Mode" => {
                                 mode = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -6381,6 +8311,7 @@ pub mod model {
                         environment: environment,
                         image: image,
                         image_config: image_config,
+                        inference_specification_name: inference_specification_name,
                         mode: mode,
                         model_data_url: model_data_url,
                         model_package_name: model_package_name,
@@ -6401,12 +8332,20 @@ pub mod model {
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
         pub repository_access_mode: ::Value<String>,
+        /// Property [`RepositoryAuthConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-model-containerdefinition-imageconfig.html#cfn-sagemaker-model-containerdefinition-imageconfig-repositoryauthconfig).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub repository_auth_config: Option<::Value<RepositoryAuthConfig>>,
     }
 
     impl ::codec::SerializeValue for ImageConfig {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "RepositoryAccessMode", &self.repository_access_mode)?;
+            if let Some(ref repository_auth_config) = self.repository_auth_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RepositoryAuthConfig", repository_auth_config)?;
+            }
             ::serde::ser::SerializeMap::end(map)
         }
     }
@@ -6424,11 +8363,15 @@ pub mod model {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut repository_access_mode: Option<::Value<String>> = None;
+                    let mut repository_auth_config: Option<::Value<RepositoryAuthConfig>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "RepositoryAccessMode" => {
                                 repository_access_mode = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "RepositoryAuthConfig" => {
+                                repository_auth_config = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             _ => {}
                         }
@@ -6436,6 +8379,7 @@ pub mod model {
 
                     Ok(ImageConfig {
                         repository_access_mode: repository_access_mode.ok_or(::serde::de::Error::missing_field("RepositoryAccessMode"))?,
+                        repository_auth_config: repository_auth_config,
                     })
                 }
             }
@@ -6540,6 +8484,57 @@ pub mod model {
 
                     Ok(MultiModelConfig {
                         model_cache_setting: model_cache_setting,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::Model.RepositoryAuthConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-model-containerdefinition-imageconfig-repositoryauthconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct RepositoryAuthConfig {
+        /// Property [`RepositoryCredentialsProviderArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-model-containerdefinition-imageconfig-repositoryauthconfig.html#cfn-sagemaker-model-containerdefinition-imageconfig-repositoryauthconfig-repositorycredentialsproviderarn).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub repository_credentials_provider_arn: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for RepositoryAuthConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "RepositoryCredentialsProviderArn", &self.repository_credentials_provider_arn)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for RepositoryAuthConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<RepositoryAuthConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = RepositoryAuthConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type RepositoryAuthConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut repository_credentials_provider_arn: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "RepositoryCredentialsProviderArn" => {
+                                repository_credentials_provider_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(RepositoryAuthConfig {
+                        repository_credentials_provider_arn: repository_credentials_provider_arn.ok_or(::serde::de::Error::missing_field("RepositoryCredentialsProviderArn"))?,
                     })
                 }
             }
@@ -6919,38 +8914,6 @@ pub mod model_bias_job_definition {
         }
     }
 
-    /// The [`AWS::SageMaker::ModelBiasJobDefinition.Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelbiasjobdefinition-environment.html) property type.
-    #[derive(Debug, Default)]
-    pub struct Environment {
-    }
-
-    impl ::codec::SerializeValue for Environment {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let map = ::serde::Serializer::serialize_map(s, None)?;
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for Environment {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Environment, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = Environment;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type Environment")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
-                    Ok(Environment {})
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
     /// The [`AWS::SageMaker::ModelBiasJobDefinition.ModelBiasAppSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelbiasjobdefinition-modelbiasappspecification.html) property type.
     #[derive(Debug, Default)]
     pub struct ModelBiasAppSpecification {
@@ -6963,7 +8926,7 @@ pub mod model_bias_job_definition {
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
-        pub environment: Option<::Value<Environment>>,
+        pub environment: Option<::ValueMap<String>>,
         /// Property [`ImageUri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelbiasjobdefinition-modelbiasappspecification.html#cfn-sagemaker-modelbiasjobdefinition-modelbiasappspecification-imageuri).
         ///
         /// Update type: _Immutable_.
@@ -6996,7 +8959,7 @@ pub mod model_bias_job_definition {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut config_uri: Option<::Value<String>> = None;
-                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut environment: Option<::ValueMap<String>> = None;
                     let mut image_uri: Option<::Value<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -7908,38 +9871,6 @@ pub mod model_explainability_job_definition {
         }
     }
 
-    /// The [`AWS::SageMaker::ModelExplainabilityJobDefinition.Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelexplainabilityjobdefinition-environment.html) property type.
-    #[derive(Debug, Default)]
-    pub struct Environment {
-    }
-
-    impl ::codec::SerializeValue for Environment {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let map = ::serde::Serializer::serialize_map(s, None)?;
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for Environment {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Environment, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = Environment;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type Environment")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
-                    Ok(Environment {})
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
     /// The [`AWS::SageMaker::ModelExplainabilityJobDefinition.ModelExplainabilityAppSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelexplainabilityjobdefinition-modelexplainabilityappspecification.html) property type.
     #[derive(Debug, Default)]
     pub struct ModelExplainabilityAppSpecification {
@@ -7952,7 +9883,7 @@ pub mod model_explainability_job_definition {
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
-        pub environment: Option<::Value<Environment>>,
+        pub environment: Option<::ValueMap<String>>,
         /// Property [`ImageUri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelexplainabilityjobdefinition-modelexplainabilityappspecification.html#cfn-sagemaker-modelexplainabilityjobdefinition-modelexplainabilityappspecification-imageuri).
         ///
         /// Update type: _Immutable_.
@@ -7985,7 +9916,7 @@ pub mod model_explainability_job_definition {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut config_uri: Option<::Value<String>> = None;
-                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut environment: Option<::ValueMap<String>> = None;
                     let mut image_uri: Option<::Value<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -8566,6 +10497,2355 @@ pub mod model_explainability_job_definition {
     }
 }
 
+pub mod model_package {
+    //! Property types for the `ModelPackage` resource.
+
+    /// The [`AWS::SageMaker::ModelPackage.AdditionalInferenceSpecificationDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html) property type.
+    #[derive(Debug, Default)]
+    pub struct AdditionalInferenceSpecificationDefinition {
+        /// Property [`Containers`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-containers).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub containers: ::ValueList<ModelPackageContainerDefinition>,
+        /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-description).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub description: Option<::Value<String>>,
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-name).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub name: ::Value<String>,
+        /// Property [`SupportedContentTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-supportedcontenttypes).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub supported_content_types: Option<::ValueList<String>>,
+        /// Property [`SupportedRealtimeInferenceInstanceTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-supportedrealtimeinferenceinstancetypes).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub supported_realtime_inference_instance_types: Option<::ValueList<String>>,
+        /// Property [`SupportedResponseMIMETypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-supportedresponsemimetypes).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub supported_response_mime_types: Option<::ValueList<String>>,
+        /// Property [`SupportedTransformInstanceTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-additionalinferencespecificationdefinition.html#cfn-sagemaker-modelpackage-additionalinferencespecificationdefinition-supportedtransforminstancetypes).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub supported_transform_instance_types: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for AdditionalInferenceSpecificationDefinition {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Containers", &self.containers)?;
+            if let Some(ref description) = self.description {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+            if let Some(ref supported_content_types) = self.supported_content_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedContentTypes", supported_content_types)?;
+            }
+            if let Some(ref supported_realtime_inference_instance_types) = self.supported_realtime_inference_instance_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedRealtimeInferenceInstanceTypes", supported_realtime_inference_instance_types)?;
+            }
+            if let Some(ref supported_response_mime_types) = self.supported_response_mime_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedResponseMIMETypes", supported_response_mime_types)?;
+            }
+            if let Some(ref supported_transform_instance_types) = self.supported_transform_instance_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedTransformInstanceTypes", supported_transform_instance_types)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for AdditionalInferenceSpecificationDefinition {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<AdditionalInferenceSpecificationDefinition, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = AdditionalInferenceSpecificationDefinition;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type AdditionalInferenceSpecificationDefinition")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut containers: Option<::ValueList<ModelPackageContainerDefinition>> = None;
+                    let mut description: Option<::Value<String>> = None;
+                    let mut name: Option<::Value<String>> = None;
+                    let mut supported_content_types: Option<::ValueList<String>> = None;
+                    let mut supported_realtime_inference_instance_types: Option<::ValueList<String>> = None;
+                    let mut supported_response_mime_types: Option<::ValueList<String>> = None;
+                    let mut supported_transform_instance_types: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Containers" => {
+                                containers = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Description" => {
+                                description = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Name" => {
+                                name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedContentTypes" => {
+                                supported_content_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedRealtimeInferenceInstanceTypes" => {
+                                supported_realtime_inference_instance_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedResponseMIMETypes" => {
+                                supported_response_mime_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedTransformInstanceTypes" => {
+                                supported_transform_instance_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(AdditionalInferenceSpecificationDefinition {
+                        containers: containers.ok_or(::serde::de::Error::missing_field("Containers"))?,
+                        description: description,
+                        name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                        supported_content_types: supported_content_types,
+                        supported_realtime_inference_instance_types: supported_realtime_inference_instance_types,
+                        supported_response_mime_types: supported_response_mime_types,
+                        supported_transform_instance_types: supported_transform_instance_types,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.Bias`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-bias.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Bias {
+        /// Property [`PostTrainingReport`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-bias.html#cfn-sagemaker-modelpackage-bias-posttrainingreport).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub post_training_report: Option<::Value<MetricsSource>>,
+        /// Property [`PreTrainingReport`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-bias.html#cfn-sagemaker-modelpackage-bias-pretrainingreport).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub pre_training_report: Option<::Value<MetricsSource>>,
+        /// Property [`Report`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-bias.html#cfn-sagemaker-modelpackage-bias-report).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub report: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for Bias {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref post_training_report) = self.post_training_report {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PostTrainingReport", post_training_report)?;
+            }
+            if let Some(ref pre_training_report) = self.pre_training_report {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PreTrainingReport", pre_training_report)?;
+            }
+            if let Some(ref report) = self.report {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Report", report)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Bias {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Bias, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Bias;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Bias")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut post_training_report: Option<::Value<MetricsSource>> = None;
+                    let mut pre_training_report: Option<::Value<MetricsSource>> = None;
+                    let mut report: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "PostTrainingReport" => {
+                                post_training_report = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "PreTrainingReport" => {
+                                pre_training_report = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Report" => {
+                                report = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Bias {
+                        post_training_report: post_training_report,
+                        pre_training_report: pre_training_report,
+                        report: report,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.DataSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-datasource.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DataSource {
+        /// Property [`S3DataSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-datasource.html#cfn-sagemaker-modelpackage-datasource-s3datasource).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_data_source: ::Value<S3DataSource>,
+    }
+
+    impl ::codec::SerializeValue for DataSource {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3DataSource", &self.s3_data_source)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DataSource {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DataSource, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DataSource;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DataSource")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut s3_data_source: Option<::Value<S3DataSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "S3DataSource" => {
+                                s3_data_source = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DataSource {
+                        s3_data_source: s3_data_source.ok_or(::serde::de::Error::missing_field("S3DataSource"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.DriftCheckBaselines`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbaselines.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DriftCheckBaselines {
+        /// Property [`Bias`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbaselines.html#cfn-sagemaker-modelpackage-driftcheckbaselines-bias).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub bias: Option<::Value<DriftCheckBias>>,
+        /// Property [`Explainability`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbaselines.html#cfn-sagemaker-modelpackage-driftcheckbaselines-explainability).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub explainability: Option<::Value<DriftCheckExplainability>>,
+        /// Property [`ModelDataQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbaselines.html#cfn-sagemaker-modelpackage-driftcheckbaselines-modeldataquality).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub model_data_quality: Option<::Value<DriftCheckModelDataQuality>>,
+        /// Property [`ModelQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbaselines.html#cfn-sagemaker-modelpackage-driftcheckbaselines-modelquality).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub model_quality: Option<::Value<DriftCheckModelQuality>>,
+    }
+
+    impl ::codec::SerializeValue for DriftCheckBaselines {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref bias) = self.bias {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Bias", bias)?;
+            }
+            if let Some(ref explainability) = self.explainability {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Explainability", explainability)?;
+            }
+            if let Some(ref model_data_quality) = self.model_data_quality {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelDataQuality", model_data_quality)?;
+            }
+            if let Some(ref model_quality) = self.model_quality {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelQuality", model_quality)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DriftCheckBaselines {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DriftCheckBaselines, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DriftCheckBaselines;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DriftCheckBaselines")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut bias: Option<::Value<DriftCheckBias>> = None;
+                    let mut explainability: Option<::Value<DriftCheckExplainability>> = None;
+                    let mut model_data_quality: Option<::Value<DriftCheckModelDataQuality>> = None;
+                    let mut model_quality: Option<::Value<DriftCheckModelQuality>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Bias" => {
+                                bias = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Explainability" => {
+                                explainability = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelDataQuality" => {
+                                model_data_quality = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelQuality" => {
+                                model_quality = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DriftCheckBaselines {
+                        bias: bias,
+                        explainability: explainability,
+                        model_data_quality: model_data_quality,
+                        model_quality: model_quality,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.DriftCheckBias`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbias.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DriftCheckBias {
+        /// Property [`ConfigFile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbias.html#cfn-sagemaker-modelpackage-driftcheckbias-configfile).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub config_file: Option<::Value<FileSource>>,
+        /// Property [`PostTrainingConstraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbias.html#cfn-sagemaker-modelpackage-driftcheckbias-posttrainingconstraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub post_training_constraints: Option<::Value<MetricsSource>>,
+        /// Property [`PreTrainingConstraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckbias.html#cfn-sagemaker-modelpackage-driftcheckbias-pretrainingconstraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub pre_training_constraints: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for DriftCheckBias {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref config_file) = self.config_file {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ConfigFile", config_file)?;
+            }
+            if let Some(ref post_training_constraints) = self.post_training_constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PostTrainingConstraints", post_training_constraints)?;
+            }
+            if let Some(ref pre_training_constraints) = self.pre_training_constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PreTrainingConstraints", pre_training_constraints)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DriftCheckBias {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DriftCheckBias, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DriftCheckBias;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DriftCheckBias")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut config_file: Option<::Value<FileSource>> = None;
+                    let mut post_training_constraints: Option<::Value<MetricsSource>> = None;
+                    let mut pre_training_constraints: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ConfigFile" => {
+                                config_file = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "PostTrainingConstraints" => {
+                                post_training_constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "PreTrainingConstraints" => {
+                                pre_training_constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DriftCheckBias {
+                        config_file: config_file,
+                        post_training_constraints: post_training_constraints,
+                        pre_training_constraints: pre_training_constraints,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.DriftCheckExplainability`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckexplainability.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DriftCheckExplainability {
+        /// Property [`ConfigFile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckexplainability.html#cfn-sagemaker-modelpackage-driftcheckexplainability-configfile).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub config_file: Option<::Value<FileSource>>,
+        /// Property [`Constraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckexplainability.html#cfn-sagemaker-modelpackage-driftcheckexplainability-constraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub constraints: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for DriftCheckExplainability {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref config_file) = self.config_file {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ConfigFile", config_file)?;
+            }
+            if let Some(ref constraints) = self.constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Constraints", constraints)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DriftCheckExplainability {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DriftCheckExplainability, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DriftCheckExplainability;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DriftCheckExplainability")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut config_file: Option<::Value<FileSource>> = None;
+                    let mut constraints: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ConfigFile" => {
+                                config_file = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Constraints" => {
+                                constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DriftCheckExplainability {
+                        config_file: config_file,
+                        constraints: constraints,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.DriftCheckModelDataQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckmodeldataquality.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DriftCheckModelDataQuality {
+        /// Property [`Constraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckmodeldataquality.html#cfn-sagemaker-modelpackage-driftcheckmodeldataquality-constraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub constraints: Option<::Value<MetricsSource>>,
+        /// Property [`Statistics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckmodeldataquality.html#cfn-sagemaker-modelpackage-driftcheckmodeldataquality-statistics).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub statistics: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for DriftCheckModelDataQuality {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref constraints) = self.constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Constraints", constraints)?;
+            }
+            if let Some(ref statistics) = self.statistics {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Statistics", statistics)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DriftCheckModelDataQuality {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DriftCheckModelDataQuality, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DriftCheckModelDataQuality;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DriftCheckModelDataQuality")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut constraints: Option<::Value<MetricsSource>> = None;
+                    let mut statistics: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Constraints" => {
+                                constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Statistics" => {
+                                statistics = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DriftCheckModelDataQuality {
+                        constraints: constraints,
+                        statistics: statistics,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.DriftCheckModelQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckmodelquality.html) property type.
+    #[derive(Debug, Default)]
+    pub struct DriftCheckModelQuality {
+        /// Property [`Constraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckmodelquality.html#cfn-sagemaker-modelpackage-driftcheckmodelquality-constraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub constraints: Option<::Value<MetricsSource>>,
+        /// Property [`Statistics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-driftcheckmodelquality.html#cfn-sagemaker-modelpackage-driftcheckmodelquality-statistics).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub statistics: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for DriftCheckModelQuality {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref constraints) = self.constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Constraints", constraints)?;
+            }
+            if let Some(ref statistics) = self.statistics {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Statistics", statistics)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for DriftCheckModelQuality {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<DriftCheckModelQuality, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = DriftCheckModelQuality;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type DriftCheckModelQuality")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut constraints: Option<::Value<MetricsSource>> = None;
+                    let mut statistics: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Constraints" => {
+                                constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Statistics" => {
+                                statistics = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(DriftCheckModelQuality {
+                        constraints: constraints,
+                        statistics: statistics,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-environment.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Environment {
+    }
+
+    impl ::codec::SerializeValue for Environment {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Environment {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Environment, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Environment;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Environment")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
+                    Ok(Environment {})
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.Explainability`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-explainability.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Explainability {
+        /// Property [`Report`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-explainability.html#cfn-sagemaker-modelpackage-explainability-report).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub report: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for Explainability {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref report) = self.report {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Report", report)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Explainability {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Explainability, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Explainability;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Explainability")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut report: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Report" => {
+                                report = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Explainability {
+                        report: report,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.FileSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-filesource.html) property type.
+    #[derive(Debug, Default)]
+    pub struct FileSource {
+        /// Property [`ContentDigest`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-filesource.html#cfn-sagemaker-modelpackage-filesource-contentdigest).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub content_digest: Option<::Value<String>>,
+        /// Property [`ContentType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-filesource.html#cfn-sagemaker-modelpackage-filesource-contenttype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub content_type: Option<::Value<String>>,
+        /// Property [`S3Uri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-filesource.html#cfn-sagemaker-modelpackage-filesource-s3uri).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_uri: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for FileSource {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref content_digest) = self.content_digest {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentDigest", content_digest)?;
+            }
+            if let Some(ref content_type) = self.content_type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentType", content_type)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3Uri", &self.s3_uri)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for FileSource {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<FileSource, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = FileSource;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type FileSource")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut content_digest: Option<::Value<String>> = None;
+                    let mut content_type: Option<::Value<String>> = None;
+                    let mut s3_uri: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ContentDigest" => {
+                                content_digest = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ContentType" => {
+                                content_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "S3Uri" => {
+                                s3_uri = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(FileSource {
+                        content_digest: content_digest,
+                        content_type: content_type,
+                        s3_uri: s3_uri.ok_or(::serde::de::Error::missing_field("S3Uri"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.InferenceSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-inferencespecification.html) property type.
+    #[derive(Debug, Default)]
+    pub struct InferenceSpecification {
+        /// Property [`Containers`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-inferencespecification.html#cfn-sagemaker-modelpackage-inferencespecification-containers).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub containers: ::ValueList<ModelPackageContainerDefinition>,
+        /// Property [`SupportedContentTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-inferencespecification.html#cfn-sagemaker-modelpackage-inferencespecification-supportedcontenttypes).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub supported_content_types: ::ValueList<String>,
+        /// Property [`SupportedRealtimeInferenceInstanceTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-inferencespecification.html#cfn-sagemaker-modelpackage-inferencespecification-supportedrealtimeinferenceinstancetypes).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub supported_realtime_inference_instance_types: Option<::ValueList<String>>,
+        /// Property [`SupportedResponseMIMETypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-inferencespecification.html#cfn-sagemaker-modelpackage-inferencespecification-supportedresponsemimetypes).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub supported_response_mime_types: ::ValueList<String>,
+        /// Property [`SupportedTransformInstanceTypes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-inferencespecification.html#cfn-sagemaker-modelpackage-inferencespecification-supportedtransforminstancetypes).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub supported_transform_instance_types: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for InferenceSpecification {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Containers", &self.containers)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedContentTypes", &self.supported_content_types)?;
+            if let Some(ref supported_realtime_inference_instance_types) = self.supported_realtime_inference_instance_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedRealtimeInferenceInstanceTypes", supported_realtime_inference_instance_types)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedResponseMIMETypes", &self.supported_response_mime_types)?;
+            if let Some(ref supported_transform_instance_types) = self.supported_transform_instance_types {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SupportedTransformInstanceTypes", supported_transform_instance_types)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for InferenceSpecification {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<InferenceSpecification, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = InferenceSpecification;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type InferenceSpecification")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut containers: Option<::ValueList<ModelPackageContainerDefinition>> = None;
+                    let mut supported_content_types: Option<::ValueList<String>> = None;
+                    let mut supported_realtime_inference_instance_types: Option<::ValueList<String>> = None;
+                    let mut supported_response_mime_types: Option<::ValueList<String>> = None;
+                    let mut supported_transform_instance_types: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Containers" => {
+                                containers = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedContentTypes" => {
+                                supported_content_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedRealtimeInferenceInstanceTypes" => {
+                                supported_realtime_inference_instance_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedResponseMIMETypes" => {
+                                supported_response_mime_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SupportedTransformInstanceTypes" => {
+                                supported_transform_instance_types = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(InferenceSpecification {
+                        containers: containers.ok_or(::serde::de::Error::missing_field("Containers"))?,
+                        supported_content_types: supported_content_types.ok_or(::serde::de::Error::missing_field("SupportedContentTypes"))?,
+                        supported_realtime_inference_instance_types: supported_realtime_inference_instance_types,
+                        supported_response_mime_types: supported_response_mime_types.ok_or(::serde::de::Error::missing_field("SupportedResponseMIMETypes"))?,
+                        supported_transform_instance_types: supported_transform_instance_types,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.MetadataProperties`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metadataproperties.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetadataProperties {
+        /// Property [`CommitId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metadataproperties.html#cfn-sagemaker-modelpackage-metadataproperties-commitid).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub commit_id: Option<::Value<String>>,
+        /// Property [`GeneratedBy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metadataproperties.html#cfn-sagemaker-modelpackage-metadataproperties-generatedby).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub generated_by: Option<::Value<String>>,
+        /// Property [`ProjectId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metadataproperties.html#cfn-sagemaker-modelpackage-metadataproperties-projectid).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub project_id: Option<::Value<String>>,
+        /// Property [`Repository`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metadataproperties.html#cfn-sagemaker-modelpackage-metadataproperties-repository).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub repository: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for MetadataProperties {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref commit_id) = self.commit_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CommitId", commit_id)?;
+            }
+            if let Some(ref generated_by) = self.generated_by {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "GeneratedBy", generated_by)?;
+            }
+            if let Some(ref project_id) = self.project_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProjectId", project_id)?;
+            }
+            if let Some(ref repository) = self.repository {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Repository", repository)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetadataProperties {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetadataProperties, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetadataProperties;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetadataProperties")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut commit_id: Option<::Value<String>> = None;
+                    let mut generated_by: Option<::Value<String>> = None;
+                    let mut project_id: Option<::Value<String>> = None;
+                    let mut repository: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CommitId" => {
+                                commit_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "GeneratedBy" => {
+                                generated_by = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ProjectId" => {
+                                project_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Repository" => {
+                                repository = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetadataProperties {
+                        commit_id: commit_id,
+                        generated_by: generated_by,
+                        project_id: project_id,
+                        repository: repository,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.MetricsSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metricssource.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricsSource {
+        /// Property [`ContentDigest`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metricssource.html#cfn-sagemaker-modelpackage-metricssource-contentdigest).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub content_digest: Option<::Value<String>>,
+        /// Property [`ContentType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metricssource.html#cfn-sagemaker-modelpackage-metricssource-contenttype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub content_type: ::Value<String>,
+        /// Property [`S3Uri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-metricssource.html#cfn-sagemaker-modelpackage-metricssource-s3uri).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_uri: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for MetricsSource {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref content_digest) = self.content_digest {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentDigest", content_digest)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentType", &self.content_type)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3Uri", &self.s3_uri)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricsSource {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricsSource, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricsSource;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricsSource")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut content_digest: Option<::Value<String>> = None;
+                    let mut content_type: Option<::Value<String>> = None;
+                    let mut s3_uri: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ContentDigest" => {
+                                content_digest = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ContentType" => {
+                                content_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "S3Uri" => {
+                                s3_uri = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetricsSource {
+                        content_digest: content_digest,
+                        content_type: content_type.ok_or(::serde::de::Error::missing_field("ContentType"))?,
+                        s3_uri: s3_uri.ok_or(::serde::de::Error::missing_field("S3Uri"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ModelDataQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modeldataquality.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ModelDataQuality {
+        /// Property [`Constraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modeldataquality.html#cfn-sagemaker-modelpackage-modeldataquality-constraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub constraints: Option<::Value<MetricsSource>>,
+        /// Property [`Statistics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modeldataquality.html#cfn-sagemaker-modelpackage-modeldataquality-statistics).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub statistics: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for ModelDataQuality {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref constraints) = self.constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Constraints", constraints)?;
+            }
+            if let Some(ref statistics) = self.statistics {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Statistics", statistics)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ModelDataQuality {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelDataQuality, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ModelDataQuality;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ModelDataQuality")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut constraints: Option<::Value<MetricsSource>> = None;
+                    let mut statistics: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Constraints" => {
+                                constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Statistics" => {
+                                statistics = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ModelDataQuality {
+                        constraints: constraints,
+                        statistics: statistics,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ModelMetrics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelmetrics.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ModelMetrics {
+        /// Property [`Bias`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelmetrics.html#cfn-sagemaker-modelpackage-modelmetrics-bias).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub bias: Option<::Value<Bias>>,
+        /// Property [`Explainability`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelmetrics.html#cfn-sagemaker-modelpackage-modelmetrics-explainability).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub explainability: Option<::Value<Explainability>>,
+        /// Property [`ModelDataQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelmetrics.html#cfn-sagemaker-modelpackage-modelmetrics-modeldataquality).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub model_data_quality: Option<::Value<ModelDataQuality>>,
+        /// Property [`ModelQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelmetrics.html#cfn-sagemaker-modelpackage-modelmetrics-modelquality).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub model_quality: Option<::Value<ModelQuality>>,
+    }
+
+    impl ::codec::SerializeValue for ModelMetrics {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref bias) = self.bias {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Bias", bias)?;
+            }
+            if let Some(ref explainability) = self.explainability {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Explainability", explainability)?;
+            }
+            if let Some(ref model_data_quality) = self.model_data_quality {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelDataQuality", model_data_quality)?;
+            }
+            if let Some(ref model_quality) = self.model_quality {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelQuality", model_quality)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ModelMetrics {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelMetrics, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ModelMetrics;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ModelMetrics")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut bias: Option<::Value<Bias>> = None;
+                    let mut explainability: Option<::Value<Explainability>> = None;
+                    let mut model_data_quality: Option<::Value<ModelDataQuality>> = None;
+                    let mut model_quality: Option<::Value<ModelQuality>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Bias" => {
+                                bias = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Explainability" => {
+                                explainability = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelDataQuality" => {
+                                model_data_quality = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelQuality" => {
+                                model_quality = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ModelMetrics {
+                        bias: bias,
+                        explainability: explainability,
+                        model_data_quality: model_data_quality,
+                        model_quality: model_quality,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ModelPackageContainerDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ModelPackageContainerDefinition {
+        /// Property [`ContainerHostname`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-containerhostname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub container_hostname: Option<::Value<String>>,
+        /// Property [`Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-environment).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub environment: Option<::Value<Environment>>,
+        /// Property [`Framework`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-framework).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub framework: Option<::Value<String>>,
+        /// Property [`FrameworkVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-frameworkversion).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub framework_version: Option<::Value<String>>,
+        /// Property [`Image`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-image).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub image: ::Value<String>,
+        /// Property [`ImageDigest`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-imagedigest).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub image_digest: Option<::Value<String>>,
+        /// Property [`ModelDataUrl`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-modeldataurl).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub model_data_url: Option<::Value<String>>,
+        /// Property [`ModelInput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-modelinput).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub model_input: Option<::Value<::json::Value>>,
+        /// Property [`NearestModelName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-nearestmodelname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub nearest_model_name: Option<::Value<String>>,
+        /// Property [`ProductId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagecontainerdefinition.html#cfn-sagemaker-modelpackage-modelpackagecontainerdefinition-productid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub product_id: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for ModelPackageContainerDefinition {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref container_hostname) = self.container_hostname {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContainerHostname", container_hostname)?;
+            }
+            if let Some(ref environment) = self.environment {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Environment", environment)?;
+            }
+            if let Some(ref framework) = self.framework {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Framework", framework)?;
+            }
+            if let Some(ref framework_version) = self.framework_version {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "FrameworkVersion", framework_version)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Image", &self.image)?;
+            if let Some(ref image_digest) = self.image_digest {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ImageDigest", image_digest)?;
+            }
+            if let Some(ref model_data_url) = self.model_data_url {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelDataUrl", model_data_url)?;
+            }
+            if let Some(ref model_input) = self.model_input {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelInput", model_input)?;
+            }
+            if let Some(ref nearest_model_name) = self.nearest_model_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "NearestModelName", nearest_model_name)?;
+            }
+            if let Some(ref product_id) = self.product_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProductId", product_id)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ModelPackageContainerDefinition {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelPackageContainerDefinition, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ModelPackageContainerDefinition;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ModelPackageContainerDefinition")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut container_hostname: Option<::Value<String>> = None;
+                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut framework: Option<::Value<String>> = None;
+                    let mut framework_version: Option<::Value<String>> = None;
+                    let mut image: Option<::Value<String>> = None;
+                    let mut image_digest: Option<::Value<String>> = None;
+                    let mut model_data_url: Option<::Value<String>> = None;
+                    let mut model_input: Option<::Value<::json::Value>> = None;
+                    let mut nearest_model_name: Option<::Value<String>> = None;
+                    let mut product_id: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ContainerHostname" => {
+                                container_hostname = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Environment" => {
+                                environment = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Framework" => {
+                                framework = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "FrameworkVersion" => {
+                                framework_version = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Image" => {
+                                image = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ImageDigest" => {
+                                image_digest = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelDataUrl" => {
+                                model_data_url = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelInput" => {
+                                model_input = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "NearestModelName" => {
+                                nearest_model_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ProductId" => {
+                                product_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ModelPackageContainerDefinition {
+                        container_hostname: container_hostname,
+                        environment: environment,
+                        framework: framework,
+                        framework_version: framework_version,
+                        image: image.ok_or(::serde::de::Error::missing_field("Image"))?,
+                        image_digest: image_digest,
+                        model_data_url: model_data_url,
+                        model_input: model_input,
+                        nearest_model_name: nearest_model_name,
+                        product_id: product_id,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ModelPackageStatusDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusdetails.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ModelPackageStatusDetails {
+        /// Property [`ImageScanStatuses`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusdetails.html#cfn-sagemaker-modelpackage-modelpackagestatusdetails-imagescanstatuses).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub image_scan_statuses: Option<::ValueList<ModelPackageStatusItem>>,
+        /// Property [`ValidationStatuses`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusdetails.html#cfn-sagemaker-modelpackage-modelpackagestatusdetails-validationstatuses).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub validation_statuses: ::ValueList<ModelPackageStatusItem>,
+    }
+
+    impl ::codec::SerializeValue for ModelPackageStatusDetails {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref image_scan_statuses) = self.image_scan_statuses {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ImageScanStatuses", image_scan_statuses)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ValidationStatuses", &self.validation_statuses)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ModelPackageStatusDetails {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelPackageStatusDetails, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ModelPackageStatusDetails;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ModelPackageStatusDetails")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut image_scan_statuses: Option<::ValueList<ModelPackageStatusItem>> = None;
+                    let mut validation_statuses: Option<::ValueList<ModelPackageStatusItem>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ImageScanStatuses" => {
+                                image_scan_statuses = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ValidationStatuses" => {
+                                validation_statuses = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ModelPackageStatusDetails {
+                        image_scan_statuses: image_scan_statuses,
+                        validation_statuses: validation_statuses.ok_or(::serde::de::Error::missing_field("ValidationStatuses"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ModelPackageStatusItem`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusitem.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ModelPackageStatusItem {
+        /// Property [`FailureReason`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusitem.html#cfn-sagemaker-modelpackage-modelpackagestatusitem-failurereason).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub failure_reason: Option<::Value<String>>,
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusitem.html#cfn-sagemaker-modelpackage-modelpackagestatusitem-name).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub name: ::Value<String>,
+        /// Property [`Status`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelpackagestatusitem.html#cfn-sagemaker-modelpackage-modelpackagestatusitem-status).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub status: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for ModelPackageStatusItem {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref failure_reason) = self.failure_reason {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "FailureReason", failure_reason)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Status", &self.status)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ModelPackageStatusItem {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelPackageStatusItem, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ModelPackageStatusItem;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ModelPackageStatusItem")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut failure_reason: Option<::Value<String>> = None;
+                    let mut name: Option<::Value<String>> = None;
+                    let mut status: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "FailureReason" => {
+                                failure_reason = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Name" => {
+                                name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Status" => {
+                                status = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ModelPackageStatusItem {
+                        failure_reason: failure_reason,
+                        name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                        status: status.ok_or(::serde::de::Error::missing_field("Status"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ModelQuality`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelquality.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ModelQuality {
+        /// Property [`Constraints`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelquality.html#cfn-sagemaker-modelpackage-modelquality-constraints).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub constraints: Option<::Value<MetricsSource>>,
+        /// Property [`Statistics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-modelquality.html#cfn-sagemaker-modelpackage-modelquality-statistics).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub statistics: Option<::Value<MetricsSource>>,
+    }
+
+    impl ::codec::SerializeValue for ModelQuality {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref constraints) = self.constraints {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Constraints", constraints)?;
+            }
+            if let Some(ref statistics) = self.statistics {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Statistics", statistics)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ModelQuality {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ModelQuality, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ModelQuality;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ModelQuality")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut constraints: Option<::Value<MetricsSource>> = None;
+                    let mut statistics: Option<::Value<MetricsSource>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Constraints" => {
+                                constraints = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Statistics" => {
+                                statistics = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ModelQuality {
+                        constraints: constraints,
+                        statistics: statistics,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.S3DataSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-s3datasource.html) property type.
+    #[derive(Debug, Default)]
+    pub struct S3DataSource {
+        /// Property [`S3DataType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-s3datasource.html#cfn-sagemaker-modelpackage-s3datasource-s3datatype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_data_type: ::Value<String>,
+        /// Property [`S3Uri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-s3datasource.html#cfn-sagemaker-modelpackage-s3datasource-s3uri).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_uri: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for S3DataSource {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3DataType", &self.s3_data_type)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3Uri", &self.s3_uri)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for S3DataSource {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<S3DataSource, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = S3DataSource;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type S3DataSource")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut s3_data_type: Option<::Value<String>> = None;
+                    let mut s3_uri: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "S3DataType" => {
+                                s3_data_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "S3Uri" => {
+                                s3_uri = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(S3DataSource {
+                        s3_data_type: s3_data_type.ok_or(::serde::de::Error::missing_field("S3DataType"))?,
+                        s3_uri: s3_uri.ok_or(::serde::de::Error::missing_field("S3Uri"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.SourceAlgorithm`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-sourcealgorithm.html) property type.
+    #[derive(Debug, Default)]
+    pub struct SourceAlgorithm {
+        /// Property [`AlgorithmName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-sourcealgorithm.html#cfn-sagemaker-modelpackage-sourcealgorithm-algorithmname).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub algorithm_name: ::Value<String>,
+        /// Property [`ModelDataUrl`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-sourcealgorithm.html#cfn-sagemaker-modelpackage-sourcealgorithm-modeldataurl).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub model_data_url: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for SourceAlgorithm {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AlgorithmName", &self.algorithm_name)?;
+            if let Some(ref model_data_url) = self.model_data_url {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ModelDataUrl", model_data_url)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for SourceAlgorithm {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<SourceAlgorithm, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = SourceAlgorithm;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type SourceAlgorithm")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut algorithm_name: Option<::Value<String>> = None;
+                    let mut model_data_url: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AlgorithmName" => {
+                                algorithm_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ModelDataUrl" => {
+                                model_data_url = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(SourceAlgorithm {
+                        algorithm_name: algorithm_name.ok_or(::serde::de::Error::missing_field("AlgorithmName"))?,
+                        model_data_url: model_data_url,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.SourceAlgorithmSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-sourcealgorithmspecification.html) property type.
+    #[derive(Debug, Default)]
+    pub struct SourceAlgorithmSpecification {
+        /// Property [`SourceAlgorithms`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-sourcealgorithmspecification.html#cfn-sagemaker-modelpackage-sourcealgorithmspecification-sourcealgorithms).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub source_algorithms: ::ValueList<SourceAlgorithm>,
+    }
+
+    impl ::codec::SerializeValue for SourceAlgorithmSpecification {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SourceAlgorithms", &self.source_algorithms)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for SourceAlgorithmSpecification {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<SourceAlgorithmSpecification, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = SourceAlgorithmSpecification;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type SourceAlgorithmSpecification")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut source_algorithms: Option<::ValueList<SourceAlgorithm>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "SourceAlgorithms" => {
+                                source_algorithms = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(SourceAlgorithmSpecification {
+                        source_algorithms: source_algorithms.ok_or(::serde::de::Error::missing_field("SourceAlgorithms"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.TransformInput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transforminput.html) property type.
+    #[derive(Debug, Default)]
+    pub struct TransformInput {
+        /// Property [`CompressionType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transforminput.html#cfn-sagemaker-modelpackage-transforminput-compressiontype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub compression_type: Option<::Value<String>>,
+        /// Property [`ContentType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transforminput.html#cfn-sagemaker-modelpackage-transforminput-contenttype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub content_type: Option<::Value<String>>,
+        /// Property [`DataSource`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transforminput.html#cfn-sagemaker-modelpackage-transforminput-datasource).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub data_source: ::Value<DataSource>,
+        /// Property [`SplitType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transforminput.html#cfn-sagemaker-modelpackage-transforminput-splittype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub split_type: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for TransformInput {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref compression_type) = self.compression_type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CompressionType", compression_type)?;
+            }
+            if let Some(ref content_type) = self.content_type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentType", content_type)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DataSource", &self.data_source)?;
+            if let Some(ref split_type) = self.split_type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SplitType", split_type)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for TransformInput {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<TransformInput, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = TransformInput;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type TransformInput")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut compression_type: Option<::Value<String>> = None;
+                    let mut content_type: Option<::Value<String>> = None;
+                    let mut data_source: Option<::Value<DataSource>> = None;
+                    let mut split_type: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CompressionType" => {
+                                compression_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ContentType" => {
+                                content_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DataSource" => {
+                                data_source = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SplitType" => {
+                                split_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(TransformInput {
+                        compression_type: compression_type,
+                        content_type: content_type,
+                        data_source: data_source.ok_or(::serde::de::Error::missing_field("DataSource"))?,
+                        split_type: split_type,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.TransformJobDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html) property type.
+    #[derive(Debug, Default)]
+    pub struct TransformJobDefinition {
+        /// Property [`BatchStrategy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-batchstrategy).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub batch_strategy: Option<::Value<String>>,
+        /// Property [`Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-environment).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub environment: Option<::Value<Environment>>,
+        /// Property [`MaxConcurrentTransforms`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-maxconcurrenttransforms).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub max_concurrent_transforms: Option<::Value<u32>>,
+        /// Property [`MaxPayloadInMB`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-maxpayloadinmb).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub max_payload_in_mb: Option<::Value<u32>>,
+        /// Property [`TransformInput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-transforminput).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub transform_input: ::Value<TransformInput>,
+        /// Property [`TransformOutput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-transformoutput).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub transform_output: ::Value<TransformOutput>,
+        /// Property [`TransformResources`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformjobdefinition.html#cfn-sagemaker-modelpackage-transformjobdefinition-transformresources).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub transform_resources: ::Value<TransformResources>,
+    }
+
+    impl ::codec::SerializeValue for TransformJobDefinition {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref batch_strategy) = self.batch_strategy {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "BatchStrategy", batch_strategy)?;
+            }
+            if let Some(ref environment) = self.environment {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Environment", environment)?;
+            }
+            if let Some(ref max_concurrent_transforms) = self.max_concurrent_transforms {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxConcurrentTransforms", max_concurrent_transforms)?;
+            }
+            if let Some(ref max_payload_in_mb) = self.max_payload_in_mb {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxPayloadInMB", max_payload_in_mb)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "TransformInput", &self.transform_input)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "TransformOutput", &self.transform_output)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "TransformResources", &self.transform_resources)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for TransformJobDefinition {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<TransformJobDefinition, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = TransformJobDefinition;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type TransformJobDefinition")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut batch_strategy: Option<::Value<String>> = None;
+                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut max_concurrent_transforms: Option<::Value<u32>> = None;
+                    let mut max_payload_in_mb: Option<::Value<u32>> = None;
+                    let mut transform_input: Option<::Value<TransformInput>> = None;
+                    let mut transform_output: Option<::Value<TransformOutput>> = None;
+                    let mut transform_resources: Option<::Value<TransformResources>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "BatchStrategy" => {
+                                batch_strategy = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Environment" => {
+                                environment = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MaxConcurrentTransforms" => {
+                                max_concurrent_transforms = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MaxPayloadInMB" => {
+                                max_payload_in_mb = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TransformInput" => {
+                                transform_input = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TransformOutput" => {
+                                transform_output = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TransformResources" => {
+                                transform_resources = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(TransformJobDefinition {
+                        batch_strategy: batch_strategy,
+                        environment: environment,
+                        max_concurrent_transforms: max_concurrent_transforms,
+                        max_payload_in_mb: max_payload_in_mb,
+                        transform_input: transform_input.ok_or(::serde::de::Error::missing_field("TransformInput"))?,
+                        transform_output: transform_output.ok_or(::serde::de::Error::missing_field("TransformOutput"))?,
+                        transform_resources: transform_resources.ok_or(::serde::de::Error::missing_field("TransformResources"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.TransformOutput`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformoutput.html) property type.
+    #[derive(Debug, Default)]
+    pub struct TransformOutput {
+        /// Property [`Accept`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformoutput.html#cfn-sagemaker-modelpackage-transformoutput-accept).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub accept: Option<::Value<String>>,
+        /// Property [`AssembleWith`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformoutput.html#cfn-sagemaker-modelpackage-transformoutput-assemblewith).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub assemble_with: Option<::Value<String>>,
+        /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformoutput.html#cfn-sagemaker-modelpackage-transformoutput-kmskeyid).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub kms_key_id: Option<::Value<String>>,
+        /// Property [`S3OutputPath`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformoutput.html#cfn-sagemaker-modelpackage-transformoutput-s3outputpath).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub s3_output_path: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for TransformOutput {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref accept) = self.accept {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Accept", accept)?;
+            }
+            if let Some(ref assemble_with) = self.assemble_with {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AssembleWith", assemble_with)?;
+            }
+            if let Some(ref kms_key_id) = self.kms_key_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3OutputPath", &self.s3_output_path)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for TransformOutput {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<TransformOutput, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = TransformOutput;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type TransformOutput")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut accept: Option<::Value<String>> = None;
+                    let mut assemble_with: Option<::Value<String>> = None;
+                    let mut kms_key_id: Option<::Value<String>> = None;
+                    let mut s3_output_path: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Accept" => {
+                                accept = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "AssembleWith" => {
+                                assemble_with = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "KmsKeyId" => {
+                                kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "S3OutputPath" => {
+                                s3_output_path = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(TransformOutput {
+                        accept: accept,
+                        assemble_with: assemble_with,
+                        kms_key_id: kms_key_id,
+                        s3_output_path: s3_output_path.ok_or(::serde::de::Error::missing_field("S3OutputPath"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.TransformResources`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformresources.html) property type.
+    #[derive(Debug, Default)]
+    pub struct TransformResources {
+        /// Property [`InstanceCount`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformresources.html#cfn-sagemaker-modelpackage-transformresources-instancecount).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub instance_count: ::Value<u32>,
+        /// Property [`InstanceType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformresources.html#cfn-sagemaker-modelpackage-transformresources-instancetype).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub instance_type: ::Value<String>,
+        /// Property [`VolumeKmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-transformresources.html#cfn-sagemaker-modelpackage-transformresources-volumekmskeyid).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub volume_kms_key_id: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for TransformResources {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceCount", &self.instance_count)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceType", &self.instance_type)?;
+            if let Some(ref volume_kms_key_id) = self.volume_kms_key_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "VolumeKmsKeyId", volume_kms_key_id)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for TransformResources {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<TransformResources, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = TransformResources;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type TransformResources")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut instance_count: Option<::Value<u32>> = None;
+                    let mut instance_type: Option<::Value<String>> = None;
+                    let mut volume_kms_key_id: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "InstanceCount" => {
+                                instance_count = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "InstanceType" => {
+                                instance_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "VolumeKmsKeyId" => {
+                                volume_kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(TransformResources {
+                        instance_count: instance_count.ok_or(::serde::de::Error::missing_field("InstanceCount"))?,
+                        instance_type: instance_type.ok_or(::serde::de::Error::missing_field("InstanceType"))?,
+                        volume_kms_key_id: volume_kms_key_id,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.UserContext`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-usercontext.html) property type.
+    #[derive(Debug, Default)]
+    pub struct UserContext {
+        /// Property [`DomainId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-usercontext.html#cfn-sagemaker-modelpackage-usercontext-domainid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub domain_id: Option<::Value<String>>,
+        /// Property [`UserProfileArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-usercontext.html#cfn-sagemaker-modelpackage-usercontext-userprofilearn).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub user_profile_arn: Option<::Value<String>>,
+        /// Property [`UserProfileName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-usercontext.html#cfn-sagemaker-modelpackage-usercontext-userprofilename).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub user_profile_name: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for UserContext {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref domain_id) = self.domain_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DomainId", domain_id)?;
+            }
+            if let Some(ref user_profile_arn) = self.user_profile_arn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserProfileArn", user_profile_arn)?;
+            }
+            if let Some(ref user_profile_name) = self.user_profile_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserProfileName", user_profile_name)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for UserContext {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<UserContext, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = UserContext;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type UserContext")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut domain_id: Option<::Value<String>> = None;
+                    let mut user_profile_arn: Option<::Value<String>> = None;
+                    let mut user_profile_name: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "DomainId" => {
+                                domain_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserProfileArn" => {
+                                user_profile_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserProfileName" => {
+                                user_profile_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(UserContext {
+                        domain_id: domain_id,
+                        user_profile_arn: user_profile_arn,
+                        user_profile_name: user_profile_name,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ValidationProfile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-validationprofile.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ValidationProfile {
+        /// Property [`ProfileName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-validationprofile.html#cfn-sagemaker-modelpackage-validationprofile-profilename).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub profile_name: ::Value<String>,
+        /// Property [`TransformJobDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-validationprofile.html#cfn-sagemaker-modelpackage-validationprofile-transformjobdefinition).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub transform_job_definition: ::Value<TransformJobDefinition>,
+    }
+
+    impl ::codec::SerializeValue for ValidationProfile {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProfileName", &self.profile_name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "TransformJobDefinition", &self.transform_job_definition)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ValidationProfile {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ValidationProfile, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ValidationProfile;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ValidationProfile")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut profile_name: Option<::Value<String>> = None;
+                    let mut transform_job_definition: Option<::Value<TransformJobDefinition>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ProfileName" => {
+                                profile_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TransformJobDefinition" => {
+                                transform_job_definition = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ValidationProfile {
+                        profile_name: profile_name.ok_or(::serde::de::Error::missing_field("ProfileName"))?,
+                        transform_job_definition: transform_job_definition.ok_or(::serde::de::Error::missing_field("TransformJobDefinition"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::ModelPackage.ValidationSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-validationspecification.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ValidationSpecification {
+        /// Property [`ValidationProfiles`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-validationspecification.html#cfn-sagemaker-modelpackage-validationspecification-validationprofiles).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub validation_profiles: ::ValueList<ValidationProfile>,
+        /// Property [`ValidationRole`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelpackage-validationspecification.html#cfn-sagemaker-modelpackage-validationspecification-validationrole).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub validation_role: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for ValidationSpecification {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ValidationProfiles", &self.validation_profiles)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ValidationRole", &self.validation_role)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ValidationSpecification {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ValidationSpecification, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ValidationSpecification;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ValidationSpecification")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut validation_profiles: Option<::ValueList<ValidationProfile>> = None;
+                    let mut validation_role: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ValidationProfiles" => {
+                                validation_profiles = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ValidationRole" => {
+                                validation_role = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ValidationSpecification {
+                        validation_profiles: validation_profiles.ok_or(::serde::de::Error::missing_field("ValidationProfiles"))?,
+                        validation_role: validation_role.ok_or(::serde::de::Error::missing_field("ValidationRole"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+}
+
 pub mod model_quality_job_definition {
     //! Property types for the `ModelQualityJobDefinition` resource.
 
@@ -8861,38 +13141,6 @@ pub mod model_quality_job_definition {
         }
     }
 
-    /// The [`AWS::SageMaker::ModelQualityJobDefinition.Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelqualityjobdefinition-environment.html) property type.
-    #[derive(Debug, Default)]
-    pub struct Environment {
-    }
-
-    impl ::codec::SerializeValue for Environment {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let map = ::serde::Serializer::serialize_map(s, None)?;
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for Environment {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Environment, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = Environment;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type Environment")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
-                    Ok(Environment {})
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
     /// The [`AWS::SageMaker::ModelQualityJobDefinition.ModelQualityAppSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelqualityjobdefinition-modelqualityappspecification.html) property type.
     #[derive(Debug, Default)]
     pub struct ModelQualityAppSpecification {
@@ -8910,7 +13158,7 @@ pub mod model_quality_job_definition {
         ///
         /// Update type: _Immutable_.
         /// AWS CloudFormation replaces the resource when you change this property.
-        pub environment: Option<::Value<Environment>>,
+        pub environment: Option<::ValueMap<String>>,
         /// Property [`ImageUri`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-modelqualityjobdefinition-modelqualityappspecification.html#cfn-sagemaker-modelqualityjobdefinition-modelqualityappspecification-imageuri).
         ///
         /// Update type: _Immutable_.
@@ -8971,7 +13219,7 @@ pub mod model_quality_job_definition {
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut container_arguments: Option<::ValueList<String>> = None;
                     let mut container_entrypoint: Option<::ValueList<String>> = None;
-                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut environment: Option<::ValueMap<String>> = None;
                     let mut image_uri: Option<::Value<String>> = None;
                     let mut post_analytics_processor_source_uri: Option<::Value<String>> = None;
                     let mut problem_type: Option<::Value<String>> = None;
@@ -9929,38 +14177,6 @@ pub mod monitoring_schedule {
         }
     }
 
-    /// The [`AWS::SageMaker::MonitoringSchedule.Environment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-monitoringschedule-environment.html) property type.
-    #[derive(Debug, Default)]
-    pub struct Environment {
-    }
-
-    impl ::codec::SerializeValue for Environment {
-        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-            let map = ::serde::Serializer::serialize_map(s, None)?;
-            ::serde::ser::SerializeMap::end(map)
-        }
-    }
-
-    impl ::codec::DeserializeValue for Environment {
-        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Environment, D::Error> {
-            struct Visitor;
-
-            impl<'de> ::serde::de::Visitor<'de> for Visitor {
-                type Value = Environment;
-
-                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                    write!(f, "a struct of type Environment")
-                }
-
-                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
-                    Ok(Environment {})
-                }
-            }
-
-            d.deserialize_map(Visitor)
-        }
-    }
-
     /// The [`AWS::SageMaker::MonitoringSchedule.MonitoringAppSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-monitoringschedule-monitoringappspecification.html) property type.
     #[derive(Debug, Default)]
     pub struct MonitoringAppSpecification {
@@ -10261,7 +14477,7 @@ pub mod monitoring_schedule {
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub environment: Option<::Value<Environment>>,
+        pub environment: Option<::ValueMap<String>>,
         /// Property [`MonitoringAppSpecification`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-monitoringschedule-monitoringjobdefinition.html#cfn-sagemaker-monitoringschedule-monitoringjobdefinition-monitoringappspecification).
         ///
         /// Update type: _Mutable_.
@@ -10336,7 +14552,7 @@ pub mod monitoring_schedule {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut baseline_config: Option<::Value<BaselineConfig>> = None;
-                    let mut environment: Option<::Value<Environment>> = None;
+                    let mut environment: Option<::ValueMap<String>> = None;
                     let mut monitoring_app_specification: Option<::Value<MonitoringAppSpecification>> = None;
                     let mut monitoring_inputs: Option<::ValueList<MonitoringInput>> = None;
                     let mut monitoring_output_config: Option<::Value<MonitoringOutputConfig>> = None;
@@ -11026,6 +15242,61 @@ pub mod monitoring_schedule {
     }
 }
 
+pub mod notebook_instance {
+    //! Property types for the `NotebookInstance` resource.
+
+    /// The [`AWS::SageMaker::NotebookInstance.InstanceMetadataServiceConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-notebookinstance-instancemetadataserviceconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct InstanceMetadataServiceConfiguration {
+        /// Property [`MinimumInstanceMetadataServiceVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-notebookinstance-instancemetadataserviceconfiguration.html#cfn-sagemaker-notebookinstance-instancemetadataserviceconfiguration-minimuminstancemetadataserviceversion).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub minimum_instance_metadata_service_version: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for InstanceMetadataServiceConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MinimumInstanceMetadataServiceVersion", &self.minimum_instance_metadata_service_version)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for InstanceMetadataServiceConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<InstanceMetadataServiceConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = InstanceMetadataServiceConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type InstanceMetadataServiceConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut minimum_instance_metadata_service_version: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MinimumInstanceMetadataServiceVersion" => {
+                                minimum_instance_metadata_service_version = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(InstanceMetadataServiceConfiguration {
+                        minimum_instance_metadata_service_version: minimum_instance_metadata_service_version.ok_or(::serde::de::Error::missing_field("MinimumInstanceMetadataServiceVersion"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+}
+
 pub mod notebook_instance_lifecycle_config {
     //! Property types for the `NotebookInstanceLifecycleConfig` resource.
 
@@ -11280,6 +15551,72 @@ pub mod user_profile {
         }
     }
 
+    /// The [`AWS::SageMaker::UserProfile.RStudioServerProAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-userprofile-rstudioserverproappsettings.html) property type.
+    #[derive(Debug, Default)]
+    pub struct RStudioServerProAppSettings {
+        /// Property [`AccessStatus`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-userprofile-rstudioserverproappsettings.html#cfn-sagemaker-userprofile-rstudioserverproappsettings-accessstatus).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub access_status: Option<::Value<String>>,
+        /// Property [`UserGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-userprofile-rstudioserverproappsettings.html#cfn-sagemaker-userprofile-rstudioserverproappsettings-usergroup).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub user_group: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for RStudioServerProAppSettings {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref access_status) = self.access_status {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccessStatus", access_status)?;
+            }
+            if let Some(ref user_group) = self.user_group {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserGroup", user_group)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for RStudioServerProAppSettings {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<RStudioServerProAppSettings, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = RStudioServerProAppSettings;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type RStudioServerProAppSettings")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut access_status: Option<::Value<String>> = None;
+                    let mut user_group: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AccessStatus" => {
+                                access_status = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "UserGroup" => {
+                                user_group = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(RStudioServerProAppSettings {
+                        access_status: access_status,
+                        user_group: user_group,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::SageMaker::UserProfile.ResourceSpec`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-userprofile-resourcespec.html) property type.
     #[derive(Debug, Default)]
     pub struct ResourceSpec {
@@ -11456,6 +15793,11 @@ pub mod user_profile {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub kernel_gateway_app_settings: Option<::Value<KernelGatewayAppSettings>>,
+        /// Property [`RStudioServerProAppSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-userprofile-usersettings.html#cfn-sagemaker-userprofile-usersettings-rstudioserverproappsettings).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r_studio_server_pro_app_settings: Option<::Value<RStudioServerProAppSettings>>,
         /// Property [`SecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-userprofile-usersettings.html#cfn-sagemaker-userprofile-usersettings-securitygroups).
         ///
         /// Update type: _Mutable_.
@@ -11479,6 +15821,9 @@ pub mod user_profile {
             }
             if let Some(ref kernel_gateway_app_settings) = self.kernel_gateway_app_settings {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "KernelGatewayAppSettings", kernel_gateway_app_settings)?;
+            }
+            if let Some(ref r_studio_server_pro_app_settings) = self.r_studio_server_pro_app_settings {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "RStudioServerProAppSettings", r_studio_server_pro_app_settings)?;
             }
             if let Some(ref security_groups) = self.security_groups {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SecurityGroups", security_groups)?;
@@ -11505,6 +15850,7 @@ pub mod user_profile {
                     let mut execution_role: Option<::Value<String>> = None;
                     let mut jupyter_server_app_settings: Option<::Value<JupyterServerAppSettings>> = None;
                     let mut kernel_gateway_app_settings: Option<::Value<KernelGatewayAppSettings>> = None;
+                    let mut r_studio_server_pro_app_settings: Option<::Value<RStudioServerProAppSettings>> = None;
                     let mut security_groups: Option<::ValueList<String>> = None;
                     let mut sharing_settings: Option<::Value<SharingSettings>> = None;
 
@@ -11518,6 +15864,9 @@ pub mod user_profile {
                             }
                             "KernelGatewayAppSettings" => {
                                 kernel_gateway_app_settings = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "RStudioServerProAppSettings" => {
+                                r_studio_server_pro_app_settings = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "SecurityGroups" => {
                                 security_groups = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -11533,6 +15882,7 @@ pub mod user_profile {
                         execution_role: execution_role,
                         jupyter_server_app_settings: jupyter_server_app_settings,
                         kernel_gateway_app_settings: kernel_gateway_app_settings,
+                        r_studio_server_pro_app_settings: r_studio_server_pro_app_settings,
                         security_groups: security_groups,
                         sharing_settings: sharing_settings,
                     })
@@ -11627,13 +15977,23 @@ pub mod workteam {
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
-        pub cognito_member_definition: ::Value<CognitoMemberDefinition>,
+        pub cognito_member_definition: Option<::Value<CognitoMemberDefinition>>,
+        /// Property [`OidcMemberDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-workteam-memberdefinition.html#cfn-sagemaker-workteam-memberdefinition-oidcmemberdefinition).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub oidc_member_definition: Option<::Value<OidcMemberDefinition>>,
     }
 
     impl ::codec::SerializeValue for MemberDefinition {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
-            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CognitoMemberDefinition", &self.cognito_member_definition)?;
+            if let Some(ref cognito_member_definition) = self.cognito_member_definition {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CognitoMemberDefinition", cognito_member_definition)?;
+            }
+            if let Some(ref oidc_member_definition) = self.oidc_member_definition {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "OidcMemberDefinition", oidc_member_definition)?;
+            }
             ::serde::ser::SerializeMap::end(map)
         }
     }
@@ -11651,18 +16011,23 @@ pub mod workteam {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut cognito_member_definition: Option<::Value<CognitoMemberDefinition>> = None;
+                    let mut oidc_member_definition: Option<::Value<OidcMemberDefinition>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "CognitoMemberDefinition" => {
                                 cognito_member_definition = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "OidcMemberDefinition" => {
+                                oidc_member_definition = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             _ => {}
                         }
                     }
 
                     Ok(MemberDefinition {
-                        cognito_member_definition: cognito_member_definition.ok_or(::serde::de::Error::missing_field("CognitoMemberDefinition"))?,
+                        cognito_member_definition: cognito_member_definition,
+                        oidc_member_definition: oidc_member_definition,
                     })
                 }
             }
@@ -11714,6 +16079,57 @@ pub mod workteam {
 
                     Ok(NotificationConfiguration {
                         notification_topic_arn: notification_topic_arn.ok_or(::serde::de::Error::missing_field("NotificationTopicArn"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::SageMaker::Workteam.OidcMemberDefinition`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-workteam-oidcmemberdefinition.html) property type.
+    #[derive(Debug, Default)]
+    pub struct OidcMemberDefinition {
+        /// Property [`OidcGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sagemaker-workteam-oidcmemberdefinition.html#cfn-sagemaker-workteam-oidcmemberdefinition-oidcgroups).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub oidc_groups: ::ValueList<String>,
+    }
+
+    impl ::codec::SerializeValue for OidcMemberDefinition {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "OidcGroups", &self.oidc_groups)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for OidcMemberDefinition {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<OidcMemberDefinition, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = OidcMemberDefinition;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type OidcMemberDefinition")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut oidc_groups: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "OidcGroups" => {
+                                oidc_groups = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(OidcMemberDefinition {
+                        oidc_groups: oidc_groups.ok_or(::serde::de::Error::missing_field("OidcGroups"))?,
                     })
                 }
             }
