@@ -1,5 +1,118 @@
 //! Types for the `Macie` service.
 
+/// The [`AWS::Macie::AllowList`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-allowlist.html) resource type.
+#[derive(Debug, Default)]
+pub struct AllowList {
+    properties: AllowListProperties
+}
+
+/// Properties for the `AllowList` resource.
+#[derive(Debug, Default)]
+pub struct AllowListProperties {
+    /// Property [`Criteria`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-allowlist.html#cfn-macie-allowlist-criteria).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub criteria: ::Value<self::allow_list::Criteria>,
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-allowlist.html#cfn-macie-allowlist-description).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub description: Option<::Value<String>>,
+    /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-allowlist.html#cfn-macie-allowlist-name).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub name: ::Value<String>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-allowlist.html#cfn-macie-allowlist-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for AllowListProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Criteria", &self.criteria)?;
+        if let Some(ref description) = self.description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for AllowListProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<AllowListProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = AllowListProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type AllowListProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut criteria: Option<::Value<self::allow_list::Criteria>> = None;
+                let mut description: Option<::Value<String>> = None;
+                let mut name: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "Criteria" => {
+                            criteria = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Description" => {
+                            description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Name" => {
+                            name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(AllowListProperties {
+                    criteria: criteria.ok_or(::serde::de::Error::missing_field("Criteria"))?,
+                    description: description,
+                    name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for AllowList {
+    type Properties = AllowListProperties;
+    const TYPE: &'static str = "AWS::Macie::AllowList";
+    fn properties(&self) -> &AllowListProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut AllowListProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for AllowList {}
+
+impl From<AllowListProperties> for AllowList {
+    fn from(properties: AllowListProperties) -> AllowList {
+        AllowList { properties }
+    }
+}
+
 /// The [`AWS::Macie::CustomDataIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-macie-customdataidentifier.html) resource type.
 #[derive(Debug, Default)]
 pub struct CustomDataIdentifier {
@@ -353,6 +466,138 @@ impl ::private::Sealed for Session {}
 impl From<SessionProperties> for Session {
     fn from(properties: SessionProperties) -> Session {
         Session { properties }
+    }
+}
+
+pub mod allow_list {
+    //! Property types for the `AllowList` resource.
+
+    /// The [`AWS::Macie::AllowList.Criteria`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-macie-allowlist-criteria.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Criteria {
+        /// Property [`Regex`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-macie-allowlist-criteria.html#cfn-macie-allowlist-criteria-regex).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub regex: Option<::Value<String>>,
+        /// Property [`S3WordsList`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-macie-allowlist-criteria.html#cfn-macie-allowlist-criteria-s3wordslist).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub s3_words_list: Option<::Value<S3WordsList>>,
+    }
+
+    impl ::codec::SerializeValue for Criteria {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref regex) = self.regex {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Regex", regex)?;
+            }
+            if let Some(ref s3_words_list) = self.s3_words_list {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3WordsList", s3_words_list)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Criteria {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Criteria, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Criteria;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Criteria")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut regex: Option<::Value<String>> = None;
+                    let mut s3_words_list: Option<::Value<S3WordsList>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Regex" => {
+                                regex = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "S3WordsList" => {
+                                s3_words_list = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Criteria {
+                        regex: regex,
+                        s3_words_list: s3_words_list,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::Macie::AllowList.S3WordsList`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-macie-allowlist-s3wordslist.html) property type.
+    #[derive(Debug, Default)]
+    pub struct S3WordsList {
+        /// Property [`BucketName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-macie-allowlist-s3wordslist.html#cfn-macie-allowlist-s3wordslist-bucketname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub bucket_name: ::Value<String>,
+        /// Property [`ObjectKey`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-macie-allowlist-s3wordslist.html#cfn-macie-allowlist-s3wordslist-objectkey).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub object_key: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for S3WordsList {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "BucketName", &self.bucket_name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ObjectKey", &self.object_key)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for S3WordsList {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<S3WordsList, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = S3WordsList;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type S3WordsList")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut bucket_name: Option<::Value<String>> = None;
+                    let mut object_key: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "BucketName" => {
+                                bucket_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ObjectKey" => {
+                                object_key = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(S3WordsList {
+                        bucket_name: bucket_name.ok_or(::serde::de::Error::missing_field("BucketName"))?,
+                        object_key: object_key.ok_or(::serde::de::Error::missing_field("ObjectKey"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 //! Types for the `CloudWatch` service.
 
-/// The [`AWS::CloudWatch::Alarm`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html) resource type.
+/// The [`AWS::CloudWatch::Alarm`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html) resource type.
 #[derive(Debug, Default)]
 pub struct Alarm {
     properties: AlarmProperties
@@ -9,107 +9,107 @@ pub struct Alarm {
 /// Properties for the `Alarm` resource.
 #[derive(Debug, Default)]
 pub struct AlarmProperties {
-    /// Property [`ActionsEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-actionsenabled).
+    /// Property [`ActionsEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-actionsenabled).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub actions_enabled: Option<::Value<bool>>,
-    /// Property [`AlarmActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-alarmactions).
+    /// Property [`AlarmActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-alarmactions).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub alarm_actions: Option<::ValueList<String>>,
-    /// Property [`AlarmDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-alarmdescription).
+    /// Property [`AlarmDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-alarmdescription).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub alarm_description: Option<::Value<String>>,
-    /// Property [`AlarmName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-alarmname).
+    /// Property [`AlarmName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-alarmname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub alarm_name: Option<::Value<String>>,
-    /// Property [`ComparisonOperator`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator).
+    /// Property [`ComparisonOperator`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-comparisonoperator).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub comparison_operator: ::Value<String>,
-    /// Property [`DatapointsToAlarm`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarm-datapointstoalarm).
+    /// Property [`DatapointsToAlarm`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarm-datapointstoalarm).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub datapoints_to_alarm: Option<::Value<u32>>,
-    /// Property [`Dimensions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-dimension).
+    /// Property [`Dimensions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-dimension).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub dimensions: Option<::ValueList<self::alarm::Dimension>>,
-    /// Property [`EvaluateLowSampleCountPercentile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-evaluatelowsamplecountpercentile).
+    /// Property [`EvaluateLowSampleCountPercentile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-evaluatelowsamplecountpercentile).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub evaluate_low_sample_count_percentile: Option<::Value<String>>,
-    /// Property [`EvaluationPeriods`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-evaluationperiods).
+    /// Property [`EvaluationPeriods`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-evaluationperiods).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub evaluation_periods: ::Value<u32>,
-    /// Property [`ExtendedStatistic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-extendedstatistic).
+    /// Property [`ExtendedStatistic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-extendedstatistic).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub extended_statistic: Option<::Value<String>>,
-    /// Property [`InsufficientDataActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-insufficientdataactions).
+    /// Property [`InsufficientDataActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-insufficientdataactions).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub insufficient_data_actions: Option<::ValueList<String>>,
-    /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-metricname).
+    /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-metricname).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub metric_name: Option<::Value<String>>,
-    /// Property [`Metrics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarm-metrics).
+    /// Property [`Metrics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarm-metrics).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub metrics: Option<::ValueList<self::alarm::MetricDataQuery>>,
-    /// Property [`Namespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-namespace).
+    /// Property [`Namespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-namespace).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub namespace: Option<::Value<String>>,
-    /// Property [`OKActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-okactions).
+    /// Property [`OKActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-okactions).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub ok_actions: Option<::ValueList<String>>,
-    /// Property [`Period`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-period).
+    /// Property [`Period`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-period).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub period: Option<::Value<u32>>,
-    /// Property [`Statistic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-statistic).
+    /// Property [`Statistic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-statistic).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub statistic: Option<::Value<String>>,
-    /// Property [`Threshold`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-threshold).
+    /// Property [`Threshold`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-threshold).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub threshold: Option<::Value<f64>>,
-    /// Property [`ThresholdMetricId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-dynamic-threshold).
+    /// Property [`ThresholdMetricId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-dynamic-threshold).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub threshold_metric_id: Option<::Value<String>>,
-    /// Property [`TreatMissingData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-treatmissingdata).
+    /// Property [`TreatMissingData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-treatmissingdata).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub treat_missing_data: Option<::Value<String>>,
-    /// Property [`Unit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-unit).
+    /// Property [`Unit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#cfn-cloudwatch-alarms-unit).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -353,21 +353,31 @@ pub struct AnomalyDetectorProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub dimensions: Option<::ValueList<self::anomaly_detector::Dimension>>,
+    /// Property [`MetricMathAnomalyDetector`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-anomalydetector.html#cfn-cloudwatch-anomalydetector-metricmathanomalydetector).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub metric_math_anomaly_detector: Option<::Value<self::anomaly_detector::MetricMathAnomalyDetector>>,
     /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-anomalydetector.html#cfn-cloudwatch-anomalydetector-metricname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
-    pub metric_name: ::Value<String>,
+    pub metric_name: Option<::Value<String>>,
     /// Property [`Namespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-anomalydetector.html#cfn-cloudwatch-anomalydetector-namespace).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
-    pub namespace: ::Value<String>,
+    pub namespace: Option<::Value<String>>,
+    /// Property [`SingleMetricAnomalyDetector`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-anomalydetector.html#cfn-cloudwatch-anomalydetector-singlemetricanomalydetector).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub single_metric_anomaly_detector: Option<::Value<self::anomaly_detector::SingleMetricAnomalyDetector>>,
     /// Property [`Stat`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-anomalydetector.html#cfn-cloudwatch-anomalydetector-stat).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
-    pub stat: ::Value<String>,
+    pub stat: Option<::Value<String>>,
 }
 
 impl ::serde::Serialize for AnomalyDetectorProperties {
@@ -379,9 +389,21 @@ impl ::serde::Serialize for AnomalyDetectorProperties {
         if let Some(ref dimensions) = self.dimensions {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Dimensions", dimensions)?;
         }
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricName", &self.metric_name)?;
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Namespace", &self.namespace)?;
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Stat", &self.stat)?;
+        if let Some(ref metric_math_anomaly_detector) = self.metric_math_anomaly_detector {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricMathAnomalyDetector", metric_math_anomaly_detector)?;
+        }
+        if let Some(ref metric_name) = self.metric_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricName", metric_name)?;
+        }
+        if let Some(ref namespace) = self.namespace {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Namespace", namespace)?;
+        }
+        if let Some(ref single_metric_anomaly_detector) = self.single_metric_anomaly_detector {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SingleMetricAnomalyDetector", single_metric_anomaly_detector)?;
+        }
+        if let Some(ref stat) = self.stat {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Stat", stat)?;
+        }
         ::serde::ser::SerializeMap::end(map)
     }
 }
@@ -400,8 +422,10 @@ impl<'de> ::serde::Deserialize<'de> for AnomalyDetectorProperties {
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut configuration: Option<::Value<self::anomaly_detector::Configuration>> = None;
                 let mut dimensions: Option<::ValueList<self::anomaly_detector::Dimension>> = None;
+                let mut metric_math_anomaly_detector: Option<::Value<self::anomaly_detector::MetricMathAnomalyDetector>> = None;
                 let mut metric_name: Option<::Value<String>> = None;
                 let mut namespace: Option<::Value<String>> = None;
+                let mut single_metric_anomaly_detector: Option<::Value<self::anomaly_detector::SingleMetricAnomalyDetector>> = None;
                 let mut stat: Option<::Value<String>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -412,11 +436,17 @@ impl<'de> ::serde::Deserialize<'de> for AnomalyDetectorProperties {
                         "Dimensions" => {
                             dimensions = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "MetricMathAnomalyDetector" => {
+                            metric_math_anomaly_detector = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "MetricName" => {
                             metric_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Namespace" => {
                             namespace = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "SingleMetricAnomalyDetector" => {
+                            single_metric_anomaly_detector = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Stat" => {
                             stat = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -428,9 +458,11 @@ impl<'de> ::serde::Deserialize<'de> for AnomalyDetectorProperties {
                 Ok(AnomalyDetectorProperties {
                     configuration: configuration,
                     dimensions: dimensions,
-                    metric_name: metric_name.ok_or(::serde::de::Error::missing_field("MetricName"))?,
-                    namespace: namespace.ok_or(::serde::de::Error::missing_field("Namespace"))?,
-                    stat: stat.ok_or(::serde::de::Error::missing_field("Stat"))?,
+                    metric_math_anomaly_detector: metric_math_anomaly_detector,
+                    metric_name: metric_name,
+                    namespace: namespace,
+                    single_metric_anomaly_detector: single_metric_anomaly_detector,
+                    stat: stat,
                 })
             }
         }
@@ -472,6 +504,21 @@ pub struct CompositeAlarmProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub actions_enabled: Option<::Value<bool>>,
+    /// Property [`ActionsSuppressor`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html#cfn-cloudwatch-compositealarm-actionssuppressor).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub actions_suppressor: Option<::Value<String>>,
+    /// Property [`ActionsSuppressorExtensionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html#cfn-cloudwatch-compositealarm-actionssuppressorextensionperiod).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub actions_suppressor_extension_period: Option<::Value<u32>>,
+    /// Property [`ActionsSuppressorWaitPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html#cfn-cloudwatch-compositealarm-actionssuppressorwaitperiod).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub actions_suppressor_wait_period: Option<::Value<u32>>,
     /// Property [`AlarmActions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html#cfn-cloudwatch-compositealarm-alarmactions).
     ///
     /// Update type: _Mutable_.
@@ -510,6 +557,15 @@ impl ::serde::Serialize for CompositeAlarmProperties {
         if let Some(ref actions_enabled) = self.actions_enabled {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ActionsEnabled", actions_enabled)?;
         }
+        if let Some(ref actions_suppressor) = self.actions_suppressor {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ActionsSuppressor", actions_suppressor)?;
+        }
+        if let Some(ref actions_suppressor_extension_period) = self.actions_suppressor_extension_period {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ActionsSuppressorExtensionPeriod", actions_suppressor_extension_period)?;
+        }
+        if let Some(ref actions_suppressor_wait_period) = self.actions_suppressor_wait_period {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ActionsSuppressorWaitPeriod", actions_suppressor_wait_period)?;
+        }
         if let Some(ref alarm_actions) = self.alarm_actions {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AlarmActions", alarm_actions)?;
         }
@@ -541,6 +597,9 @@ impl<'de> ::serde::Deserialize<'de> for CompositeAlarmProperties {
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut actions_enabled: Option<::Value<bool>> = None;
+                let mut actions_suppressor: Option<::Value<String>> = None;
+                let mut actions_suppressor_extension_period: Option<::Value<u32>> = None;
+                let mut actions_suppressor_wait_period: Option<::Value<u32>> = None;
                 let mut alarm_actions: Option<::ValueList<String>> = None;
                 let mut alarm_description: Option<::Value<String>> = None;
                 let mut alarm_name: Option<::Value<String>> = None;
@@ -552,6 +611,15 @@ impl<'de> ::serde::Deserialize<'de> for CompositeAlarmProperties {
                     match __cfn_key.as_ref() {
                         "ActionsEnabled" => {
                             actions_enabled = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ActionsSuppressor" => {
+                            actions_suppressor = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ActionsSuppressorExtensionPeriod" => {
+                            actions_suppressor_extension_period = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ActionsSuppressorWaitPeriod" => {
+                            actions_suppressor_wait_period = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "AlarmActions" => {
                             alarm_actions = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -577,6 +645,9 @@ impl<'de> ::serde::Deserialize<'de> for CompositeAlarmProperties {
 
                 Ok(CompositeAlarmProperties {
                     actions_enabled: actions_enabled,
+                    actions_suppressor: actions_suppressor,
+                    actions_suppressor_extension_period: actions_suppressor_extension_period,
+                    actions_suppressor_wait_period: actions_suppressor_wait_period,
                     alarm_actions: alarm_actions,
                     alarm_description: alarm_description,
                     alarm_name: alarm_name.ok_or(::serde::de::Error::missing_field("AlarmName"))?,
@@ -849,6 +920,11 @@ pub struct MetricStreamProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub role_arn: ::Value<String>,
+    /// Property [`StatisticsConfigurations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-metricstream.html#cfn-cloudwatch-metricstream-statisticsconfigurations).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub statistics_configurations: Option<::ValueList<self::metric_stream::MetricStreamStatisticsConfiguration>>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-metricstream.html#cfn-cloudwatch-metricstream-tags).
     ///
     /// Update type: _Mutable_.
@@ -871,6 +947,9 @@ impl ::serde::Serialize for MetricStreamProperties {
         }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "OutputFormat", &self.output_format)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "RoleArn", &self.role_arn)?;
+        if let Some(ref statistics_configurations) = self.statistics_configurations {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "StatisticsConfigurations", statistics_configurations)?;
+        }
         if let Some(ref tags) = self.tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
         }
@@ -896,6 +975,7 @@ impl<'de> ::serde::Deserialize<'de> for MetricStreamProperties {
                 let mut name: Option<::Value<String>> = None;
                 let mut output_format: Option<::Value<String>> = None;
                 let mut role_arn: Option<::Value<String>> = None;
+                let mut statistics_configurations: Option<::ValueList<self::metric_stream::MetricStreamStatisticsConfiguration>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -918,6 +998,9 @@ impl<'de> ::serde::Deserialize<'de> for MetricStreamProperties {
                         "RoleArn" => {
                             role_arn = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "StatisticsConfigurations" => {
+                            statistics_configurations = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "Tags" => {
                             tags = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -932,6 +1015,7 @@ impl<'de> ::serde::Deserialize<'de> for MetricStreamProperties {
                     name: name,
                     output_format: output_format.ok_or(::serde::de::Error::missing_field("OutputFormat"))?,
                     role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
+                    statistics_configurations: statistics_configurations,
                     tags: tags,
                 })
             }
@@ -1107,6 +1191,11 @@ pub mod alarm {
     /// The [`AWS::CloudWatch::Alarm.MetricDataQuery`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html) property type.
     #[derive(Debug, Default)]
     pub struct MetricDataQuery {
+        /// Property [`AccountId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-accountid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub account_id: Option<::Value<String>>,
         /// Property [`Expression`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-expression).
         ///
         /// Update type: _Mutable_.
@@ -1142,6 +1231,9 @@ pub mod alarm {
     impl ::codec::SerializeValue for MetricDataQuery {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref account_id) = self.account_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccountId", account_id)?;
+            }
             if let Some(ref expression) = self.expression {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Expression", expression)?;
             }
@@ -1174,6 +1266,7 @@ pub mod alarm {
                 }
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut account_id: Option<::Value<String>> = None;
                     let mut expression: Option<::Value<String>> = None;
                     let mut id: Option<::Value<String>> = None;
                     let mut label: Option<::Value<String>> = None;
@@ -1183,6 +1276,9 @@ pub mod alarm {
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
+                            "AccountId" => {
+                                account_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "Expression" => {
                                 expression = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -1206,6 +1302,7 @@ pub mod alarm {
                     }
 
                     Ok(MetricDataQuery {
+                        account_id: account_id,
                         expression: expression,
                         id: id.ok_or(::serde::de::Error::missing_field("Id"))?,
                         label: label,
@@ -1438,6 +1535,381 @@ pub mod anomaly_detector {
         }
     }
 
+    /// The [`AWS::CloudWatch::AnomalyDetector.Metric`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metric.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Metric {
+        /// Property [`Dimensions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metric.html#cfn-cloudwatch-anomalydetector-metric-dimensions).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub dimensions: Option<::ValueList<Dimension>>,
+        /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metric.html#cfn-cloudwatch-anomalydetector-metric-metricname).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub metric_name: ::Value<String>,
+        /// Property [`Namespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metric.html#cfn-cloudwatch-anomalydetector-metric-namespace).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub namespace: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for Metric {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref dimensions) = self.dimensions {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Dimensions", dimensions)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricName", &self.metric_name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Namespace", &self.namespace)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Metric {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Metric, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Metric;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Metric")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut dimensions: Option<::ValueList<Dimension>> = None;
+                    let mut metric_name: Option<::Value<String>> = None;
+                    let mut namespace: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Dimensions" => {
+                                dimensions = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MetricName" => {
+                                metric_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Namespace" => {
+                                namespace = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Metric {
+                        dimensions: dimensions,
+                        metric_name: metric_name.ok_or(::serde::de::Error::missing_field("MetricName"))?,
+                        namespace: namespace.ok_or(::serde::de::Error::missing_field("Namespace"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::AnomalyDetector.MetricDataQueries`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataqueries.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricDataQueries {
+    }
+
+    impl ::codec::SerializeValue for MetricDataQueries {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricDataQueries {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricDataQueries, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricDataQueries;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricDataQueries")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
+                    Ok(MetricDataQueries {})
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::AnomalyDetector.MetricDataQuery`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricDataQuery {
+        /// Property [`AccountId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-accountid).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub account_id: Option<::Value<String>>,
+        /// Property [`Expression`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-expression).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub expression: Option<::Value<String>>,
+        /// Property [`Id`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-id).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub id: ::Value<String>,
+        /// Property [`Label`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-label).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub label: Option<::Value<String>>,
+        /// Property [`MetricStat`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-metricstat).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub metric_stat: Option<::Value<MetricStat>>,
+        /// Property [`Period`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-period).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub period: Option<::Value<u32>>,
+        /// Property [`ReturnData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricdataquery.html#cfn-cloudwatch-anomalydetector-metricdataquery-returndata).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub return_data: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for MetricDataQuery {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref account_id) = self.account_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccountId", account_id)?;
+            }
+            if let Some(ref expression) = self.expression {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Expression", expression)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Id", &self.id)?;
+            if let Some(ref label) = self.label {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Label", label)?;
+            }
+            if let Some(ref metric_stat) = self.metric_stat {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricStat", metric_stat)?;
+            }
+            if let Some(ref period) = self.period {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Period", period)?;
+            }
+            if let Some(ref return_data) = self.return_data {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ReturnData", return_data)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricDataQuery {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricDataQuery, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricDataQuery;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricDataQuery")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut account_id: Option<::Value<String>> = None;
+                    let mut expression: Option<::Value<String>> = None;
+                    let mut id: Option<::Value<String>> = None;
+                    let mut label: Option<::Value<String>> = None;
+                    let mut metric_stat: Option<::Value<MetricStat>> = None;
+                    let mut period: Option<::Value<u32>> = None;
+                    let mut return_data: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AccountId" => {
+                                account_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Expression" => {
+                                expression = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Id" => {
+                                id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Label" => {
+                                label = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MetricStat" => {
+                                metric_stat = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Period" => {
+                                period = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ReturnData" => {
+                                return_data = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetricDataQuery {
+                        account_id: account_id,
+                        expression: expression,
+                        id: id.ok_or(::serde::de::Error::missing_field("Id"))?,
+                        label: label,
+                        metric_stat: metric_stat,
+                        period: period,
+                        return_data: return_data,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::AnomalyDetector.MetricMathAnomalyDetector`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricmathanomalydetector.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricMathAnomalyDetector {
+        /// Property [`MetricDataQueries`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricmathanomalydetector.html#cfn-cloudwatch-anomalydetector-metricmathanomalydetector-metricdataqueries).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub metric_data_queries: Option<::ValueList<MetricDataQuery>>,
+    }
+
+    impl ::codec::SerializeValue for MetricMathAnomalyDetector {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref metric_data_queries) = self.metric_data_queries {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricDataQueries", metric_data_queries)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricMathAnomalyDetector {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricMathAnomalyDetector, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricMathAnomalyDetector;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricMathAnomalyDetector")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut metric_data_queries: Option<::ValueList<MetricDataQuery>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MetricDataQueries" => {
+                                metric_data_queries = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetricMathAnomalyDetector {
+                        metric_data_queries: metric_data_queries,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::AnomalyDetector.MetricStat`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricstat.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricStat {
+        /// Property [`Metric`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricstat.html#cfn-cloudwatch-anomalydetector-metricstat-metric).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub metric: ::Value<Metric>,
+        /// Property [`Period`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricstat.html#cfn-cloudwatch-anomalydetector-metricstat-period).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub period: ::Value<u32>,
+        /// Property [`Stat`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricstat.html#cfn-cloudwatch-anomalydetector-metricstat-stat).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub stat: ::Value<String>,
+        /// Property [`Unit`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-metricstat.html#cfn-cloudwatch-anomalydetector-metricstat-unit).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub unit: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for MetricStat {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Metric", &self.metric)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Period", &self.period)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Stat", &self.stat)?;
+            if let Some(ref unit) = self.unit {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Unit", unit)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricStat {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricStat, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricStat;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricStat")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut metric: Option<::Value<Metric>> = None;
+                    let mut period: Option<::Value<u32>> = None;
+                    let mut stat: Option<::Value<String>> = None;
+                    let mut unit: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Metric" => {
+                                metric = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Period" => {
+                                period = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Stat" => {
+                                stat = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Unit" => {
+                                unit = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetricStat {
+                        metric: metric.ok_or(::serde::de::Error::missing_field("Metric"))?,
+                        period: period.ok_or(::serde::de::Error::missing_field("Period"))?,
+                        stat: stat.ok_or(::serde::de::Error::missing_field("Stat"))?,
+                        unit: unit,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
     /// The [`AWS::CloudWatch::AnomalyDetector.Range`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-range.html) property type.
     #[derive(Debug, Default)]
     pub struct Range {
@@ -1492,6 +1964,98 @@ pub mod anomaly_detector {
                     Ok(Range {
                         end_time: end_time.ok_or(::serde::de::Error::missing_field("EndTime"))?,
                         start_time: start_time.ok_or(::serde::de::Error::missing_field("StartTime"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::AnomalyDetector.SingleMetricAnomalyDetector`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-singlemetricanomalydetector.html) property type.
+    #[derive(Debug, Default)]
+    pub struct SingleMetricAnomalyDetector {
+        /// Property [`Dimensions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-singlemetricanomalydetector.html#cfn-cloudwatch-anomalydetector-singlemetricanomalydetector-dimensions).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub dimensions: Option<::ValueList<Dimension>>,
+        /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-singlemetricanomalydetector.html#cfn-cloudwatch-anomalydetector-singlemetricanomalydetector-metricname).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub metric_name: Option<::Value<String>>,
+        /// Property [`Namespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-singlemetricanomalydetector.html#cfn-cloudwatch-anomalydetector-singlemetricanomalydetector-namespace).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub namespace: Option<::Value<String>>,
+        /// Property [`Stat`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-anomalydetector-singlemetricanomalydetector.html#cfn-cloudwatch-anomalydetector-singlemetricanomalydetector-stat).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub stat: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for SingleMetricAnomalyDetector {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref dimensions) = self.dimensions {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Dimensions", dimensions)?;
+            }
+            if let Some(ref metric_name) = self.metric_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricName", metric_name)?;
+            }
+            if let Some(ref namespace) = self.namespace {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Namespace", namespace)?;
+            }
+            if let Some(ref stat) = self.stat {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Stat", stat)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for SingleMetricAnomalyDetector {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<SingleMetricAnomalyDetector, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = SingleMetricAnomalyDetector;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type SingleMetricAnomalyDetector")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut dimensions: Option<::ValueList<Dimension>> = None;
+                    let mut metric_name: Option<::Value<String>> = None;
+                    let mut namespace: Option<::Value<String>> = None;
+                    let mut stat: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Dimensions" => {
+                                dimensions = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MetricName" => {
+                                metric_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Namespace" => {
+                                namespace = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Stat" => {
+                                stat = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(SingleMetricAnomalyDetector {
+                        dimensions: dimensions,
+                        metric_name: metric_name,
+                        namespace: namespace,
+                        stat: stat,
                     })
                 }
             }
@@ -1582,6 +2146,130 @@ pub mod metric_stream {
                     }
 
                     Ok(MetricStreamFilter {
+                        namespace: namespace.ok_or(::serde::de::Error::missing_field("Namespace"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::MetricStream.MetricStreamStatisticsConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamstatisticsconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricStreamStatisticsConfiguration {
+        /// Property [`AdditionalStatistics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamstatisticsconfiguration.html#cfn-cloudwatch-metricstream-metricstreamstatisticsconfiguration-additionalstatistics).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub additional_statistics: ::ValueList<String>,
+        /// Property [`IncludeMetrics`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamstatisticsconfiguration.html#cfn-cloudwatch-metricstream-metricstreamstatisticsconfiguration-includemetrics).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub include_metrics: ::ValueList<MetricStreamStatisticsMetric>,
+    }
+
+    impl ::codec::SerializeValue for MetricStreamStatisticsConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AdditionalStatistics", &self.additional_statistics)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "IncludeMetrics", &self.include_metrics)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricStreamStatisticsConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricStreamStatisticsConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricStreamStatisticsConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricStreamStatisticsConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut additional_statistics: Option<::ValueList<String>> = None;
+                    let mut include_metrics: Option<::ValueList<MetricStreamStatisticsMetric>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AdditionalStatistics" => {
+                                additional_statistics = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "IncludeMetrics" => {
+                                include_metrics = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetricStreamStatisticsConfiguration {
+                        additional_statistics: additional_statistics.ok_or(::serde::de::Error::missing_field("AdditionalStatistics"))?,
+                        include_metrics: include_metrics.ok_or(::serde::de::Error::missing_field("IncludeMetrics"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::CloudWatch::MetricStream.MetricStreamStatisticsMetric`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamstatisticsmetric.html) property type.
+    #[derive(Debug, Default)]
+    pub struct MetricStreamStatisticsMetric {
+        /// Property [`MetricName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamstatisticsmetric.html#cfn-cloudwatch-metricstream-metricstreamstatisticsmetric-metricname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub metric_name: ::Value<String>,
+        /// Property [`Namespace`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamstatisticsmetric.html#cfn-cloudwatch-metricstream-metricstreamstatisticsmetric-namespace).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub namespace: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for MetricStreamStatisticsMetric {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MetricName", &self.metric_name)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Namespace", &self.namespace)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for MetricStreamStatisticsMetric {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<MetricStreamStatisticsMetric, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = MetricStreamStatisticsMetric;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type MetricStreamStatisticsMetric")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut metric_name: Option<::Value<String>> = None;
+                    let mut namespace: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MetricName" => {
+                                metric_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Namespace" => {
+                                namespace = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(MetricStreamStatisticsMetric {
+                        metric_name: metric_name.ok_or(::serde::de::Error::missing_field("MetricName"))?,
                         namespace: namespace.ok_or(::serde::de::Error::missing_field("Namespace"))?,
                     })
                 }

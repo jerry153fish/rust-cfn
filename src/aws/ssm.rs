@@ -74,6 +74,11 @@ pub struct AssociationProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub schedule_expression: Option<::Value<String>>,
+    /// Property [`ScheduleOffset`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-scheduleoffset).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub schedule_offset: Option<::Value<u32>>,
     /// Property [`SyncCompliance`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-synccompliance).
     ///
     /// Update type: _Mutable_.
@@ -131,6 +136,9 @@ impl ::serde::Serialize for AssociationProperties {
         if let Some(ref schedule_expression) = self.schedule_expression {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ScheduleExpression", schedule_expression)?;
         }
+        if let Some(ref schedule_offset) = self.schedule_offset {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ScheduleOffset", schedule_offset)?;
+        }
         if let Some(ref sync_compliance) = self.sync_compliance {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "SyncCompliance", sync_compliance)?;
         }
@@ -169,6 +177,7 @@ impl<'de> ::serde::Deserialize<'de> for AssociationProperties {
                 let mut output_location: Option<::Value<self::association::InstanceAssociationOutputLocation>> = None;
                 let mut parameters: Option<::ValueMap<::json::Value>> = None;
                 let mut schedule_expression: Option<::Value<String>> = None;
+                let mut schedule_offset: Option<::Value<u32>> = None;
                 let mut sync_compliance: Option<::Value<String>> = None;
                 let mut targets: Option<::ValueList<self::association::Target>> = None;
                 let mut wait_for_success_timeout_seconds: Option<::Value<u32>> = None;
@@ -214,6 +223,9 @@ impl<'de> ::serde::Deserialize<'de> for AssociationProperties {
                         "ScheduleExpression" => {
                             schedule_expression = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "ScheduleOffset" => {
+                            schedule_offset = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "SyncCompliance" => {
                             sync_compliance = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -241,6 +253,7 @@ impl<'de> ::serde::Deserialize<'de> for AssociationProperties {
                     output_location: output_location,
                     parameters: parameters,
                     schedule_expression: schedule_expression,
+                    schedule_offset: schedule_offset,
                     sync_compliance: sync_compliance,
                     targets: targets,
                     wait_for_success_timeout_seconds: wait_for_success_timeout_seconds,
@@ -282,18 +295,18 @@ pub struct Document {
 pub struct DocumentProperties {
     /// Property [`Attachments`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-attachments).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub attachments: Option<::ValueList<self::document::AttachmentsSource>>,
     /// Property [`Content`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-content).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub content: ::Value<::json::Value>,
     /// Property [`DocumentFormat`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-documentformat).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub document_format: Option<::Value<String>>,
     /// Property [`DocumentType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-documenttype).
     ///
@@ -307,8 +320,8 @@ pub struct DocumentProperties {
     pub name: Option<::Value<String>>,
     /// Property [`Requires`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-requires).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub requires: Option<::ValueList<self::document::DocumentRequires>>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-tags).
     ///
@@ -317,13 +330,18 @@ pub struct DocumentProperties {
     pub tags: Option<::ValueList<::Tag>>,
     /// Property [`TargetType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-targettype).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub target_type: Option<::Value<String>>,
+    /// Property [`UpdateMethod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-updatemethod).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub update_method: Option<::Value<String>>,
     /// Property [`VersionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-document.html#cfn-ssm-document-versionname).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub version_name: Option<::Value<String>>,
 }
 
@@ -352,6 +370,9 @@ impl ::serde::Serialize for DocumentProperties {
         if let Some(ref target_type) = self.target_type {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "TargetType", target_type)?;
         }
+        if let Some(ref update_method) = self.update_method {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "UpdateMethod", update_method)?;
+        }
         if let Some(ref version_name) = self.version_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "VersionName", version_name)?;
         }
@@ -379,6 +400,7 @@ impl<'de> ::serde::Deserialize<'de> for DocumentProperties {
                 let mut requires: Option<::ValueList<self::document::DocumentRequires>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
                 let mut target_type: Option<::Value<String>> = None;
+                let mut update_method: Option<::Value<String>> = None;
                 let mut version_name: Option<::Value<String>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -407,6 +429,9 @@ impl<'de> ::serde::Deserialize<'de> for DocumentProperties {
                         "TargetType" => {
                             target_type = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "UpdateMethod" => {
+                            update_method = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "VersionName" => {
                             version_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -423,6 +448,7 @@ impl<'de> ::serde::Deserialize<'de> for DocumentProperties {
                     requires: requires,
                     tags: tags,
                     target_type: target_type,
+                    update_method: update_method,
                     version_name: version_name,
                 })
             }
@@ -795,6 +821,11 @@ pub struct MaintenanceWindowTask {
 /// Properties for the `MaintenanceWindowTask` resource.
 #[derive(Debug, Default)]
 pub struct MaintenanceWindowTaskProperties {
+    /// Property [`CutoffBehavior`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-cutoffbehavior).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub cutoff_behavior: Option<::Value<String>>,
     /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-description).
     ///
     /// Update type: _Mutable_.
@@ -865,6 +896,9 @@ pub struct MaintenanceWindowTaskProperties {
 impl ::serde::Serialize for MaintenanceWindowTaskProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref cutoff_behavior) = self.cutoff_behavior {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CutoffBehavior", cutoff_behavior)?;
+        }
         if let Some(ref description) = self.description {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
         }
@@ -912,6 +946,7 @@ impl<'de> ::serde::Deserialize<'de> for MaintenanceWindowTaskProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut cutoff_behavior: Option<::Value<String>> = None;
                 let mut description: Option<::Value<String>> = None;
                 let mut logging_info: Option<::Value<self::maintenance_window_task::LoggingInfo>> = None;
                 let mut max_concurrency: Option<::Value<String>> = None;
@@ -928,6 +963,9 @@ impl<'de> ::serde::Deserialize<'de> for MaintenanceWindowTaskProperties {
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "CutoffBehavior" => {
+                            cutoff_behavior = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "Description" => {
                             description = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -972,6 +1010,7 @@ impl<'de> ::serde::Deserialize<'de> for MaintenanceWindowTaskProperties {
                 }
 
                 Ok(MaintenanceWindowTaskProperties {
+                    cutoff_behavior: cutoff_behavior,
                     description: description,
                     logging_info: logging_info,
                     max_concurrency: max_concurrency,
@@ -1808,18 +1847,18 @@ pub mod document {
     pub struct AttachmentsSource {
         /// Property [`Key`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-document-attachmentssource.html#cfn-ssm-document-attachmentssource-key).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub key: Option<::Value<String>>,
         /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-document-attachmentssource.html#cfn-ssm-document-attachmentssource-name).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub name: Option<::Value<String>>,
         /// Property [`Values`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-document-attachmentssource.html#cfn-ssm-document-attachmentssource-values).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub values: Option<::ValueList<String>>,
     }
 
@@ -1887,13 +1926,13 @@ pub mod document {
     pub struct DocumentRequires {
         /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-document-documentrequires.html#cfn-ssm-document-documentrequires-name).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub name: Option<::Value<String>>,
         /// Property [`Version`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-document-documentrequires.html#cfn-ssm-document-documentrequires-version).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub version: Option<::Value<String>>,
     }
 
@@ -2017,6 +2056,72 @@ pub mod maintenance_window_target {
 
 pub mod maintenance_window_task {
     //! Property types for the `MaintenanceWindowTask` resource.
+
+    /// The [`AWS::SSM::MaintenanceWindowTask.CloudWatchOutputConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-cloudwatchoutputconfig.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CloudWatchOutputConfig {
+        /// Property [`CloudWatchLogGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-cloudwatchoutputconfig.html#cfn-ssm-maintenancewindowtask-cloudwatchoutputconfig-cloudwatchloggroupname).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub cloud_watch_log_group_name: Option<::Value<String>>,
+        /// Property [`CloudWatchOutputEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-cloudwatchoutputconfig.html#cfn-ssm-maintenancewindowtask-cloudwatchoutputconfig-cloudwatchoutputenabled).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub cloud_watch_output_enabled: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for CloudWatchOutputConfig {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref cloud_watch_log_group_name) = self.cloud_watch_log_group_name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CloudWatchLogGroupName", cloud_watch_log_group_name)?;
+            }
+            if let Some(ref cloud_watch_output_enabled) = self.cloud_watch_output_enabled {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CloudWatchOutputEnabled", cloud_watch_output_enabled)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CloudWatchOutputConfig {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CloudWatchOutputConfig, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CloudWatchOutputConfig;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CloudWatchOutputConfig")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut cloud_watch_log_group_name: Option<::Value<String>> = None;
+                    let mut cloud_watch_output_enabled: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CloudWatchLogGroupName" => {
+                                cloud_watch_log_group_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "CloudWatchOutputEnabled" => {
+                                cloud_watch_output_enabled = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CloudWatchOutputConfig {
+                        cloud_watch_log_group_name: cloud_watch_log_group_name,
+                        cloud_watch_output_enabled: cloud_watch_output_enabled,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 
     /// The [`AWS::SSM::MaintenanceWindowTask.LoggingInfo`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-logginginfo.html) property type.
     #[derive(Debug, Default)]
@@ -2241,6 +2346,11 @@ pub mod maintenance_window_task {
     /// The [`AWS::SSM::MaintenanceWindowTask.MaintenanceWindowRunCommandParameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html) property type.
     #[derive(Debug, Default)]
     pub struct MaintenanceWindowRunCommandParameters {
+        /// Property [`CloudWatchOutputConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-cloudwatchoutputconfig).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub cloud_watch_output_config: Option<::Value<CloudWatchOutputConfig>>,
         /// Property [`Comment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-comment).
         ///
         /// Update type: _Mutable_.
@@ -2256,6 +2366,11 @@ pub mod maintenance_window_task {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub document_hash_type: Option<::Value<String>>,
+        /// Property [`DocumentVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-documentversion).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub document_version: Option<::Value<String>>,
         /// Property [`NotificationConfig`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-notificationconfig).
         ///
         /// Update type: _Mutable_.
@@ -2291,6 +2406,9 @@ pub mod maintenance_window_task {
     impl ::codec::SerializeValue for MaintenanceWindowRunCommandParameters {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref cloud_watch_output_config) = self.cloud_watch_output_config {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CloudWatchOutputConfig", cloud_watch_output_config)?;
+            }
             if let Some(ref comment) = self.comment {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Comment", comment)?;
             }
@@ -2299,6 +2417,9 @@ pub mod maintenance_window_task {
             }
             if let Some(ref document_hash_type) = self.document_hash_type {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "DocumentHashType", document_hash_type)?;
+            }
+            if let Some(ref document_version) = self.document_version {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DocumentVersion", document_version)?;
             }
             if let Some(ref notification_config) = self.notification_config {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "NotificationConfig", notification_config)?;
@@ -2334,9 +2455,11 @@ pub mod maintenance_window_task {
                 }
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut cloud_watch_output_config: Option<::Value<CloudWatchOutputConfig>> = None;
                     let mut comment: Option<::Value<String>> = None;
                     let mut document_hash: Option<::Value<String>> = None;
                     let mut document_hash_type: Option<::Value<String>> = None;
+                    let mut document_version: Option<::Value<String>> = None;
                     let mut notification_config: Option<::Value<NotificationConfig>> = None;
                     let mut output_s3_bucket_name: Option<::Value<String>> = None;
                     let mut output_s3_key_prefix: Option<::Value<String>> = None;
@@ -2346,6 +2469,9 @@ pub mod maintenance_window_task {
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
+                            "CloudWatchOutputConfig" => {
+                                cloud_watch_output_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "Comment" => {
                                 comment = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -2354,6 +2480,9 @@ pub mod maintenance_window_task {
                             }
                             "DocumentHashType" => {
                                 document_hash_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DocumentVersion" => {
+                                document_version = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "NotificationConfig" => {
                                 notification_config = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -2378,9 +2507,11 @@ pub mod maintenance_window_task {
                     }
 
                     Ok(MaintenanceWindowRunCommandParameters {
+                        cloud_watch_output_config: cloud_watch_output_config,
                         comment: comment,
                         document_hash: document_hash,
                         document_hash_type: document_hash_type,
+                        document_version: document_version,
                         notification_config: notification_config,
                         output_s3_bucket_name: output_s3_bucket_name,
                         output_s3_key_prefix: output_s3_key_prefix,
@@ -2894,7 +3025,7 @@ pub mod patch_baseline {
         }
     }
 
-    /// The [`AWS::SSM::PatchBaseline.PatchStringDate`]() property type.
+    /// The [`AWS::SSM::PatchBaseline.PatchStringDate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchstringdate.html) property type.
     #[derive(Debug, Default)]
     pub struct PatchStringDate {
     }

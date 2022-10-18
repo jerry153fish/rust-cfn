@@ -1,6 +1,6 @@
-use serde::{Serialize, Serializer, Deserialize, Deserializer};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-use ::codec::{SerializeValue, DeserializeValue};
+use codec::{DeserializeValue, SerializeValue};
 
 use super::Expr;
 
@@ -76,35 +76,35 @@ impl<T> From<T> for Value<T> {
 enum ValueInner<T> {
     Value(Box<T>),
     Ref(String),
-    Expr(Expr)
+    Expr(Expr),
 }
 
 #[derive(Serialize, Deserialize)]
 struct SerdeRef<'a> {
     #[serde(rename = "Ref", borrow)]
-    id: &'a str
+    id: &'a str,
 }
 
 #[derive(Serialize)]
 #[serde(untagged)]
 enum SerializeValueProxy<'a, T: 'a + SerializeValue> {
-    #[serde(serialize_with="SerializeValue::serialize_borrow")]
+    #[serde(serialize_with = "SerializeValue::serialize_borrow")]
     Value(&'a T),
     #[serde(borrow)]
     Ref(SerdeRef<'a>),
-    #[serde(serialize_with="SerializeValue::serialize_borrow")]
+    #[serde(serialize_with = "SerializeValue::serialize_borrow")]
     Expr(&'a Expr),
 }
 
 #[derive(Deserialize)]
 #[serde(untagged)]
 enum DeserializeValueProxy<'a, T: DeserializeValue> {
-    #[serde(deserialize_with="DeserializeValue::deserialize")]
+    #[serde(deserialize_with = "DeserializeValue::deserialize")]
     Value(T),
     #[serde(borrow)]
     Ref(SerdeRef<'a>),
-    #[serde(deserialize_with="DeserializeValue::deserialize")]
-    Expr(Expr)
+    #[serde(deserialize_with = "DeserializeValue::deserialize")]
+    Expr(Expr),
 }
 
 impl<T: SerializeValue> Serialize for Value<T> {
@@ -112,7 +112,7 @@ impl<T: SerializeValue> Serialize for Value<T> {
         let proxy = match self.0 {
             ValueInner::Value(ref literal) => SerializeValueProxy::Value(literal.as_ref()),
             ValueInner::Ref(ref id) => SerializeValueProxy::Ref(SerdeRef { id }),
-            ValueInner::Expr(ref expr) => SerializeValueProxy::Expr(expr)
+            ValueInner::Expr(ref expr) => SerializeValueProxy::Expr(expr),
         };
         Serialize::serialize(&proxy, s)
     }
@@ -124,7 +124,7 @@ impl<'de, T: DeserializeValue> Deserialize<'de> for Value<T> {
             let inner = match proxy {
                 DeserializeValueProxy::Value(t) => ValueInner::Value(Box::new(t)),
                 DeserializeValueProxy::Ref(SerdeRef { id }) => ValueInner::Ref(id.to_owned()),
-                DeserializeValueProxy::Expr(expr) => ValueInner::Expr(expr)
+                DeserializeValueProxy::Expr(expr) => ValueInner::Expr(expr),
             };
             Value(inner)
         })
@@ -133,7 +133,7 @@ impl<'de, T: DeserializeValue> Deserialize<'de> for Value<T> {
 
 #[cfg(test)]
 mod tests {
-    use super::{Value, Expr};
+    use super::{Expr, Value};
 
     #[test]
     fn serialize_u32() {
@@ -156,7 +156,10 @@ mod tests {
     #[test]
     fn serialize_ref() {
         let value = Value::<String>::reference("foo");
-        assert_eq!("{\"Ref\":\"foo\"}", ::serde_json::to_string(&value).unwrap());
+        assert_eq!(
+            "{\"Ref\":\"foo\"}",
+            ::serde_json::to_string(&value).unwrap()
+        );
     }
 
     #[test]
@@ -172,10 +175,12 @@ mod tests {
             values: vec![
                 Value::new("a".to_owned()),
                 Value::new("b".to_owned()),
-                Value::new("c".to_owned())
-            ]
+                Value::new("c".to_owned()),
+            ],
         });
-        assert_eq!("{\"Fn::Join\":[\":\",[\"a\",\"b\",\"c\"]]}",
-            ::serde_json::to_string(&value).unwrap());
+        assert_eq!(
+            "{\"Fn::Join\":[\":\",[\"a\",\"b\",\"c\"]]}",
+            ::serde_json::to_string(&value).unwrap()
+        );
     }
 }

@@ -9,11 +9,21 @@ pub struct DBCluster {
 /// Properties for the `DBCluster` resource.
 #[derive(Debug, Default)]
 pub struct DBClusterProperties {
+    /// Property [`AllocatedStorage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-allocatedstorage).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub allocated_storage: Option<::Value<u32>>,
     /// Property [`AssociatedRoles`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-associatedroles).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub associated_roles: Option<::ValueList<self::db_cluster::DBClusterRole>>,
+    /// Property [`AutoMinorVersionUpgrade`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-autominorversionupgrade).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub auto_minor_version_upgrade: Option<::Value<bool>>,
     /// Property [`AvailabilityZones`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-availabilityzones).
     ///
     /// Update type: _Immutable_.
@@ -23,8 +33,8 @@ pub struct DBClusterProperties {
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub backtrack_window: Option<::Value<u64>>,
-    /// Property [`BackupRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-backuprententionperiod).
+    pub backtrack_window: Option<::Value<u32>>,
+    /// Property [`BackupRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-backupretentionperiod).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -39,11 +49,21 @@ pub struct DBClusterProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_cluster_identifier: Option<::Value<String>>,
+    /// Property [`DBClusterInstanceClass`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbclusterinstanceclass).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub db_cluster_instance_class: Option<::Value<String>>,
     /// Property [`DBClusterParameterGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbclusterparametergroupname).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub db_cluster_parameter_group_name: Option<::Value<String>>,
+    /// Property [`DBInstanceParameterGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbinstanceparametergroupname).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub db_instance_parameter_group_name: Option<::Value<String>>,
     /// Property [`DBSubnetGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbsubnetgroupname).
     ///
     /// Update type: _Immutable_.
@@ -59,6 +79,16 @@ pub struct DBClusterProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub deletion_protection: Option<::Value<bool>>,
+    /// Property [`Domain`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-domain).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub domain: Option<::Value<String>>,
+    /// Property [`DomainIAMRoleName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-domainiamrolename).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub domain_iam_role_name: Option<::Value<String>>,
     /// Property [`EnableCloudwatchLogsExports`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-enablecloudwatchlogsexports).
     ///
     /// Update type: _Mutable_.
@@ -96,6 +126,11 @@ pub struct DBClusterProperties {
     /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
     /// For more information, see the relevant resource type documentation.
     pub global_cluster_identifier: Option<::Value<String>>,
+    /// Property [`Iops`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-iops).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub iops: Option<::Value<u32>>,
     /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-kmskeyid).
     ///
     /// Update type: _Immutable_.
@@ -108,9 +143,40 @@ pub struct DBClusterProperties {
     pub master_user_password: Option<::Value<String>>,
     /// Property [`MasterUsername`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-masterusername).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Conditional_.
+    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
+    /// For more information, see the relevant resource type documentation.
     pub master_username: Option<::Value<String>>,
+    /// Property [`MonitoringInterval`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-monitoringinterval).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub monitoring_interval: Option<::Value<u32>>,
+    /// Property [`MonitoringRoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-monitoringrolearn).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub monitoring_role_arn: Option<::Value<String>>,
+    /// Property [`NetworkType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-networktype).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub network_type: Option<::Value<String>>,
+    /// Property [`PerformanceInsightsEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-performanceinsightsenabled).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub performance_insights_enabled: Option<::Value<bool>>,
+    /// Property [`PerformanceInsightsKmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-performanceinsightskmskeyid).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub performance_insights_kms_key_id: Option<::Value<String>>,
+    /// Property [`PerformanceInsightsRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-performanceinsightsretentionperiod).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub performance_insights_retention_period: Option<::Value<u32>>,
     /// Property [`Port`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-port).
     ///
     /// Update type: _Mutable_.
@@ -126,6 +192,11 @@ pub struct DBClusterProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub preferred_maintenance_window: Option<::Value<String>>,
+    /// Property [`PubliclyAccessible`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-publiclyaccessible).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub publicly_accessible: Option<::Value<bool>>,
     /// Property [`ReplicationSourceIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-replicationsourceidentifier).
     ///
     /// Update type: _Mutable_.
@@ -141,6 +212,11 @@ pub struct DBClusterProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub scaling_configuration: Option<::Value<self::db_cluster::ScalingConfiguration>>,
+    /// Property [`ServerlessV2ScalingConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-serverlessv2scalingconfiguration).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub serverless_v2_scaling_configuration: Option<::Value<self::db_cluster::ServerlessV2ScalingConfiguration>>,
     /// Property [`SnapshotIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-snapshotidentifier).
     ///
     /// Update type: _Immutable_.
@@ -161,6 +237,11 @@ pub struct DBClusterProperties {
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub storage_encrypted: Option<::Value<bool>>,
+    /// Property [`StorageType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-storagetype).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub storage_type: Option<::Value<String>>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-tags).
     ///
     /// Update type: _Mutable_.
@@ -181,8 +262,14 @@ pub struct DBClusterProperties {
 impl ::serde::Serialize for DBClusterProperties {
     fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref allocated_storage) = self.allocated_storage {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AllocatedStorage", allocated_storage)?;
+        }
         if let Some(ref associated_roles) = self.associated_roles {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AssociatedRoles", associated_roles)?;
+        }
+        if let Some(ref auto_minor_version_upgrade) = self.auto_minor_version_upgrade {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AutoMinorVersionUpgrade", auto_minor_version_upgrade)?;
         }
         if let Some(ref availability_zones) = self.availability_zones {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AvailabilityZones", availability_zones)?;
@@ -199,8 +286,14 @@ impl ::serde::Serialize for DBClusterProperties {
         if let Some(ref db_cluster_identifier) = self.db_cluster_identifier {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBClusterIdentifier", db_cluster_identifier)?;
         }
+        if let Some(ref db_cluster_instance_class) = self.db_cluster_instance_class {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBClusterInstanceClass", db_cluster_instance_class)?;
+        }
         if let Some(ref db_cluster_parameter_group_name) = self.db_cluster_parameter_group_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBClusterParameterGroupName", db_cluster_parameter_group_name)?;
+        }
+        if let Some(ref db_instance_parameter_group_name) = self.db_instance_parameter_group_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBInstanceParameterGroupName", db_instance_parameter_group_name)?;
         }
         if let Some(ref db_subnet_group_name) = self.db_subnet_group_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBSubnetGroupName", db_subnet_group_name)?;
@@ -210,6 +303,12 @@ impl ::serde::Serialize for DBClusterProperties {
         }
         if let Some(ref deletion_protection) = self.deletion_protection {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DeletionProtection", deletion_protection)?;
+        }
+        if let Some(ref domain) = self.domain {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Domain", domain)?;
+        }
+        if let Some(ref domain_iam_role_name) = self.domain_iam_role_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DomainIAMRoleName", domain_iam_role_name)?;
         }
         if let Some(ref enable_cloudwatch_logs_exports) = self.enable_cloudwatch_logs_exports {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "EnableCloudwatchLogsExports", enable_cloudwatch_logs_exports)?;
@@ -230,6 +329,9 @@ impl ::serde::Serialize for DBClusterProperties {
         if let Some(ref global_cluster_identifier) = self.global_cluster_identifier {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "GlobalClusterIdentifier", global_cluster_identifier)?;
         }
+        if let Some(ref iops) = self.iops {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Iops", iops)?;
+        }
         if let Some(ref kms_key_id) = self.kms_key_id {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "KmsKeyId", kms_key_id)?;
         }
@@ -238,6 +340,24 @@ impl ::serde::Serialize for DBClusterProperties {
         }
         if let Some(ref master_username) = self.master_username {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "MasterUsername", master_username)?;
+        }
+        if let Some(ref monitoring_interval) = self.monitoring_interval {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MonitoringInterval", monitoring_interval)?;
+        }
+        if let Some(ref monitoring_role_arn) = self.monitoring_role_arn {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "MonitoringRoleArn", monitoring_role_arn)?;
+        }
+        if let Some(ref network_type) = self.network_type {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "NetworkType", network_type)?;
+        }
+        if let Some(ref performance_insights_enabled) = self.performance_insights_enabled {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PerformanceInsightsEnabled", performance_insights_enabled)?;
+        }
+        if let Some(ref performance_insights_kms_key_id) = self.performance_insights_kms_key_id {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PerformanceInsightsKmsKeyId", performance_insights_kms_key_id)?;
+        }
+        if let Some(ref performance_insights_retention_period) = self.performance_insights_retention_period {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PerformanceInsightsRetentionPeriod", performance_insights_retention_period)?;
         }
         if let Some(ref port) = self.port {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Port", port)?;
@@ -248,6 +368,9 @@ impl ::serde::Serialize for DBClusterProperties {
         if let Some(ref preferred_maintenance_window) = self.preferred_maintenance_window {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "PreferredMaintenanceWindow", preferred_maintenance_window)?;
         }
+        if let Some(ref publicly_accessible) = self.publicly_accessible {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PubliclyAccessible", publicly_accessible)?;
+        }
         if let Some(ref replication_source_identifier) = self.replication_source_identifier {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ReplicationSourceIdentifier", replication_source_identifier)?;
         }
@@ -256,6 +379,9 @@ impl ::serde::Serialize for DBClusterProperties {
         }
         if let Some(ref scaling_configuration) = self.scaling_configuration {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ScalingConfiguration", scaling_configuration)?;
+        }
+        if let Some(ref serverless_v2_scaling_configuration) = self.serverless_v2_scaling_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ServerlessV2ScalingConfiguration", serverless_v2_scaling_configuration)?;
         }
         if let Some(ref snapshot_identifier) = self.snapshot_identifier {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "SnapshotIdentifier", snapshot_identifier)?;
@@ -268,6 +394,9 @@ impl ::serde::Serialize for DBClusterProperties {
         }
         if let Some(ref storage_encrypted) = self.storage_encrypted {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "StorageEncrypted", storage_encrypted)?;
+        }
+        if let Some(ref storage_type) = self.storage_type {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "StorageType", storage_type)?;
         }
         if let Some(ref tags) = self.tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
@@ -294,16 +423,22 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
             }
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut allocated_storage: Option<::Value<u32>> = None;
                 let mut associated_roles: Option<::ValueList<self::db_cluster::DBClusterRole>> = None;
+                let mut auto_minor_version_upgrade: Option<::Value<bool>> = None;
                 let mut availability_zones: Option<::ValueList<String>> = None;
-                let mut backtrack_window: Option<::Value<u64>> = None;
+                let mut backtrack_window: Option<::Value<u32>> = None;
                 let mut backup_retention_period: Option<::Value<u32>> = None;
                 let mut copy_tags_to_snapshot: Option<::Value<bool>> = None;
                 let mut db_cluster_identifier: Option<::Value<String>> = None;
+                let mut db_cluster_instance_class: Option<::Value<String>> = None;
                 let mut db_cluster_parameter_group_name: Option<::Value<String>> = None;
+                let mut db_instance_parameter_group_name: Option<::Value<String>> = None;
                 let mut db_subnet_group_name: Option<::Value<String>> = None;
                 let mut database_name: Option<::Value<String>> = None;
                 let mut deletion_protection: Option<::Value<bool>> = None;
+                let mut domain: Option<::Value<String>> = None;
+                let mut domain_iam_role_name: Option<::Value<String>> = None;
                 let mut enable_cloudwatch_logs_exports: Option<::ValueList<String>> = None;
                 let mut enable_http_endpoint: Option<::Value<bool>> = None;
                 let mut enable_iam_database_authentication: Option<::Value<bool>> = None;
@@ -311,27 +446,43 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                 let mut engine_mode: Option<::Value<String>> = None;
                 let mut engine_version: Option<::Value<String>> = None;
                 let mut global_cluster_identifier: Option<::Value<String>> = None;
+                let mut iops: Option<::Value<u32>> = None;
                 let mut kms_key_id: Option<::Value<String>> = None;
                 let mut master_user_password: Option<::Value<String>> = None;
                 let mut master_username: Option<::Value<String>> = None;
+                let mut monitoring_interval: Option<::Value<u32>> = None;
+                let mut monitoring_role_arn: Option<::Value<String>> = None;
+                let mut network_type: Option<::Value<String>> = None;
+                let mut performance_insights_enabled: Option<::Value<bool>> = None;
+                let mut performance_insights_kms_key_id: Option<::Value<String>> = None;
+                let mut performance_insights_retention_period: Option<::Value<u32>> = None;
                 let mut port: Option<::Value<u32>> = None;
                 let mut preferred_backup_window: Option<::Value<String>> = None;
                 let mut preferred_maintenance_window: Option<::Value<String>> = None;
+                let mut publicly_accessible: Option<::Value<bool>> = None;
                 let mut replication_source_identifier: Option<::Value<String>> = None;
                 let mut restore_type: Option<::Value<String>> = None;
                 let mut scaling_configuration: Option<::Value<self::db_cluster::ScalingConfiguration>> = None;
+                let mut serverless_v2_scaling_configuration: Option<::Value<self::db_cluster::ServerlessV2ScalingConfiguration>> = None;
                 let mut snapshot_identifier: Option<::Value<String>> = None;
                 let mut source_db_cluster_identifier: Option<::Value<String>> = None;
                 let mut source_region: Option<::Value<String>> = None;
                 let mut storage_encrypted: Option<::Value<bool>> = None;
+                let mut storage_type: Option<::Value<String>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
                 let mut use_latest_restorable_time: Option<::Value<bool>> = None;
                 let mut vpc_security_group_ids: Option<::ValueList<String>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
+                        "AllocatedStorage" => {
+                            allocated_storage = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "AssociatedRoles" => {
                             associated_roles = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "AutoMinorVersionUpgrade" => {
+                            auto_minor_version_upgrade = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "AvailabilityZones" => {
                             availability_zones = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -348,8 +499,14 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         "DBClusterIdentifier" => {
                             db_cluster_identifier = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "DBClusterInstanceClass" => {
+                            db_cluster_instance_class = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "DBClusterParameterGroupName" => {
                             db_cluster_parameter_group_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "DBInstanceParameterGroupName" => {
+                            db_instance_parameter_group_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "DBSubnetGroupName" => {
                             db_subnet_group_name = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -359,6 +516,12 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         }
                         "DeletionProtection" => {
                             deletion_protection = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Domain" => {
+                            domain = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "DomainIAMRoleName" => {
+                            domain_iam_role_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "EnableCloudwatchLogsExports" => {
                             enable_cloudwatch_logs_exports = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -381,6 +544,9 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         "GlobalClusterIdentifier" => {
                             global_cluster_identifier = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "Iops" => {
+                            iops = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "KmsKeyId" => {
                             kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -389,6 +555,24 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         }
                         "MasterUsername" => {
                             master_username = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "MonitoringInterval" => {
+                            monitoring_interval = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "MonitoringRoleArn" => {
+                            monitoring_role_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "NetworkType" => {
+                            network_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PerformanceInsightsEnabled" => {
+                            performance_insights_enabled = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PerformanceInsightsKmsKeyId" => {
+                            performance_insights_kms_key_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PerformanceInsightsRetentionPeriod" => {
+                            performance_insights_retention_period = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Port" => {
                             port = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -399,6 +583,9 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         "PreferredMaintenanceWindow" => {
                             preferred_maintenance_window = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "PubliclyAccessible" => {
+                            publicly_accessible = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "ReplicationSourceIdentifier" => {
                             replication_source_identifier = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -407,6 +594,9 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         }
                         "ScalingConfiguration" => {
                             scaling_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ServerlessV2ScalingConfiguration" => {
+                            serverless_v2_scaling_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "SnapshotIdentifier" => {
                             snapshot_identifier = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -419,6 +609,9 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                         }
                         "StorageEncrypted" => {
                             storage_encrypted = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "StorageType" => {
+                            storage_type = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "Tags" => {
                             tags = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -434,16 +627,22 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                 }
 
                 Ok(DBClusterProperties {
+                    allocated_storage: allocated_storage,
                     associated_roles: associated_roles,
+                    auto_minor_version_upgrade: auto_minor_version_upgrade,
                     availability_zones: availability_zones,
                     backtrack_window: backtrack_window,
                     backup_retention_period: backup_retention_period,
                     copy_tags_to_snapshot: copy_tags_to_snapshot,
                     db_cluster_identifier: db_cluster_identifier,
+                    db_cluster_instance_class: db_cluster_instance_class,
                     db_cluster_parameter_group_name: db_cluster_parameter_group_name,
+                    db_instance_parameter_group_name: db_instance_parameter_group_name,
                     db_subnet_group_name: db_subnet_group_name,
                     database_name: database_name,
                     deletion_protection: deletion_protection,
+                    domain: domain,
+                    domain_iam_role_name: domain_iam_role_name,
                     enable_cloudwatch_logs_exports: enable_cloudwatch_logs_exports,
                     enable_http_endpoint: enable_http_endpoint,
                     enable_iam_database_authentication: enable_iam_database_authentication,
@@ -451,19 +650,29 @@ impl<'de> ::serde::Deserialize<'de> for DBClusterProperties {
                     engine_mode: engine_mode,
                     engine_version: engine_version,
                     global_cluster_identifier: global_cluster_identifier,
+                    iops: iops,
                     kms_key_id: kms_key_id,
                     master_user_password: master_user_password,
                     master_username: master_username,
+                    monitoring_interval: monitoring_interval,
+                    monitoring_role_arn: monitoring_role_arn,
+                    network_type: network_type,
+                    performance_insights_enabled: performance_insights_enabled,
+                    performance_insights_kms_key_id: performance_insights_kms_key_id,
+                    performance_insights_retention_period: performance_insights_retention_period,
                     port: port,
                     preferred_backup_window: preferred_backup_window,
                     preferred_maintenance_window: preferred_maintenance_window,
+                    publicly_accessible: publicly_accessible,
                     replication_source_identifier: replication_source_identifier,
                     restore_type: restore_type,
                     scaling_configuration: scaling_configuration,
+                    serverless_v2_scaling_configuration: serverless_v2_scaling_configuration,
                     snapshot_identifier: snapshot_identifier,
                     source_db_cluster_identifier: source_db_cluster_identifier,
                     source_region: source_region,
                     storage_encrypted: storage_encrypted,
+                    storage_type: storage_type,
                     tags: tags,
                     use_latest_restorable_time: use_latest_restorable_time,
                     vpc_security_group_ids: vpc_security_group_ids,
@@ -605,7 +814,7 @@ impl From<DBClusterParameterGroupProperties> for DBClusterParameterGroup {
     }
 }
 
-/// The [`AWS::RDS::DBInstance`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html) resource type.
+/// The [`AWS::RDS::DBInstance`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html) resource type.
 #[derive(Debug, Default)]
 pub struct DBInstance {
     properties: DBInstanceProperties
@@ -614,272 +823,277 @@ pub struct DBInstance {
 /// Properties for the `DBInstance` resource.
 #[derive(Debug, Default)]
 pub struct DBInstanceProperties {
-    /// Property [`AllocatedStorage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-allocatedstorage).
+    /// Property [`AllocatedStorage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-allocatedstorage).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub allocated_storage: Option<::Value<String>>,
-    /// Property [`AllowMajorVersionUpgrade`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-allowmajorversionupgrade).
+    /// Property [`AllowMajorVersionUpgrade`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-allowmajorversionupgrade).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub allow_major_version_upgrade: Option<::Value<bool>>,
-    /// Property [`AssociatedRoles`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-associatedroles).
+    /// Property [`AssociatedRoles`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-associatedroles).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub associated_roles: Option<::ValueList<self::db_instance::DBInstanceRole>>,
-    /// Property [`AutoMinorVersionUpgrade`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-autominorversionupgrade).
+    /// Property [`AutoMinorVersionUpgrade`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-autominorversionupgrade).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub auto_minor_version_upgrade: Option<::Value<bool>>,
-    /// Property [`AvailabilityZone`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-availabilityzone).
+    /// Property [`AvailabilityZone`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-availabilityzone).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub availability_zone: Option<::Value<String>>,
-    /// Property [`BackupRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-backupretentionperiod).
+    /// Property [`BackupRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-backupretentionperiod).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub backup_retention_period: Option<::Value<u32>>,
-    /// Property [`CACertificateIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-cacertificateidentifier).
+    /// Property [`CACertificateIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-cacertificateidentifier).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub ca_certificate_identifier: Option<::Value<String>>,
-    /// Property [`CharacterSetName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-charactersetname).
+    /// Property [`CharacterSetName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-charactersetname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub character_set_name: Option<::Value<String>>,
-    /// Property [`CopyTagsToSnapshot`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-copytagstosnapshot).
+    /// Property [`CopyTagsToSnapshot`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-copytagstosnapshot).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub copy_tags_to_snapshot: Option<::Value<bool>>,
-    /// Property [`DBClusterIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbclusteridentifier).
+    /// Property [`CustomIAMInstanceProfile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-customiaminstanceprofile).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub custom_iam_instance_profile: Option<::Value<String>>,
+    /// Property [`DBClusterIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbclusteridentifier).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_cluster_identifier: Option<::Value<String>>,
-    /// Property [`DBInstanceClass`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbinstanceclass).
+    /// Property [`DBInstanceClass`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbinstanceclass).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub db_instance_class: ::Value<String>,
-    /// Property [`DBInstanceIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbinstanceidentifier).
+    pub db_instance_class: Option<::Value<String>>,
+    /// Property [`DBInstanceIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbinstanceidentifier).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_instance_identifier: Option<::Value<String>>,
-    /// Property [`DBName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbname).
+    /// Property [`DBName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_name: Option<::Value<String>>,
-    /// Property [`DBParameterGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbparametergroupname).
+    /// Property [`DBParameterGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbparametergroupname).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub db_parameter_group_name: Option<::Value<String>>,
-    /// Property [`DBSecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbsecuritygroups).
+    /// Property [`DBSecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbsecuritygroups).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub db_security_groups: Option<::ValueList<String>>,
-    /// Property [`DBSnapshotIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbsnapshotidentifier).
+    /// Property [`DBSnapshotIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbsnapshotidentifier).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_snapshot_identifier: Option<::Value<String>>,
-    /// Property [`DBSubnetGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-dbsubnetgroupname).
+    /// Property [`DBSubnetGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-dbsubnetgroupname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_subnet_group_name: Option<::Value<String>>,
-    /// Property [`DeleteAutomatedBackups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-deleteautomatedbackups).
+    /// Property [`DeleteAutomatedBackups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-deleteautomatedbackups).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub delete_automated_backups: Option<::Value<bool>>,
-    /// Property [`DeletionProtection`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-deletionprotection).
+    /// Property [`DeletionProtection`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-deletionprotection).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub deletion_protection: Option<::Value<bool>>,
-    /// Property [`Domain`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-domain).
+    /// Property [`Domain`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-domain).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub domain: Option<::Value<String>>,
-    /// Property [`DomainIAMRoleName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-domainiamrolename).
+    /// Property [`DomainIAMRoleName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-domainiamrolename).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub domain_iam_role_name: Option<::Value<String>>,
-    /// Property [`EnableCloudwatchLogsExports`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-enablecloudwatchlogsexports).
+    /// Property [`EnableCloudwatchLogsExports`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-enablecloudwatchlogsexports).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub enable_cloudwatch_logs_exports: Option<::ValueList<String>>,
-    /// Property [`EnableIAMDatabaseAuthentication`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-enableiamdatabaseauthentication).
+    /// Property [`EnableIAMDatabaseAuthentication`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-enableiamdatabaseauthentication).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub enable_iam_database_authentication: Option<::Value<bool>>,
-    /// Property [`EnablePerformanceInsights`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-enableperformanceinsights).
+    /// Property [`EnablePerformanceInsights`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-enableperformanceinsights).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub enable_performance_insights: Option<::Value<bool>>,
-    /// Property [`Engine`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-engine).
+    /// Property [`Engine`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-engine).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub engine: Option<::Value<String>>,
-    /// Property [`EngineVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-engineversion).
+    /// Property [`EngineVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-engineversion).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub engine_version: Option<::Value<String>>,
-    /// Property [`Iops`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-iops).
+    /// Property [`Iops`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-iops).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub iops: Option<::Value<u32>>,
-    /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-kmskeyid).
+    /// Property [`KmsKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-kmskeyid).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub kms_key_id: Option<::Value<String>>,
-    /// Property [`LicenseModel`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-licensemodel).
+    /// Property [`LicenseModel`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-licensemodel).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub license_model: Option<::Value<String>>,
-    /// Property [`MasterUserPassword`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-masteruserpassword).
+    /// Property [`MasterUserPassword`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-masteruserpassword).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub master_user_password: Option<::Value<String>>,
-    /// Property [`MasterUsername`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-masterusername).
+    /// Property [`MasterUsername`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-masterusername).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub master_username: Option<::Value<String>>,
-    /// Property [`MaxAllocatedStorage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-maxallocatedstorage).
+    /// Property [`MaxAllocatedStorage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-maxallocatedstorage).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub max_allocated_storage: Option<::Value<u32>>,
-    /// Property [`MonitoringInterval`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-monitoringinterval).
+    /// Property [`MonitoringInterval`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-monitoringinterval).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub monitoring_interval: Option<::Value<u32>>,
-    /// Property [`MonitoringRoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-monitoringrolearn).
+    /// Property [`MonitoringRoleArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-monitoringrolearn).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub monitoring_role_arn: Option<::Value<String>>,
-    /// Property [`MultiAZ`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-multiaz).
+    /// Property [`MultiAZ`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-multiaz).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub multi_az: Option<::Value<bool>>,
-    /// Property [`OptionGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-optiongroupname).
+    /// Property [`NcharCharacterSetName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-ncharcharactersetname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub nchar_character_set_name: Option<::Value<String>>,
+    /// Property [`NetworkType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-networktype).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub network_type: Option<::Value<String>>,
+    /// Property [`OptionGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-optiongroupname).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub option_group_name: Option<::Value<String>>,
-    /// Property [`PerformanceInsightsKMSKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-performanceinsightskmskeyid).
+    /// Property [`PerformanceInsightsKMSKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-performanceinsightskmskeyid).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub performance_insights_kms_key_id: Option<::Value<String>>,
-    /// Property [`PerformanceInsightsRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-performanceinsightsretentionperiod).
+    /// Property [`PerformanceInsightsRetentionPeriod`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-performanceinsightsretentionperiod).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub performance_insights_retention_period: Option<::Value<u32>>,
-    /// Property [`Port`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-port).
+    /// Property [`Port`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-port).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub port: Option<::Value<String>>,
-    /// Property [`PreferredBackupWindow`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-preferredbackupwindow).
+    /// Property [`PreferredBackupWindow`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-preferredbackupwindow).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub preferred_backup_window: Option<::Value<String>>,
-    /// Property [`PreferredMaintenanceWindow`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-preferredmaintenancewindow).
+    /// Property [`PreferredMaintenanceWindow`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-preferredmaintenancewindow).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub preferred_maintenance_window: Option<::Value<String>>,
-    /// Property [`ProcessorFeatures`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-processorfeatures).
+    /// Property [`ProcessorFeatures`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-processorfeatures).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub processor_features: Option<::ValueList<self::db_instance::ProcessorFeature>>,
-    /// Property [`PromotionTier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-promotiontier).
+    /// Property [`PromotionTier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-promotiontier).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub promotion_tier: Option<::Value<u32>>,
-    /// Property [`PubliclyAccessible`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-publiclyaccessible).
+    /// Property [`PubliclyAccessible`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-publiclyaccessible).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub publicly_accessible: Option<::Value<bool>>,
-    /// Property [`SourceDBInstanceIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-sourcedbinstanceidentifier).
+    /// Property [`SourceDBInstanceIdentifier`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-sourcedbinstanceidentifier).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub source_db_instance_identifier: Option<::Value<String>>,
-    /// Property [`SourceRegion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-sourceregion).
+    /// Property [`SourceRegion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-sourceregion).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub source_region: Option<::Value<String>>,
-    /// Property [`StorageEncrypted`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-storageencrypted).
+    /// Property [`StorageEncrypted`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-storageencrypted).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub storage_encrypted: Option<::Value<bool>>,
-    /// Property [`StorageType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-storagetype).
+    /// Property [`StorageType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-storagetype).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub storage_type: Option<::Value<String>>,
-    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-tags).
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-tags).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub tags: Option<::ValueList<::Tag>>,
-    /// Property [`Timezone`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-timezone).
+    /// Property [`Timezone`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-timezone).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub timezone: Option<::Value<String>>,
-    /// Property [`UseDefaultProcessorFeatures`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-usedefaultprocessorfeatures).
+    /// Property [`UseDefaultProcessorFeatures`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-usedefaultprocessorfeatures).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub use_default_processor_features: Option<::Value<bool>>,
-    /// Property [`VPCSecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html#cfn-rds-dbinstance-vpcsecuritygroups).
+    /// Property [`VPCSecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html#cfn-rds-dbinstance-vpcsecuritygroups).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -916,10 +1130,15 @@ impl ::serde::Serialize for DBInstanceProperties {
         if let Some(ref copy_tags_to_snapshot) = self.copy_tags_to_snapshot {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "CopyTagsToSnapshot", copy_tags_to_snapshot)?;
         }
+        if let Some(ref custom_iam_instance_profile) = self.custom_iam_instance_profile {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CustomIAMInstanceProfile", custom_iam_instance_profile)?;
+        }
         if let Some(ref db_cluster_identifier) = self.db_cluster_identifier {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBClusterIdentifier", db_cluster_identifier)?;
         }
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBInstanceClass", &self.db_instance_class)?;
+        if let Some(ref db_instance_class) = self.db_instance_class {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBInstanceClass", db_instance_class)?;
+        }
         if let Some(ref db_instance_identifier) = self.db_instance_identifier {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DBInstanceIdentifier", db_instance_identifier)?;
         }
@@ -991,6 +1210,12 @@ impl ::serde::Serialize for DBInstanceProperties {
         }
         if let Some(ref multi_az) = self.multi_az {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "MultiAZ", multi_az)?;
+        }
+        if let Some(ref nchar_character_set_name) = self.nchar_character_set_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "NcharCharacterSetName", nchar_character_set_name)?;
+        }
+        if let Some(ref network_type) = self.network_type {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "NetworkType", network_type)?;
         }
         if let Some(ref option_group_name) = self.option_group_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "OptionGroupName", option_group_name)?;
@@ -1068,6 +1293,7 @@ impl<'de> ::serde::Deserialize<'de> for DBInstanceProperties {
                 let mut ca_certificate_identifier: Option<::Value<String>> = None;
                 let mut character_set_name: Option<::Value<String>> = None;
                 let mut copy_tags_to_snapshot: Option<::Value<bool>> = None;
+                let mut custom_iam_instance_profile: Option<::Value<String>> = None;
                 let mut db_cluster_identifier: Option<::Value<String>> = None;
                 let mut db_instance_class: Option<::Value<String>> = None;
                 let mut db_instance_identifier: Option<::Value<String>> = None;
@@ -1094,6 +1320,8 @@ impl<'de> ::serde::Deserialize<'de> for DBInstanceProperties {
                 let mut monitoring_interval: Option<::Value<u32>> = None;
                 let mut monitoring_role_arn: Option<::Value<String>> = None;
                 let mut multi_az: Option<::Value<bool>> = None;
+                let mut nchar_character_set_name: Option<::Value<String>> = None;
+                let mut network_type: Option<::Value<String>> = None;
                 let mut option_group_name: Option<::Value<String>> = None;
                 let mut performance_insights_kms_key_id: Option<::Value<String>> = None;
                 let mut performance_insights_retention_period: Option<::Value<u32>> = None;
@@ -1140,6 +1368,9 @@ impl<'de> ::serde::Deserialize<'de> for DBInstanceProperties {
                         }
                         "CopyTagsToSnapshot" => {
                             copy_tags_to_snapshot = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CustomIAMInstanceProfile" => {
+                            custom_iam_instance_profile = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "DBClusterIdentifier" => {
                             db_cluster_identifier = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -1219,6 +1450,12 @@ impl<'de> ::serde::Deserialize<'de> for DBInstanceProperties {
                         "MultiAZ" => {
                             multi_az = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "NcharCharacterSetName" => {
+                            nchar_character_set_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "NetworkType" => {
+                            network_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "OptionGroupName" => {
                             option_group_name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -1284,8 +1521,9 @@ impl<'de> ::serde::Deserialize<'de> for DBInstanceProperties {
                     ca_certificate_identifier: ca_certificate_identifier,
                     character_set_name: character_set_name,
                     copy_tags_to_snapshot: copy_tags_to_snapshot,
+                    custom_iam_instance_profile: custom_iam_instance_profile,
                     db_cluster_identifier: db_cluster_identifier,
-                    db_instance_class: db_instance_class.ok_or(::serde::de::Error::missing_field("DBInstanceClass"))?,
+                    db_instance_class: db_instance_class,
                     db_instance_identifier: db_instance_identifier,
                     db_name: db_name,
                     db_parameter_group_name: db_parameter_group_name,
@@ -1310,6 +1548,8 @@ impl<'de> ::serde::Deserialize<'de> for DBInstanceProperties {
                     monitoring_interval: monitoring_interval,
                     monitoring_role_arn: monitoring_role_arn,
                     multi_az: multi_az,
+                    nchar_character_set_name: nchar_character_set_name,
+                    network_type: network_type,
                     option_group_name: option_group_name,
                     performance_insights_kms_key_id: performance_insights_kms_key_id,
                     performance_insights_retention_period: performance_insights_retention_period,
@@ -1354,7 +1594,7 @@ impl From<DBInstanceProperties> for DBInstance {
     }
 }
 
-/// The [`AWS::RDS::DBParameterGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbparametergroup.html) resource type.
+/// The [`AWS::RDS::DBParameterGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html) resource type.
 #[derive(Debug, Default)]
 pub struct DBParameterGroup {
     properties: DBParameterGroupProperties
@@ -1363,22 +1603,22 @@ pub struct DBParameterGroup {
 /// Properties for the `DBParameterGroup` resource.
 #[derive(Debug, Default)]
 pub struct DBParameterGroupProperties {
-    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbparametergroup.html#cfn-rds-dbparametergroup-description).
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html#cfn-rds-dbparametergroup-description).
     ///
-    /// Update type: _Mutable_.
-    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
     pub description: ::Value<String>,
-    /// Property [`Family`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbparametergroup.html#cfn-rds-dbparametergroup-family).
+    /// Property [`Family`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html#cfn-rds-dbparametergroup-family).
     ///
-    /// Update type: _Mutable_.
-    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
     pub family: ::Value<String>,
-    /// Property [`Parameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbparametergroup.html#cfn-rds-dbparametergroup-parameters).
+    /// Property [`Parameters`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html#cfn-rds-dbparametergroup-parameters).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub parameters: Option<::ValueMap<String>>,
-    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbparametergroup.html#cfn-rds-dbparametergroup-tags).
+    pub parameters: Option<::Value<::json::Value>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbparametergroup.html#cfn-rds-dbparametergroup-tags).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -1414,7 +1654,7 @@ impl<'de> ::serde::Deserialize<'de> for DBParameterGroupProperties {
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut description: Option<::Value<String>> = None;
                 let mut family: Option<::Value<String>> = None;
-                let mut parameters: Option<::ValueMap<String>> = None;
+                let mut parameters: Option<::Value<::json::Value>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -2156,7 +2396,7 @@ impl From<DBSecurityGroupIngressProperties> for DBSecurityGroupIngress {
     }
 }
 
-/// The [`AWS::RDS::DBSubnetGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html) resource type.
+/// The [`AWS::RDS::DBSubnetGroup`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html) resource type.
 #[derive(Debug, Default)]
 pub struct DBSubnetGroup {
     properties: DBSubnetGroupProperties
@@ -2165,22 +2405,22 @@ pub struct DBSubnetGroup {
 /// Properties for the `DBSubnetGroup` resource.
 #[derive(Debug, Default)]
 pub struct DBSubnetGroupProperties {
-    /// Property [`DBSubnetGroupDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html#cfn-rds-dbsubnetgroup-dbsubnetgroupdescription).
+    /// Property [`DBSubnetGroupDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html#cfn-rds-dbsubnetgroup-dbsubnetgroupdescription).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub db_subnet_group_description: ::Value<String>,
-    /// Property [`DBSubnetGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html#cfn-rds-dbsubnetgroup-dbsubnetgroupname).
+    /// Property [`DBSubnetGroupName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html#cfn-rds-dbsubnetgroup-dbsubnetgroupname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub db_subnet_group_name: Option<::Value<String>>,
-    /// Property [`SubnetIds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html#cfn-rds-dbsubnetgroup-subnetids).
+    /// Property [`SubnetIds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html#cfn-rds-dbsubnetgroup-subnetids).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub subnet_ids: ::ValueList<String>,
-    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnet-group.html#cfn-rds-dbsubnetgroup-tags).
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html#cfn-rds-dbsubnetgroup-tags).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -2300,10 +2540,19 @@ pub struct EventSubscriptionProperties {
     pub source_ids: Option<::ValueList<String>>,
     /// Property [`SourceType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-sourcetype).
     ///
-    /// Update type: _Conditional_.
-    /// Conditional updates can be mutable or immutable, depending on, for example, which other properties you updated.
-    /// For more information, see the relevant resource type documentation.
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub source_type: Option<::Value<String>>,
+    /// Property [`SubscriptionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-subscriptionname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub subscription_name: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
 }
 
 impl ::serde::Serialize for EventSubscriptionProperties {
@@ -2321,6 +2570,12 @@ impl ::serde::Serialize for EventSubscriptionProperties {
         }
         if let Some(ref source_type) = self.source_type {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "SourceType", source_type)?;
+        }
+        if let Some(ref subscription_name) = self.subscription_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SubscriptionName", subscription_name)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -2343,6 +2598,8 @@ impl<'de> ::serde::Deserialize<'de> for EventSubscriptionProperties {
                 let mut sns_topic_arn: Option<::Value<String>> = None;
                 let mut source_ids: Option<::ValueList<String>> = None;
                 let mut source_type: Option<::Value<String>> = None;
+                let mut subscription_name: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -2361,6 +2618,12 @@ impl<'de> ::serde::Deserialize<'de> for EventSubscriptionProperties {
                         "SourceType" => {
                             source_type = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "SubscriptionName" => {
+                            subscription_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
@@ -2371,6 +2634,8 @@ impl<'de> ::serde::Deserialize<'de> for EventSubscriptionProperties {
                     sns_topic_arn: sns_topic_arn.ok_or(::serde::de::Error::missing_field("SnsTopicArn"))?,
                     source_ids: source_ids,
                     source_type: source_type,
+                    subscription_name: subscription_name,
+                    tags: tags,
                 })
             }
         }
@@ -2562,9 +2827,9 @@ pub struct OptionGroupProperties {
     pub major_engine_version: ::Value<String>,
     /// Property [`OptionConfigurations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-optionconfigurations).
     ///
-    /// Update type: _Immutable_.
-    /// AWS CloudFormation replaces the resource when you change this property.
-    pub option_configurations: ::ValueList<self::option_group::OptionConfiguration>,
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub option_configurations: Option<::ValueList<self::option_group::OptionConfiguration>>,
     /// Property [`OptionGroupDescription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-optiongroupdescription).
     ///
     /// Update type: _Immutable_.
@@ -2582,7 +2847,9 @@ impl ::serde::Serialize for OptionGroupProperties {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "EngineName", &self.engine_name)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "MajorEngineVersion", &self.major_engine_version)?;
-        ::serde::ser::SerializeMap::serialize_entry(&mut map, "OptionConfigurations", &self.option_configurations)?;
+        if let Some(ref option_configurations) = self.option_configurations {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "OptionConfigurations", option_configurations)?;
+        }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "OptionGroupDescription", &self.option_group_description)?;
         if let Some(ref tags) = self.tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
@@ -2633,7 +2900,7 @@ impl<'de> ::serde::Deserialize<'de> for OptionGroupProperties {
                 Ok(OptionGroupProperties {
                     engine_name: engine_name.ok_or(::serde::de::Error::missing_field("EngineName"))?,
                     major_engine_version: major_engine_version.ok_or(::serde::de::Error::missing_field("MajorEngineVersion"))?,
-                    option_configurations: option_configurations.ok_or(::serde::de::Error::missing_field("OptionConfigurations"))?,
+                    option_configurations: option_configurations,
                     option_group_description: option_group_description.ok_or(::serde::de::Error::missing_field("OptionGroupDescription"))?,
                     tags: tags,
                 })
@@ -2722,6 +2989,59 @@ pub mod db_cluster {
                     Ok(DBClusterRole {
                         feature_name: feature_name,
                         role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::RDS::DBCluster.ReadEndpoint`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-readendpoint.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ReadEndpoint {
+        /// Property [`Address`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-readendpoint.html#cfn-rds-dbcluster-readendpoint-address).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub address: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for ReadEndpoint {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref address) = self.address {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Address", address)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ReadEndpoint {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ReadEndpoint, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ReadEndpoint;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ReadEndpoint")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut address: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Address" => {
+                                address = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ReadEndpoint {
+                        address: address,
                     })
                 }
             }
@@ -2821,6 +3141,72 @@ pub mod db_cluster {
             d.deserialize_map(Visitor)
         }
     }
+
+    /// The [`AWS::RDS::DBCluster.ServerlessV2ScalingConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-serverlessv2scalingconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ServerlessV2ScalingConfiguration {
+        /// Property [`MaxCapacity`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-serverlessv2scalingconfiguration.html#cfn-rds-dbcluster-serverlessv2scalingconfiguration-maxcapacity).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub max_capacity: Option<::Value<f64>>,
+        /// Property [`MinCapacity`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-serverlessv2scalingconfiguration.html#cfn-rds-dbcluster-serverlessv2scalingconfiguration-mincapacity).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub min_capacity: Option<::Value<f64>>,
+    }
+
+    impl ::codec::SerializeValue for ServerlessV2ScalingConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref max_capacity) = self.max_capacity {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MaxCapacity", max_capacity)?;
+            }
+            if let Some(ref min_capacity) = self.min_capacity {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MinCapacity", min_capacity)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ServerlessV2ScalingConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ServerlessV2ScalingConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ServerlessV2ScalingConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ServerlessV2ScalingConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut max_capacity: Option<::Value<f64>> = None;
+                    let mut min_capacity: Option<::Value<f64>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "MaxCapacity" => {
+                                max_capacity = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MinCapacity" => {
+                                min_capacity = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ServerlessV2ScalingConfiguration {
+                        max_capacity: max_capacity,
+                        min_capacity: min_capacity,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 }
 
 pub mod db_instance {
@@ -2880,6 +3266,85 @@ pub mod db_instance {
                     Ok(DBInstanceRole {
                         feature_name: feature_name.ok_or(::serde::de::Error::missing_field("FeatureName"))?,
                         role_arn: role_arn.ok_or(::serde::de::Error::missing_field("RoleArn"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::RDS::DBInstance.Endpoint`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbinstance-endpoint.html) property type.
+    #[derive(Debug, Default)]
+    pub struct Endpoint {
+        /// Property [`Address`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbinstance-endpoint.html#cfn-rds-dbinstance-endpoint-address).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub address: Option<::Value<String>>,
+        /// Property [`HostedZoneId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbinstance-endpoint.html#cfn-rds-dbinstance-endpoint-hostedzoneid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub hosted_zone_id: Option<::Value<String>>,
+        /// Property [`Port`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbinstance-endpoint.html#cfn-rds-dbinstance-endpoint-port).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub port: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for Endpoint {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref address) = self.address {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Address", address)?;
+            }
+            if let Some(ref hosted_zone_id) = self.hosted_zone_id {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "HostedZoneId", hosted_zone_id)?;
+            }
+            if let Some(ref port) = self.port {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Port", port)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for Endpoint {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<Endpoint, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = Endpoint;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type Endpoint")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut address: Option<::Value<String>> = None;
+                    let mut hosted_zone_id: Option<::Value<String>> = None;
+                    let mut port: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Address" => {
+                                address = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "HostedZoneId" => {
+                                hosted_zone_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Port" => {
+                                port = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(Endpoint {
+                        address: address,
+                        hosted_zone_id: hosted_zone_id,
+                        port: port,
                     })
                 }
             }
@@ -3408,35 +3873,35 @@ pub mod db_security_group {
 pub mod option_group {
     //! Property types for the `OptionGroup` resource.
 
-    /// The [`AWS::RDS::OptionGroup.OptionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html) property type.
+    /// The [`AWS::RDS::OptionGroup.OptionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html) property type.
     #[derive(Debug, Default)]
     pub struct OptionConfiguration {
-        /// Property [`DBSecurityGroupMemberships`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-dbsecuritygroupmemberships).
+        /// Property [`DBSecurityGroupMemberships`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html#cfn-rds-optiongroup-optionconfiguration-dbsecuritygroupmemberships).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub db_security_group_memberships: Option<::ValueList<String>>,
-        /// Property [`OptionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-optionname).
+        /// Property [`OptionName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html#cfn-rds-optiongroup-optionconfiguration-optionname).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub option_name: ::Value<String>,
-        /// Property [`OptionSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-optionsettings).
+        /// Property [`OptionSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html#cfn-rds-optiongroup-optionconfiguration-optionsettings).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub option_settings: Option<::ValueList<OptionSetting>>,
-        /// Property [`OptionVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfiguration-optionversion).
+        /// Property [`OptionVersion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html#cfn-rds-optiongroup-optionconfiguration-optionversion).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub option_version: Option<::Value<String>>,
-        /// Property [`Port`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-port).
+        /// Property [`Port`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html#cfn-rds-optiongroup-optionconfiguration-port).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub port: Option<::Value<u32>>,
-        /// Property [`VpcSecurityGroupMemberships`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-vpcsecuritygroupmemberships).
+        /// Property [`VpcSecurityGroupMemberships`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfiguration.html#cfn-rds-optiongroup-optionconfiguration-vpcsecuritygroupmemberships).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
@@ -3524,15 +3989,15 @@ pub mod option_group {
         }
     }
 
-    /// The [`AWS::RDS::OptionGroup.OptionSetting`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations-optionsettings.html) property type.
+    /// The [`AWS::RDS::OptionGroup.OptionSetting`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionsetting.html) property type.
     #[derive(Debug, Default)]
     pub struct OptionSetting {
-        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations-optionsettings.html#cfn-rds-optiongroup-optionconfigurations-optionsettings-name).
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionsetting.html#cfn-rds-optiongroup-optionsetting-name).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub name: Option<::Value<String>>,
-        /// Property [`Value`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations-optionsettings.html#cfn-rds-optiongroup-optionconfigurations-optionsettings-value).
+        /// Property [`Value`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionsetting.html#cfn-rds-optiongroup-optionsetting-value).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.

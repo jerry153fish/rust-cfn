@@ -141,11 +141,16 @@ pub struct PolicyProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub resource_type_list: Option<::ValueList<String>>,
+    /// Property [`ResourcesCleanUp`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-policy.html#cfn-fms-policy-resourcescleanup).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub resources_clean_up: Option<::Value<bool>>,
     /// Property [`SecurityServicePolicyData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-policy.html#cfn-fms-policy-securityservicepolicydata).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
-    pub security_service_policy_data: ::Value<::json::Value>,
+    pub security_service_policy_data: ::Value<self::policy::SecurityServicePolicyData>,
     /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-fms-policy.html#cfn-fms-policy-tags).
     ///
     /// Update type: _Mutable_.
@@ -174,6 +179,9 @@ impl ::serde::Serialize for PolicyProperties {
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "ResourceType", &self.resource_type)?;
         if let Some(ref resource_type_list) = self.resource_type_list {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ResourceTypeList", resource_type_list)?;
+        }
+        if let Some(ref resources_clean_up) = self.resources_clean_up {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ResourcesCleanUp", resources_clean_up)?;
         }
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "SecurityServicePolicyData", &self.security_service_policy_data)?;
         if let Some(ref tags) = self.tags {
@@ -204,7 +212,8 @@ impl<'de> ::serde::Deserialize<'de> for PolicyProperties {
                 let mut resource_tags: Option<::ValueList<self::policy::ResourceTag>> = None;
                 let mut resource_type: Option<::Value<String>> = None;
                 let mut resource_type_list: Option<::ValueList<String>> = None;
-                let mut security_service_policy_data: Option<::Value<::json::Value>> = None;
+                let mut resources_clean_up: Option<::Value<bool>> = None;
+                let mut security_service_policy_data: Option<::Value<self::policy::SecurityServicePolicyData>> = None;
                 let mut tags: Option<::ValueList<self::policy::PolicyTag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
@@ -236,6 +245,9 @@ impl<'de> ::serde::Deserialize<'de> for PolicyProperties {
                         "ResourceTypeList" => {
                             resource_type_list = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "ResourcesCleanUp" => {
+                            resources_clean_up = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "SecurityServicePolicyData" => {
                             security_service_policy_data = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -256,6 +268,7 @@ impl<'de> ::serde::Deserialize<'de> for PolicyProperties {
                     resource_tags: resource_tags,
                     resource_type: resource_type.ok_or(::serde::de::Error::missing_field("ResourceType"))?,
                     resource_type_list: resource_type_list,
+                    resources_clean_up: resources_clean_up,
                     security_service_policy_data: security_service_policy_data.ok_or(::serde::de::Error::missing_field("SecurityServicePolicyData"))?,
                     tags: tags,
                 })
@@ -346,6 +359,123 @@ pub mod policy {
                     Ok(IEMap {
                         account: account,
                         orgunit: orgunit,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::FMS::Policy.NetworkFirewallPolicy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-networkfirewallpolicy.html) property type.
+    #[derive(Debug, Default)]
+    pub struct NetworkFirewallPolicy {
+        /// Property [`FirewallDeploymentModel`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-networkfirewallpolicy.html#cfn-fms-policy-networkfirewallpolicy-firewalldeploymentmodel).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub firewall_deployment_model: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for NetworkFirewallPolicy {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "FirewallDeploymentModel", &self.firewall_deployment_model)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for NetworkFirewallPolicy {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<NetworkFirewallPolicy, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = NetworkFirewallPolicy;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type NetworkFirewallPolicy")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut firewall_deployment_model: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "FirewallDeploymentModel" => {
+                                firewall_deployment_model = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(NetworkFirewallPolicy {
+                        firewall_deployment_model: firewall_deployment_model.ok_or(::serde::de::Error::missing_field("FirewallDeploymentModel"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::FMS::Policy.PolicyOption`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-policyoption.html) property type.
+    #[derive(Debug, Default)]
+    pub struct PolicyOption {
+        /// Property [`NetworkFirewallPolicy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-policyoption.html#cfn-fms-policy-policyoption-networkfirewallpolicy).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub network_firewall_policy: Option<::Value<NetworkFirewallPolicy>>,
+        /// Property [`ThirdPartyFirewallPolicy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-policyoption.html#cfn-fms-policy-policyoption-thirdpartyfirewallpolicy).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub third_party_firewall_policy: Option<::Value<ThirdPartyFirewallPolicy>>,
+    }
+
+    impl ::codec::SerializeValue for PolicyOption {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref network_firewall_policy) = self.network_firewall_policy {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "NetworkFirewallPolicy", network_firewall_policy)?;
+            }
+            if let Some(ref third_party_firewall_policy) = self.third_party_firewall_policy {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ThirdPartyFirewallPolicy", third_party_firewall_policy)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for PolicyOption {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<PolicyOption, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = PolicyOption;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type PolicyOption")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut network_firewall_policy: Option<::Value<NetworkFirewallPolicy>> = None;
+                    let mut third_party_firewall_policy: Option<::Value<ThirdPartyFirewallPolicy>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "NetworkFirewallPolicy" => {
+                                network_firewall_policy = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ThirdPartyFirewallPolicy" => {
+                                third_party_firewall_policy = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(PolicyOption {
+                        network_firewall_policy: network_firewall_policy,
+                        third_party_firewall_policy: third_party_firewall_policy,
                     })
                 }
             }
@@ -472,6 +602,134 @@ pub mod policy {
                     Ok(ResourceTag {
                         key: key.ok_or(::serde::de::Error::missing_field("Key"))?,
                         value: value,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::FMS::Policy.SecurityServicePolicyData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-securityservicepolicydata.html) property type.
+    #[derive(Debug, Default)]
+    pub struct SecurityServicePolicyData {
+        /// Property [`ManagedServiceData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-securityservicepolicydata.html#cfn-fms-policy-securityservicepolicydata-managedservicedata).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub managed_service_data: Option<::Value<String>>,
+        /// Property [`PolicyOption`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-securityservicepolicydata.html#cfn-fms-policy-securityservicepolicydata-policyoption).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub policy_option: Option<::Value<PolicyOption>>,
+        /// Property [`Type`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-securityservicepolicydata.html#cfn-fms-policy-securityservicepolicydata-type).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub r#type: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for SecurityServicePolicyData {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref managed_service_data) = self.managed_service_data {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ManagedServiceData", managed_service_data)?;
+            }
+            if let Some(ref policy_option) = self.policy_option {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PolicyOption", policy_option)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Type", &self.r#type)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for SecurityServicePolicyData {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<SecurityServicePolicyData, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = SecurityServicePolicyData;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type SecurityServicePolicyData")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut managed_service_data: Option<::Value<String>> = None;
+                    let mut policy_option: Option<::Value<PolicyOption>> = None;
+                    let mut r#type: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ManagedServiceData" => {
+                                managed_service_data = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "PolicyOption" => {
+                                policy_option = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Type" => {
+                                r#type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(SecurityServicePolicyData {
+                        managed_service_data: managed_service_data,
+                        policy_option: policy_option,
+                        r#type: r#type.ok_or(::serde::de::Error::missing_field("Type"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::FMS::Policy.ThirdPartyFirewallPolicy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-thirdpartyfirewallpolicy.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ThirdPartyFirewallPolicy {
+        /// Property [`FirewallDeploymentModel`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-fms-policy-thirdpartyfirewallpolicy.html#cfn-fms-policy-thirdpartyfirewallpolicy-firewalldeploymentmodel).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub firewall_deployment_model: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for ThirdPartyFirewallPolicy {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "FirewallDeploymentModel", &self.firewall_deployment_model)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ThirdPartyFirewallPolicy {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ThirdPartyFirewallPolicy, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ThirdPartyFirewallPolicy;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ThirdPartyFirewallPolicy")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut firewall_deployment_model: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "FirewallDeploymentModel" => {
+                                firewall_deployment_model = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ThirdPartyFirewallPolicy {
+                        firewall_deployment_model: firewall_deployment_model.ok_or(::serde::de::Error::missing_field("FirewallDeploymentModel"))?,
                     })
                 }
             }

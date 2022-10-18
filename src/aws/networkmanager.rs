@@ -1,5 +1,393 @@
 //! Types for the `NetworkManager` service.
 
+/// The [`AWS::NetworkManager::ConnectAttachment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html) resource type.
+#[derive(Debug, Default)]
+pub struct ConnectAttachment {
+    properties: ConnectAttachmentProperties
+}
+
+/// Properties for the `ConnectAttachment` resource.
+#[derive(Debug, Default)]
+pub struct ConnectAttachmentProperties {
+    /// Property [`CoreNetworkId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html#cfn-networkmanager-connectattachment-corenetworkid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub core_network_id: Option<::Value<String>>,
+    /// Property [`EdgeLocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html#cfn-networkmanager-connectattachment-edgelocation).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub edge_location: Option<::Value<String>>,
+    /// Property [`Options`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html#cfn-networkmanager-connectattachment-options).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub options: Option<::Value<self::connect_attachment::ConnectAttachmentOptions>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html#cfn-networkmanager-connectattachment-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`TransportAttachmentId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectattachment.html#cfn-networkmanager-connectattachment-transportattachmentid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub transport_attachment_id: Option<::Value<String>>,
+}
+
+impl ::serde::Serialize for ConnectAttachmentProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref core_network_id) = self.core_network_id {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CoreNetworkId", core_network_id)?;
+        }
+        if let Some(ref edge_location) = self.edge_location {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EdgeLocation", edge_location)?;
+        }
+        if let Some(ref options) = self.options {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Options", options)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref transport_attachment_id) = self.transport_attachment_id {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "TransportAttachmentId", transport_attachment_id)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ConnectAttachmentProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ConnectAttachmentProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ConnectAttachmentProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ConnectAttachmentProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut core_network_id: Option<::Value<String>> = None;
+                let mut edge_location: Option<::Value<String>> = None;
+                let mut options: Option<::Value<self::connect_attachment::ConnectAttachmentOptions>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut transport_attachment_id: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "CoreNetworkId" => {
+                            core_network_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "EdgeLocation" => {
+                            edge_location = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Options" => {
+                            options = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "TransportAttachmentId" => {
+                            transport_attachment_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ConnectAttachmentProperties {
+                    core_network_id: core_network_id,
+                    edge_location: edge_location,
+                    options: options,
+                    tags: tags,
+                    transport_attachment_id: transport_attachment_id,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for ConnectAttachment {
+    type Properties = ConnectAttachmentProperties;
+    const TYPE: &'static str = "AWS::NetworkManager::ConnectAttachment";
+    fn properties(&self) -> &ConnectAttachmentProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ConnectAttachmentProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for ConnectAttachment {}
+
+impl From<ConnectAttachmentProperties> for ConnectAttachment {
+    fn from(properties: ConnectAttachmentProperties) -> ConnectAttachment {
+        ConnectAttachment { properties }
+    }
+}
+
+/// The [`AWS::NetworkManager::ConnectPeer`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html) resource type.
+#[derive(Debug, Default)]
+pub struct ConnectPeer {
+    properties: ConnectPeerProperties
+}
+
+/// Properties for the `ConnectPeer` resource.
+#[derive(Debug, Default)]
+pub struct ConnectPeerProperties {
+    /// Property [`BgpOptions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html#cfn-networkmanager-connectpeer-bgpoptions).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub bgp_options: Option<::Value<self::connect_peer::BgpOptions>>,
+    /// Property [`ConnectAttachmentId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html#cfn-networkmanager-connectpeer-connectattachmentid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub connect_attachment_id: Option<::Value<String>>,
+    /// Property [`CoreNetworkAddress`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html#cfn-networkmanager-connectpeer-corenetworkaddress).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub core_network_address: Option<::Value<String>>,
+    /// Property [`InsideCidrBlocks`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html#cfn-networkmanager-connectpeer-insidecidrblocks).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub inside_cidr_blocks: Option<::ValueList<String>>,
+    /// Property [`PeerAddress`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html#cfn-networkmanager-connectpeer-peeraddress).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub peer_address: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-connectpeer.html#cfn-networkmanager-connectpeer-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for ConnectPeerProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref bgp_options) = self.bgp_options {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "BgpOptions", bgp_options)?;
+        }
+        if let Some(ref connect_attachment_id) = self.connect_attachment_id {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ConnectAttachmentId", connect_attachment_id)?;
+        }
+        if let Some(ref core_network_address) = self.core_network_address {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CoreNetworkAddress", core_network_address)?;
+        }
+        if let Some(ref inside_cidr_blocks) = self.inside_cidr_blocks {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InsideCidrBlocks", inside_cidr_blocks)?;
+        }
+        if let Some(ref peer_address) = self.peer_address {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PeerAddress", peer_address)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ConnectPeerProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ConnectPeerProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ConnectPeerProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ConnectPeerProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut bgp_options: Option<::Value<self::connect_peer::BgpOptions>> = None;
+                let mut connect_attachment_id: Option<::Value<String>> = None;
+                let mut core_network_address: Option<::Value<String>> = None;
+                let mut inside_cidr_blocks: Option<::ValueList<String>> = None;
+                let mut peer_address: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "BgpOptions" => {
+                            bgp_options = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ConnectAttachmentId" => {
+                            connect_attachment_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CoreNetworkAddress" => {
+                            core_network_address = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "InsideCidrBlocks" => {
+                            inside_cidr_blocks = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PeerAddress" => {
+                            peer_address = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ConnectPeerProperties {
+                    bgp_options: bgp_options,
+                    connect_attachment_id: connect_attachment_id,
+                    core_network_address: core_network_address,
+                    inside_cidr_blocks: inside_cidr_blocks,
+                    peer_address: peer_address,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for ConnectPeer {
+    type Properties = ConnectPeerProperties;
+    const TYPE: &'static str = "AWS::NetworkManager::ConnectPeer";
+    fn properties(&self) -> &ConnectPeerProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ConnectPeerProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for ConnectPeer {}
+
+impl From<ConnectPeerProperties> for ConnectPeer {
+    fn from(properties: ConnectPeerProperties) -> ConnectPeer {
+        ConnectPeer { properties }
+    }
+}
+
+/// The [`AWS::NetworkManager::CoreNetwork`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-corenetwork.html) resource type.
+#[derive(Debug, Default)]
+pub struct CoreNetwork {
+    properties: CoreNetworkProperties
+}
+
+/// Properties for the `CoreNetwork` resource.
+#[derive(Debug, Default)]
+pub struct CoreNetworkProperties {
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-corenetwork.html#cfn-networkmanager-corenetwork-description).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub description: Option<::Value<String>>,
+    /// Property [`GlobalNetworkId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-corenetwork.html#cfn-networkmanager-corenetwork-globalnetworkid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub global_network_id: ::Value<String>,
+    /// Property [`PolicyDocument`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-corenetwork.html#cfn-networkmanager-corenetwork-policydocument).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub policy_document: Option<::Value<::json::Value>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-corenetwork.html#cfn-networkmanager-corenetwork-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for CoreNetworkProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref description) = self.description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "GlobalNetworkId", &self.global_network_id)?;
+        if let Some(ref policy_document) = self.policy_document {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PolicyDocument", policy_document)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for CoreNetworkProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<CoreNetworkProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = CoreNetworkProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type CoreNetworkProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut description: Option<::Value<String>> = None;
+                let mut global_network_id: Option<::Value<String>> = None;
+                let mut policy_document: Option<::Value<::json::Value>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "Description" => {
+                            description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "GlobalNetworkId" => {
+                            global_network_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PolicyDocument" => {
+                            policy_document = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(CoreNetworkProperties {
+                    description: description,
+                    global_network_id: global_network_id.ok_or(::serde::de::Error::missing_field("GlobalNetworkId"))?,
+                    policy_document: policy_document,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for CoreNetwork {
+    type Properties = CoreNetworkProperties;
+    const TYPE: &'static str = "AWS::NetworkManager::CoreNetwork";
+    fn properties(&self) -> &CoreNetworkProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut CoreNetworkProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for CoreNetwork {}
+
+impl From<CoreNetworkProperties> for CoreNetwork {
+    fn from(properties: CoreNetworkProperties) -> CoreNetwork {
+        CoreNetwork { properties }
+    }
+}
+
 /// The [`AWS::NetworkManager::CustomerGatewayAssociation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-customergatewayassociation.html) resource type.
 #[derive(Debug, Default)]
 pub struct CustomerGatewayAssociation {
@@ -745,6 +1133,110 @@ impl From<SiteProperties> for Site {
     }
 }
 
+/// The [`AWS::NetworkManager::SiteToSiteVpnAttachment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-sitetositevpnattachment.html) resource type.
+#[derive(Debug, Default)]
+pub struct SiteToSiteVpnAttachment {
+    properties: SiteToSiteVpnAttachmentProperties
+}
+
+/// Properties for the `SiteToSiteVpnAttachment` resource.
+#[derive(Debug, Default)]
+pub struct SiteToSiteVpnAttachmentProperties {
+    /// Property [`CoreNetworkId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-sitetositevpnattachment.html#cfn-networkmanager-sitetositevpnattachment-corenetworkid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub core_network_id: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-sitetositevpnattachment.html#cfn-networkmanager-sitetositevpnattachment-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`VpnConnectionArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-sitetositevpnattachment.html#cfn-networkmanager-sitetositevpnattachment-vpnconnectionarn).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub vpn_connection_arn: Option<::Value<String>>,
+}
+
+impl ::serde::Serialize for SiteToSiteVpnAttachmentProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref core_network_id) = self.core_network_id {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CoreNetworkId", core_network_id)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref vpn_connection_arn) = self.vpn_connection_arn {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "VpnConnectionArn", vpn_connection_arn)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for SiteToSiteVpnAttachmentProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<SiteToSiteVpnAttachmentProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = SiteToSiteVpnAttachmentProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type SiteToSiteVpnAttachmentProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut core_network_id: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut vpn_connection_arn: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "CoreNetworkId" => {
+                            core_network_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "VpnConnectionArn" => {
+                            vpn_connection_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(SiteToSiteVpnAttachmentProperties {
+                    core_network_id: core_network_id,
+                    tags: tags,
+                    vpn_connection_arn: vpn_connection_arn,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for SiteToSiteVpnAttachment {
+    type Properties = SiteToSiteVpnAttachmentProperties;
+    const TYPE: &'static str = "AWS::NetworkManager::SiteToSiteVpnAttachment";
+    fn properties(&self) -> &SiteToSiteVpnAttachmentProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut SiteToSiteVpnAttachmentProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for SiteToSiteVpnAttachment {}
+
+impl From<SiteToSiteVpnAttachmentProperties> for SiteToSiteVpnAttachment {
+    fn from(properties: SiteToSiteVpnAttachmentProperties) -> SiteToSiteVpnAttachment {
+        SiteToSiteVpnAttachment { properties }
+    }
+}
+
 /// The [`AWS::NetworkManager::TransitGatewayRegistration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-transitgatewayregistration.html) resource type.
 #[derive(Debug, Default)]
 pub struct TransitGatewayRegistration {
@@ -829,6 +1321,412 @@ impl ::private::Sealed for TransitGatewayRegistration {}
 impl From<TransitGatewayRegistrationProperties> for TransitGatewayRegistration {
     fn from(properties: TransitGatewayRegistrationProperties) -> TransitGatewayRegistration {
         TransitGatewayRegistration { properties }
+    }
+}
+
+/// The [`AWS::NetworkManager::VpcAttachment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-vpcattachment.html) resource type.
+#[derive(Debug, Default)]
+pub struct VpcAttachment {
+    properties: VpcAttachmentProperties
+}
+
+/// Properties for the `VpcAttachment` resource.
+#[derive(Debug, Default)]
+pub struct VpcAttachmentProperties {
+    /// Property [`CoreNetworkId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-vpcattachment.html#cfn-networkmanager-vpcattachment-corenetworkid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub core_network_id: Option<::Value<String>>,
+    /// Property [`Options`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-vpcattachment.html#cfn-networkmanager-vpcattachment-options).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub options: Option<::Value<self::vpc_attachment::VpcOptions>>,
+    /// Property [`SubnetArns`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-vpcattachment.html#cfn-networkmanager-vpcattachment-subnetarns).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub subnet_arns: Option<::ValueList<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-vpcattachment.html#cfn-networkmanager-vpcattachment-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`VpcArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-networkmanager-vpcattachment.html#cfn-networkmanager-vpcattachment-vpcarn).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub vpc_arn: Option<::Value<String>>,
+}
+
+impl ::serde::Serialize for VpcAttachmentProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref core_network_id) = self.core_network_id {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CoreNetworkId", core_network_id)?;
+        }
+        if let Some(ref options) = self.options {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Options", options)?;
+        }
+        if let Some(ref subnet_arns) = self.subnet_arns {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SubnetArns", subnet_arns)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref vpc_arn) = self.vpc_arn {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "VpcArn", vpc_arn)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for VpcAttachmentProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<VpcAttachmentProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = VpcAttachmentProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type VpcAttachmentProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut core_network_id: Option<::Value<String>> = None;
+                let mut options: Option<::Value<self::vpc_attachment::VpcOptions>> = None;
+                let mut subnet_arns: Option<::ValueList<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut vpc_arn: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "CoreNetworkId" => {
+                            core_network_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Options" => {
+                            options = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "SubnetArns" => {
+                            subnet_arns = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "VpcArn" => {
+                            vpc_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(VpcAttachmentProperties {
+                    core_network_id: core_network_id,
+                    options: options,
+                    subnet_arns: subnet_arns,
+                    tags: tags,
+                    vpc_arn: vpc_arn,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for VpcAttachment {
+    type Properties = VpcAttachmentProperties;
+    const TYPE: &'static str = "AWS::NetworkManager::VpcAttachment";
+    fn properties(&self) -> &VpcAttachmentProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut VpcAttachmentProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for VpcAttachment {}
+
+impl From<VpcAttachmentProperties> for VpcAttachment {
+    fn from(properties: VpcAttachmentProperties) -> VpcAttachment {
+        VpcAttachment { properties }
+    }
+}
+
+pub mod connect_attachment {
+    //! Property types for the `ConnectAttachment` resource.
+
+    /// The [`AWS::NetworkManager::ConnectAttachment.ConnectAttachmentOptions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-connectattachment-connectattachmentoptions.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ConnectAttachmentOptions {
+        /// Property [`Protocol`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-connectattachment-connectattachmentoptions.html#cfn-networkmanager-connectattachment-connectattachmentoptions-protocol).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub protocol: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for ConnectAttachmentOptions {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref protocol) = self.protocol {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Protocol", protocol)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ConnectAttachmentOptions {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ConnectAttachmentOptions, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ConnectAttachmentOptions;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ConnectAttachmentOptions")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut protocol: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Protocol" => {
+                                protocol = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ConnectAttachmentOptions {
+                        protocol: protocol,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+}
+
+pub mod connect_peer {
+    //! Property types for the `ConnectPeer` resource.
+
+    /// The [`AWS::NetworkManager::ConnectPeer.BgpOptions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-connectpeer-bgpoptions.html) property type.
+    #[derive(Debug, Default)]
+    pub struct BgpOptions {
+        /// Property [`PeerAsn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-connectpeer-bgpoptions.html#cfn-networkmanager-connectpeer-bgpoptions-peerasn).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub peer_asn: Option<::Value<f64>>,
+    }
+
+    impl ::codec::SerializeValue for BgpOptions {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref peer_asn) = self.peer_asn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "PeerAsn", peer_asn)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for BgpOptions {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<BgpOptions, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = BgpOptions;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type BgpOptions")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut peer_asn: Option<::Value<f64>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "PeerAsn" => {
+                                peer_asn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(BgpOptions {
+                        peer_asn: peer_asn,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+}
+
+pub mod core_network {
+    //! Property types for the `CoreNetwork` resource.
+
+    /// The [`AWS::NetworkManager::CoreNetwork.CoreNetworkEdge`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworkedge.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CoreNetworkEdge {
+        /// Property [`Asn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworkedge.html#cfn-networkmanager-corenetwork-corenetworkedge-asn).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub asn: Option<::Value<f64>>,
+        /// Property [`EdgeLocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworkedge.html#cfn-networkmanager-corenetwork-corenetworkedge-edgelocation).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub edge_location: Option<::Value<String>>,
+        /// Property [`InsideCidrBlocks`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworkedge.html#cfn-networkmanager-corenetwork-corenetworkedge-insidecidrblocks).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub inside_cidr_blocks: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for CoreNetworkEdge {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref asn) = self.asn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Asn", asn)?;
+            }
+            if let Some(ref edge_location) = self.edge_location {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EdgeLocation", edge_location)?;
+            }
+            if let Some(ref inside_cidr_blocks) = self.inside_cidr_blocks {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "InsideCidrBlocks", inside_cidr_blocks)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CoreNetworkEdge {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CoreNetworkEdge, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CoreNetworkEdge;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CoreNetworkEdge")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut asn: Option<::Value<f64>> = None;
+                    let mut edge_location: Option<::Value<String>> = None;
+                    let mut inside_cidr_blocks: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Asn" => {
+                                asn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "EdgeLocation" => {
+                                edge_location = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "InsideCidrBlocks" => {
+                                inside_cidr_blocks = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CoreNetworkEdge {
+                        asn: asn,
+                        edge_location: edge_location,
+                        inside_cidr_blocks: inside_cidr_blocks,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::NetworkManager::CoreNetwork.CoreNetworkSegment`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworksegment.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CoreNetworkSegment {
+        /// Property [`EdgeLocations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworksegment.html#cfn-networkmanager-corenetwork-corenetworksegment-edgelocations).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub edge_locations: Option<::ValueList<String>>,
+        /// Property [`Name`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworksegment.html#cfn-networkmanager-corenetwork-corenetworksegment-name).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub name: Option<::Value<String>>,
+        /// Property [`SharedSegments`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-corenetwork-corenetworksegment.html#cfn-networkmanager-corenetwork-corenetworksegment-sharedsegments).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub shared_segments: Option<::ValueList<String>>,
+    }
+
+    impl ::codec::SerializeValue for CoreNetworkSegment {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref edge_locations) = self.edge_locations {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EdgeLocations", edge_locations)?;
+            }
+            if let Some(ref name) = self.name {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", name)?;
+            }
+            if let Some(ref shared_segments) = self.shared_segments {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SharedSegments", shared_segments)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CoreNetworkSegment {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CoreNetworkSegment, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CoreNetworkSegment;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CoreNetworkSegment")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut edge_locations: Option<::ValueList<String>> = None;
+                    let mut name: Option<::Value<String>> = None;
+                    let mut shared_segments: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "EdgeLocations" => {
+                                edge_locations = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Name" => {
+                                name = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SharedSegments" => {
+                                shared_segments = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CoreNetworkSegment {
+                        edge_locations: edge_locations,
+                        name: name,
+                        shared_segments: shared_segments,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
     }
 }
 
@@ -1059,6 +1957,63 @@ pub mod site {
                         address: address,
                         latitude: latitude,
                         longitude: longitude,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+}
+
+pub mod vpc_attachment {
+    //! Property types for the `VpcAttachment` resource.
+
+    /// The [`AWS::NetworkManager::VpcAttachment.VpcOptions`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-vpcattachment-vpcoptions.html) property type.
+    #[derive(Debug, Default)]
+    pub struct VpcOptions {
+        /// Property [`Ipv6Support`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-networkmanager-vpcattachment-vpcoptions.html#cfn-networkmanager-vpcattachment-vpcoptions-ipv6support).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub ipv6_support: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for VpcOptions {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref ipv6_support) = self.ipv6_support {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Ipv6Support", ipv6_support)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for VpcOptions {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<VpcOptions, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = VpcOptions;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type VpcOptions")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut ipv6_support: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Ipv6Support" => {
+                                ipv6_support = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(VpcOptions {
+                        ipv6_support: ipv6_support,
                     })
                 }
             }

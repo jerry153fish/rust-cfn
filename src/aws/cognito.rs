@@ -397,6 +397,11 @@ pub struct UserPoolProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub sms_verification_message: Option<::Value<String>>,
+    /// Property [`UserAttributeUpdateSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-userattributeupdatesettings).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub user_attribute_update_settings: Option<::Value<self::user_pool::UserAttributeUpdateSettings>>,
     /// Property [`UserPoolAddOns`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-userpooladdons).
     ///
     /// Update type: _Mutable_.
@@ -480,6 +485,9 @@ impl ::serde::Serialize for UserPoolProperties {
         if let Some(ref sms_verification_message) = self.sms_verification_message {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "SmsVerificationMessage", sms_verification_message)?;
         }
+        if let Some(ref user_attribute_update_settings) = self.user_attribute_update_settings {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserAttributeUpdateSettings", user_attribute_update_settings)?;
+        }
         if let Some(ref user_pool_add_ons) = self.user_pool_add_ons {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "UserPoolAddOns", user_pool_add_ons)?;
         }
@@ -530,6 +538,7 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolProperties {
                 let mut sms_authentication_message: Option<::Value<String>> = None;
                 let mut sms_configuration: Option<::Value<self::user_pool::SmsConfiguration>> = None;
                 let mut sms_verification_message: Option<::Value<String>> = None;
+                let mut user_attribute_update_settings: Option<::Value<self::user_pool::UserAttributeUpdateSettings>> = None;
                 let mut user_pool_add_ons: Option<::Value<self::user_pool::UserPoolAddOns>> = None;
                 let mut user_pool_name: Option<::Value<String>> = None;
                 let mut user_pool_tags: Option<::Value<::json::Value>> = None;
@@ -587,6 +596,9 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolProperties {
                         "SmsVerificationMessage" => {
                             sms_verification_message = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "UserAttributeUpdateSettings" => {
+                            user_attribute_update_settings = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "UserPoolAddOns" => {
                             user_pool_add_ons = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -626,6 +638,7 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolProperties {
                     sms_authentication_message: sms_authentication_message,
                     sms_configuration: sms_configuration,
                     sms_verification_message: sms_verification_message,
+                    user_attribute_update_settings: user_attribute_update_settings,
                     user_pool_add_ons: user_pool_add_ons,
                     user_pool_name: user_pool_name,
                     user_pool_tags: user_pool_tags,
@@ -693,6 +706,11 @@ pub struct UserPoolClientProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub analytics_configuration: Option<::Value<self::user_pool_client::AnalyticsConfiguration>>,
+    /// Property [`AuthSessionValidity`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-authsessionvalidity).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub auth_session_validity: Option<::Value<u32>>,
     /// Property [`CallbackURLs`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-callbackurls).
     ///
     /// Update type: _Mutable_.
@@ -708,6 +726,11 @@ pub struct UserPoolClientProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub default_redirect_uri: Option<::Value<String>>,
+    /// Property [`EnablePropagateAdditionalUserContextData`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-enablepropagateadditionalusercontextdata).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub enable_propagate_additional_user_context_data: Option<::Value<bool>>,
     /// Property [`EnableTokenRevocation`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-enabletokenrevocation).
     ///
     /// Update type: _Mutable_.
@@ -788,6 +811,9 @@ impl ::serde::Serialize for UserPoolClientProperties {
         if let Some(ref analytics_configuration) = self.analytics_configuration {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "AnalyticsConfiguration", analytics_configuration)?;
         }
+        if let Some(ref auth_session_validity) = self.auth_session_validity {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AuthSessionValidity", auth_session_validity)?;
+        }
         if let Some(ref callback_ur_ls) = self.callback_ur_ls {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "CallbackURLs", callback_ur_ls)?;
         }
@@ -796,6 +822,9 @@ impl ::serde::Serialize for UserPoolClientProperties {
         }
         if let Some(ref default_redirect_uri) = self.default_redirect_uri {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DefaultRedirectURI", default_redirect_uri)?;
+        }
+        if let Some(ref enable_propagate_additional_user_context_data) = self.enable_propagate_additional_user_context_data {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EnablePropagateAdditionalUserContextData", enable_propagate_additional_user_context_data)?;
         }
         if let Some(ref enable_token_revocation) = self.enable_token_revocation {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "EnableTokenRevocation", enable_token_revocation)?;
@@ -852,9 +881,11 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolClientProperties {
                 let mut allowed_o_auth_flows_user_pool_client: Option<::Value<bool>> = None;
                 let mut allowed_o_auth_scopes: Option<::ValueList<String>> = None;
                 let mut analytics_configuration: Option<::Value<self::user_pool_client::AnalyticsConfiguration>> = None;
+                let mut auth_session_validity: Option<::Value<u32>> = None;
                 let mut callback_ur_ls: Option<::ValueList<String>> = None;
                 let mut client_name: Option<::Value<String>> = None;
                 let mut default_redirect_uri: Option<::Value<String>> = None;
+                let mut enable_propagate_additional_user_context_data: Option<::Value<bool>> = None;
                 let mut enable_token_revocation: Option<::Value<bool>> = None;
                 let mut explicit_auth_flows: Option<::ValueList<String>> = None;
                 let mut generate_secret: Option<::Value<bool>> = None;
@@ -885,6 +916,9 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolClientProperties {
                         "AnalyticsConfiguration" => {
                             analytics_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "AuthSessionValidity" => {
+                            auth_session_validity = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "CallbackURLs" => {
                             callback_ur_ls = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -893,6 +927,9 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolClientProperties {
                         }
                         "DefaultRedirectURI" => {
                             default_redirect_uri = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "EnablePropagateAdditionalUserContextData" => {
+                            enable_propagate_additional_user_context_data = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "EnableTokenRevocation" => {
                             enable_token_revocation = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -940,9 +977,11 @@ impl<'de> ::serde::Deserialize<'de> for UserPoolClientProperties {
                     allowed_o_auth_flows_user_pool_client: allowed_o_auth_flows_user_pool_client,
                     allowed_o_auth_scopes: allowed_o_auth_scopes,
                     analytics_configuration: analytics_configuration,
+                    auth_session_validity: auth_session_validity,
                     callback_ur_ls: callback_ur_ls,
                     client_name: client_name,
                     default_redirect_uri: default_redirect_uri,
+                    enable_propagate_additional_user_context_data: enable_propagate_additional_user_context_data,
                     enable_token_revocation: enable_token_revocation,
                     explicit_auth_flows: explicit_auth_flows,
                     generate_secret: generate_secret,
@@ -3579,6 +3618,11 @@ pub mod user_pool {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub sns_caller_arn: Option<::Value<String>>,
+        /// Property [`SnsRegion`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-smsconfiguration.html#cfn-cognito-userpool-smsconfiguration-snsregion).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub sns_region: Option<::Value<String>>,
     }
 
     impl ::codec::SerializeValue for SmsConfiguration {
@@ -3589,6 +3633,9 @@ pub mod user_pool {
             }
             if let Some(ref sns_caller_arn) = self.sns_caller_arn {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "SnsCallerArn", sns_caller_arn)?;
+            }
+            if let Some(ref sns_region) = self.sns_region {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SnsRegion", sns_region)?;
             }
             ::serde::ser::SerializeMap::end(map)
         }
@@ -3608,6 +3655,7 @@ pub mod user_pool {
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut external_id: Option<::Value<String>> = None;
                     let mut sns_caller_arn: Option<::Value<String>> = None;
+                    let mut sns_region: Option<::Value<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
@@ -3617,6 +3665,9 @@ pub mod user_pool {
                             "SnsCallerArn" => {
                                 sns_caller_arn = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "SnsRegion" => {
+                                sns_region = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             _ => {}
                         }
                     }
@@ -3624,6 +3675,7 @@ pub mod user_pool {
                     Ok(SmsConfiguration {
                         external_id: external_id,
                         sns_caller_arn: sns_caller_arn,
+                        sns_region: sns_region,
                     })
                 }
             }
@@ -3690,6 +3742,57 @@ pub mod user_pool {
                     Ok(StringAttributeConstraints {
                         max_length: max_length,
                         min_length: min_length,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::Cognito::UserPool.UserAttributeUpdateSettings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-userattributeupdatesettings.html) property type.
+    #[derive(Debug, Default)]
+    pub struct UserAttributeUpdateSettings {
+        /// Property [`AttributesRequireVerificationBeforeUpdate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-userattributeupdatesettings.html#cfn-cognito-userpool-userattributeupdatesettings-attributesrequireverificationbeforeupdate).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub attributes_require_verification_before_update: ::ValueList<String>,
+    }
+
+    impl ::codec::SerializeValue for UserAttributeUpdateSettings {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "AttributesRequireVerificationBeforeUpdate", &self.attributes_require_verification_before_update)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for UserAttributeUpdateSettings {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<UserAttributeUpdateSettings, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = UserAttributeUpdateSettings;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type UserAttributeUpdateSettings")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut attributes_require_verification_before_update: Option<::ValueList<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AttributesRequireVerificationBeforeUpdate" => {
+                                attributes_require_verification_before_update = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(UserAttributeUpdateSettings {
+                        attributes_require_verification_before_update: attributes_require_verification_before_update.ok_or(::serde::de::Error::missing_field("AttributesRequireVerificationBeforeUpdate"))?,
                     })
                 }
             }

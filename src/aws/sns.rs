@@ -178,7 +178,7 @@ impl From<SubscriptionProperties> for Subscription {
     }
 }
 
-/// The [`AWS::SNS::Topic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html) resource type.
+/// The [`AWS::SNS::Topic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html) resource type.
 #[derive(Debug, Default)]
 pub struct Topic {
     properties: TopicProperties
@@ -187,37 +187,42 @@ pub struct Topic {
 /// Properties for the `Topic` resource.
 #[derive(Debug, Default)]
 pub struct TopicProperties {
-    /// Property [`ContentBasedDeduplication`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-contentbaseddeduplication).
+    /// Property [`ContentBasedDeduplication`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-contentbaseddeduplication).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub content_based_deduplication: Option<::Value<bool>>,
-    /// Property [`DisplayName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-displayname).
+    /// Property [`DataProtectionPolicy`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-dataprotectionpolicy).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub data_protection_policy: Option<::Value<::json::Value>>,
+    /// Property [`DisplayName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-displayname).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub display_name: Option<::Value<String>>,
-    /// Property [`FifoTopic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-fifotopic).
+    /// Property [`FifoTopic`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-fifotopic).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
     pub fifo_topic: Option<::Value<bool>>,
-    /// Property [`KmsMasterKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-kmsmasterkeyid).
+    /// Property [`KmsMasterKeyId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-kmsmasterkeyid).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub kms_master_key_id: Option<::Value<String>>,
-    /// Property [`Subscription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-subscription).
+    /// Property [`Subscription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-subscription).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub subscription: Option<::ValueList<self::topic::Subscription>>,
-    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-tags).
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-tags).
     ///
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub tags: Option<::ValueList<::Tag>>,
-    /// Property [`TopicName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-topicname).
+    /// Property [`TopicName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-topicname).
     ///
     /// Update type: _Immutable_.
     /// AWS CloudFormation replaces the resource when you change this property.
@@ -229,6 +234,9 @@ impl ::serde::Serialize for TopicProperties {
         let mut map = ::serde::Serializer::serialize_map(s, None)?;
         if let Some(ref content_based_deduplication) = self.content_based_deduplication {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ContentBasedDeduplication", content_based_deduplication)?;
+        }
+        if let Some(ref data_protection_policy) = self.data_protection_policy {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "DataProtectionPolicy", data_protection_policy)?;
         }
         if let Some(ref display_name) = self.display_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "DisplayName", display_name)?;
@@ -265,6 +273,7 @@ impl<'de> ::serde::Deserialize<'de> for TopicProperties {
 
             fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                 let mut content_based_deduplication: Option<::Value<bool>> = None;
+                let mut data_protection_policy: Option<::Value<::json::Value>> = None;
                 let mut display_name: Option<::Value<String>> = None;
                 let mut fifo_topic: Option<::Value<bool>> = None;
                 let mut kms_master_key_id: Option<::Value<String>> = None;
@@ -276,6 +285,9 @@ impl<'de> ::serde::Deserialize<'de> for TopicProperties {
                     match __cfn_key.as_ref() {
                         "ContentBasedDeduplication" => {
                             content_based_deduplication = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "DataProtectionPolicy" => {
+                            data_protection_policy = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "DisplayName" => {
                             display_name = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -301,6 +313,7 @@ impl<'de> ::serde::Deserialize<'de> for TopicProperties {
 
                 Ok(TopicProperties {
                     content_based_deduplication: content_based_deduplication,
+                    data_protection_policy: data_protection_policy,
                     display_name: display_name,
                     fifo_topic: fifo_topic,
                     kms_master_key_id: kms_master_key_id,
@@ -424,18 +437,18 @@ impl From<TopicPolicyProperties> for TopicPolicy {
 pub mod topic {
     //! Property types for the `Topic` resource.
 
-    /// The [`AWS::SNS::Topic.Subscription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-subscription.html) property type.
+    /// The [`AWS::SNS::Topic.Subscription`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic-subscription.html) property type.
     #[derive(Debug, Default)]
     pub struct Subscription {
-        /// Property [`Endpoint`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-subscription.html#cfn-sns-topic-subscription-endpoint).
+        /// Property [`Endpoint`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic-subscription.html#cfn-sns-topic-subscription-endpoint).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub endpoint: ::Value<String>,
-        /// Property [`Protocol`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-subscription.html#cfn-sns-topic-subscription-protocol).
+        /// Property [`Protocol`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic-subscription.html#cfn-sns-topic-subscription-protocol).
         ///
-        /// Update type: _Immutable_.
-        /// AWS CloudFormation replaces the resource when you change this property.
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub protocol: ::Value<String>,
     }
 

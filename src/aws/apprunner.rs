@@ -1,5 +1,109 @@
 //! Types for the `AppRunner` service.
 
+/// The [`AWS::AppRunner::ObservabilityConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-observabilityconfiguration.html) resource type.
+#[derive(Debug, Default)]
+pub struct ObservabilityConfiguration {
+    properties: ObservabilityConfigurationProperties
+}
+
+/// Properties for the `ObservabilityConfiguration` resource.
+#[derive(Debug, Default)]
+pub struct ObservabilityConfigurationProperties {
+    /// Property [`ObservabilityConfigurationName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-observabilityconfiguration.html#cfn-apprunner-observabilityconfiguration-observabilityconfigurationname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub observability_configuration_name: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-observabilityconfiguration.html#cfn-apprunner-observabilityconfiguration-tags).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`TraceConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-observabilityconfiguration.html#cfn-apprunner-observabilityconfiguration-traceconfiguration).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub trace_configuration: Option<::Value<self::observability_configuration::TraceConfiguration>>,
+}
+
+impl ::serde::Serialize for ObservabilityConfigurationProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref observability_configuration_name) = self.observability_configuration_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ObservabilityConfigurationName", observability_configuration_name)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref trace_configuration) = self.trace_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "TraceConfiguration", trace_configuration)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ObservabilityConfigurationProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ObservabilityConfigurationProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ObservabilityConfigurationProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ObservabilityConfigurationProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut observability_configuration_name: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut trace_configuration: Option<::Value<self::observability_configuration::TraceConfiguration>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "ObservabilityConfigurationName" => {
+                            observability_configuration_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "TraceConfiguration" => {
+                            trace_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ObservabilityConfigurationProperties {
+                    observability_configuration_name: observability_configuration_name,
+                    tags: tags,
+                    trace_configuration: trace_configuration,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for ObservabilityConfiguration {
+    type Properties = ObservabilityConfigurationProperties;
+    const TYPE: &'static str = "AWS::AppRunner::ObservabilityConfiguration";
+    fn properties(&self) -> &ObservabilityConfigurationProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ObservabilityConfigurationProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for ObservabilityConfiguration {}
+
+impl From<ObservabilityConfigurationProperties> for ObservabilityConfiguration {
+    fn from(properties: ObservabilityConfigurationProperties) -> ObservabilityConfiguration {
+        ObservabilityConfiguration { properties }
+    }
+}
+
 /// The [`AWS::AppRunner::Service`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-service.html) resource type.
 #[derive(Debug, Default)]
 pub struct Service {
@@ -29,6 +133,16 @@ pub struct ServiceProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub instance_configuration: Option<::Value<self::service::InstanceConfiguration>>,
+    /// Property [`NetworkConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-service.html#cfn-apprunner-service-networkconfiguration).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub network_configuration: Option<::Value<self::service::NetworkConfiguration>>,
+    /// Property [`ObservabilityConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-service.html#cfn-apprunner-service-observabilityconfiguration).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub observability_configuration: Option<::Value<self::service::ServiceObservabilityConfiguration>>,
     /// Property [`ServiceName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-service.html#cfn-apprunner-service-servicename).
     ///
     /// Update type: _Immutable_.
@@ -61,6 +175,12 @@ impl ::serde::Serialize for ServiceProperties {
         if let Some(ref instance_configuration) = self.instance_configuration {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "InstanceConfiguration", instance_configuration)?;
         }
+        if let Some(ref network_configuration) = self.network_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "NetworkConfiguration", network_configuration)?;
+        }
+        if let Some(ref observability_configuration) = self.observability_configuration {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ObservabilityConfiguration", observability_configuration)?;
+        }
         if let Some(ref service_name) = self.service_name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ServiceName", service_name)?;
         }
@@ -88,6 +208,8 @@ impl<'de> ::serde::Deserialize<'de> for ServiceProperties {
                 let mut encryption_configuration: Option<::Value<self::service::EncryptionConfiguration>> = None;
                 let mut health_check_configuration: Option<::Value<self::service::HealthCheckConfiguration>> = None;
                 let mut instance_configuration: Option<::Value<self::service::InstanceConfiguration>> = None;
+                let mut network_configuration: Option<::Value<self::service::NetworkConfiguration>> = None;
+                let mut observability_configuration: Option<::Value<self::service::ServiceObservabilityConfiguration>> = None;
                 let mut service_name: Option<::Value<String>> = None;
                 let mut source_configuration: Option<::Value<self::service::SourceConfiguration>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
@@ -105,6 +227,12 @@ impl<'de> ::serde::Deserialize<'de> for ServiceProperties {
                         }
                         "InstanceConfiguration" => {
                             instance_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "NetworkConfiguration" => {
+                            network_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ObservabilityConfiguration" => {
+                            observability_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         "ServiceName" => {
                             service_name = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -124,6 +252,8 @@ impl<'de> ::serde::Deserialize<'de> for ServiceProperties {
                     encryption_configuration: encryption_configuration,
                     health_check_configuration: health_check_configuration,
                     instance_configuration: instance_configuration,
+                    network_configuration: network_configuration,
+                    observability_configuration: observability_configuration,
                     service_name: service_name,
                     source_configuration: source_configuration.ok_or(::serde::de::Error::missing_field("SourceConfiguration"))?,
                     tags: tags,
@@ -151,6 +281,176 @@ impl ::private::Sealed for Service {}
 impl From<ServiceProperties> for Service {
     fn from(properties: ServiceProperties) -> Service {
         Service { properties }
+    }
+}
+
+/// The [`AWS::AppRunner::VpcConnector`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-vpcconnector.html) resource type.
+#[derive(Debug, Default)]
+pub struct VpcConnector {
+    properties: VpcConnectorProperties
+}
+
+/// Properties for the `VpcConnector` resource.
+#[derive(Debug, Default)]
+pub struct VpcConnectorProperties {
+    /// Property [`SecurityGroups`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-vpcconnector.html#cfn-apprunner-vpcconnector-securitygroups).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub security_groups: Option<::ValueList<String>>,
+    /// Property [`Subnets`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-vpcconnector.html#cfn-apprunner-vpcconnector-subnets).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub subnets: ::ValueList<String>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-vpcconnector.html#cfn-apprunner-vpcconnector-tags).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`VpcConnectorName`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apprunner-vpcconnector.html#cfn-apprunner-vpcconnector-vpcconnectorname).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub vpc_connector_name: Option<::Value<String>>,
+}
+
+impl ::serde::Serialize for VpcConnectorProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref security_groups) = self.security_groups {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "SecurityGroups", security_groups)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Subnets", &self.subnets)?;
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref vpc_connector_name) = self.vpc_connector_name {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "VpcConnectorName", vpc_connector_name)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for VpcConnectorProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<VpcConnectorProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = VpcConnectorProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type VpcConnectorProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut security_groups: Option<::ValueList<String>> = None;
+                let mut subnets: Option<::ValueList<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut vpc_connector_name: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "SecurityGroups" => {
+                            security_groups = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Subnets" => {
+                            subnets = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "VpcConnectorName" => {
+                            vpc_connector_name = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(VpcConnectorProperties {
+                    security_groups: security_groups,
+                    subnets: subnets.ok_or(::serde::de::Error::missing_field("Subnets"))?,
+                    tags: tags,
+                    vpc_connector_name: vpc_connector_name,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for VpcConnector {
+    type Properties = VpcConnectorProperties;
+    const TYPE: &'static str = "AWS::AppRunner::VpcConnector";
+    fn properties(&self) -> &VpcConnectorProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut VpcConnectorProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for VpcConnector {}
+
+impl From<VpcConnectorProperties> for VpcConnector {
+    fn from(properties: VpcConnectorProperties) -> VpcConnector {
+        VpcConnector { properties }
+    }
+}
+
+pub mod observability_configuration {
+    //! Property types for the `ObservabilityConfiguration` resource.
+
+    /// The [`AWS::AppRunner::ObservabilityConfiguration.TraceConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-observabilityconfiguration-traceconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct TraceConfiguration {
+        /// Property [`Vendor`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-observabilityconfiguration-traceconfiguration.html#cfn-apprunner-observabilityconfiguration-traceconfiguration-vendor).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub vendor: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for TraceConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Vendor", &self.vendor)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for TraceConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<TraceConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = TraceConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type TraceConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut vendor: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Vendor" => {
+                                vendor = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(TraceConfiguration {
+                        vendor: vendor.ok_or(::serde::de::Error::missing_field("Vendor"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
     }
 }
 
@@ -457,6 +757,70 @@ pub mod service {
                         code_configuration: code_configuration,
                         repository_url: repository_url.ok_or(::serde::de::Error::missing_field("RepositoryUrl"))?,
                         source_code_version: source_code_version.ok_or(::serde::de::Error::missing_field("SourceCodeVersion"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::AppRunner::Service.EgressConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-egressconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct EgressConfiguration {
+        /// Property [`EgressType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-egressconfiguration.html#cfn-apprunner-service-egressconfiguration-egresstype).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub egress_type: ::Value<String>,
+        /// Property [`VpcConnectorArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-egressconfiguration.html#cfn-apprunner-service-egressconfiguration-vpcconnectorarn).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub vpc_connector_arn: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for EgressConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EgressType", &self.egress_type)?;
+            if let Some(ref vpc_connector_arn) = self.vpc_connector_arn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "VpcConnectorArn", vpc_connector_arn)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for EgressConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<EgressConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = EgressConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type EgressConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut egress_type: Option<::Value<String>> = None;
+                    let mut vpc_connector_arn: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "EgressType" => {
+                                egress_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "VpcConnectorArn" => {
+                                vpc_connector_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(EgressConfiguration {
+                        egress_type: egress_type.ok_or(::serde::de::Error::missing_field("EgressType"))?,
+                        vpc_connector_arn: vpc_connector_arn,
                     })
                 }
             }
@@ -925,6 +1289,121 @@ pub mod service {
                     Ok(KeyValuePair {
                         name: name,
                         value: value,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::AppRunner::Service.NetworkConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-networkconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct NetworkConfiguration {
+        /// Property [`EgressConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-networkconfiguration.html#cfn-apprunner-service-networkconfiguration-egressconfiguration).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub egress_configuration: ::Value<EgressConfiguration>,
+    }
+
+    impl ::codec::SerializeValue for NetworkConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "EgressConfiguration", &self.egress_configuration)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for NetworkConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<NetworkConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = NetworkConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type NetworkConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut egress_configuration: Option<::Value<EgressConfiguration>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "EgressConfiguration" => {
+                                egress_configuration = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(NetworkConfiguration {
+                        egress_configuration: egress_configuration.ok_or(::serde::de::Error::missing_field("EgressConfiguration"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::AppRunner::Service.ServiceObservabilityConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-serviceobservabilityconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct ServiceObservabilityConfiguration {
+        /// Property [`ObservabilityConfigurationArn`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-serviceobservabilityconfiguration.html#cfn-apprunner-service-serviceobservabilityconfiguration-observabilityconfigurationarn).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub observability_configuration_arn: Option<::Value<String>>,
+        /// Property [`ObservabilityEnabled`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apprunner-service-serviceobservabilityconfiguration.html#cfn-apprunner-service-serviceobservabilityconfiguration-observabilityenabled).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub observability_enabled: ::Value<bool>,
+    }
+
+    impl ::codec::SerializeValue for ServiceObservabilityConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref observability_configuration_arn) = self.observability_configuration_arn {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ObservabilityConfigurationArn", observability_configuration_arn)?;
+            }
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ObservabilityEnabled", &self.observability_enabled)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for ServiceObservabilityConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<ServiceObservabilityConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = ServiceObservabilityConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type ServiceObservabilityConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut observability_configuration_arn: Option<::Value<String>> = None;
+                    let mut observability_enabled: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ObservabilityConfigurationArn" => {
+                                observability_configuration_arn = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "ObservabilityEnabled" => {
+                                observability_enabled = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(ServiceObservabilityConfiguration {
+                        observability_configuration_arn: observability_configuration_arn,
+                        observability_enabled: observability_enabled.ok_or(::serde::de::Error::missing_field("ObservabilityEnabled"))?,
                     })
                 }
             }

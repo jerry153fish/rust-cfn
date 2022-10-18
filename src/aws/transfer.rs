@@ -1,5 +1,566 @@
 //! Types for the `Transfer` service.
 
+/// The [`AWS::Transfer::Agreement`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html) resource type.
+#[derive(Debug, Default)]
+pub struct Agreement {
+    properties: AgreementProperties
+}
+
+/// Properties for the `Agreement` resource.
+#[derive(Debug, Default)]
+pub struct AgreementProperties {
+    /// Property [`AccessRole`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-accessrole).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub access_role: ::Value<String>,
+    /// Property [`BaseDirectory`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-basedirectory).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub base_directory: ::Value<String>,
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-description).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub description: Option<::Value<String>>,
+    /// Property [`LocalProfileId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-localprofileid).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub local_profile_id: ::Value<String>,
+    /// Property [`PartnerProfileId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-partnerprofileid).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub partner_profile_id: ::Value<String>,
+    /// Property [`ServerId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-serverid).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub server_id: ::Value<String>,
+    /// Property [`Status`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-status).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub status: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-agreement.html#cfn-transfer-agreement-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for AgreementProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccessRole", &self.access_role)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "BaseDirectory", &self.base_directory)?;
+        if let Some(ref description) = self.description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "LocalProfileId", &self.local_profile_id)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "PartnerProfileId", &self.partner_profile_id)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "ServerId", &self.server_id)?;
+        if let Some(ref status) = self.status {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Status", status)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for AgreementProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<AgreementProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = AgreementProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type AgreementProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut access_role: Option<::Value<String>> = None;
+                let mut base_directory: Option<::Value<String>> = None;
+                let mut description: Option<::Value<String>> = None;
+                let mut local_profile_id: Option<::Value<String>> = None;
+                let mut partner_profile_id: Option<::Value<String>> = None;
+                let mut server_id: Option<::Value<String>> = None;
+                let mut status: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "AccessRole" => {
+                            access_role = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "BaseDirectory" => {
+                            base_directory = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Description" => {
+                            description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "LocalProfileId" => {
+                            local_profile_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PartnerProfileId" => {
+                            partner_profile_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ServerId" => {
+                            server_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Status" => {
+                            status = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(AgreementProperties {
+                    access_role: access_role.ok_or(::serde::de::Error::missing_field("AccessRole"))?,
+                    base_directory: base_directory.ok_or(::serde::de::Error::missing_field("BaseDirectory"))?,
+                    description: description,
+                    local_profile_id: local_profile_id.ok_or(::serde::de::Error::missing_field("LocalProfileId"))?,
+                    partner_profile_id: partner_profile_id.ok_or(::serde::de::Error::missing_field("PartnerProfileId"))?,
+                    server_id: server_id.ok_or(::serde::de::Error::missing_field("ServerId"))?,
+                    status: status,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for Agreement {
+    type Properties = AgreementProperties;
+    const TYPE: &'static str = "AWS::Transfer::Agreement";
+    fn properties(&self) -> &AgreementProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut AgreementProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for Agreement {}
+
+impl From<AgreementProperties> for Agreement {
+    fn from(properties: AgreementProperties) -> Agreement {
+        Agreement { properties }
+    }
+}
+
+/// The [`AWS::Transfer::Certificate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html) resource type.
+#[derive(Debug, Default)]
+pub struct Certificate {
+    properties: CertificateProperties
+}
+
+/// Properties for the `Certificate` resource.
+#[derive(Debug, Default)]
+pub struct CertificateProperties {
+    /// Property [`ActiveDate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-activedate).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub active_date: Option<::Value<String>>,
+    /// Property [`Certificate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-certificate).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub certificate: ::Value<String>,
+    /// Property [`CertificateChain`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-certificatechain).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub certificate_chain: Option<::Value<String>>,
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-description).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub description: Option<::Value<String>>,
+    /// Property [`InactiveDate`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-inactivedate).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub inactive_date: Option<::Value<String>>,
+    /// Property [`PrivateKey`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-privatekey).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub private_key: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`Usage`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-certificate.html#cfn-transfer-certificate-usage).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub usage: ::Value<String>,
+}
+
+impl ::serde::Serialize for CertificateProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref active_date) = self.active_date {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ActiveDate", active_date)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Certificate", &self.certificate)?;
+        if let Some(ref certificate_chain) = self.certificate_chain {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CertificateChain", certificate_chain)?;
+        }
+        if let Some(ref description) = self.description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+        }
+        if let Some(ref inactive_date) = self.inactive_date {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "InactiveDate", inactive_date)?;
+        }
+        if let Some(ref private_key) = self.private_key {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PrivateKey", private_key)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Usage", &self.usage)?;
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for CertificateProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<CertificateProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = CertificateProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type CertificateProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut active_date: Option<::Value<String>> = None;
+                let mut certificate: Option<::Value<String>> = None;
+                let mut certificate_chain: Option<::Value<String>> = None;
+                let mut description: Option<::Value<String>> = None;
+                let mut inactive_date: Option<::Value<String>> = None;
+                let mut private_key: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut usage: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "ActiveDate" => {
+                            active_date = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Certificate" => {
+                            certificate = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CertificateChain" => {
+                            certificate_chain = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Description" => {
+                            description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "InactiveDate" => {
+                            inactive_date = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PrivateKey" => {
+                            private_key = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Usage" => {
+                            usage = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(CertificateProperties {
+                    active_date: active_date,
+                    certificate: certificate.ok_or(::serde::de::Error::missing_field("Certificate"))?,
+                    certificate_chain: certificate_chain,
+                    description: description,
+                    inactive_date: inactive_date,
+                    private_key: private_key,
+                    tags: tags,
+                    usage: usage.ok_or(::serde::de::Error::missing_field("Usage"))?,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for Certificate {
+    type Properties = CertificateProperties;
+    const TYPE: &'static str = "AWS::Transfer::Certificate";
+    fn properties(&self) -> &CertificateProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut CertificateProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for Certificate {}
+
+impl From<CertificateProperties> for Certificate {
+    fn from(properties: CertificateProperties) -> Certificate {
+        Certificate { properties }
+    }
+}
+
+/// The [`AWS::Transfer::Connector`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html) resource type.
+#[derive(Debug, Default)]
+pub struct Connector {
+    properties: ConnectorProperties
+}
+
+/// Properties for the `Connector` resource.
+#[derive(Debug, Default)]
+pub struct ConnectorProperties {
+    /// Property [`AccessRole`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html#cfn-transfer-connector-accessrole).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub access_role: ::Value<String>,
+    /// Property [`As2Config`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html#cfn-transfer-connector-as2config).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub as2_config: ::Value<::json::Value>,
+    /// Property [`LoggingRole`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html#cfn-transfer-connector-loggingrole).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub logging_role: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html#cfn-transfer-connector-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`Url`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-connector.html#cfn-transfer-connector-url).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub url: ::Value<String>,
+}
+
+impl ::serde::Serialize for ConnectorProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "AccessRole", &self.access_role)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "As2Config", &self.as2_config)?;
+        if let Some(ref logging_role) = self.logging_role {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "LoggingRole", logging_role)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Url", &self.url)?;
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ConnectorProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ConnectorProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ConnectorProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ConnectorProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut access_role: Option<::Value<String>> = None;
+                let mut as2_config: Option<::Value<::json::Value>> = None;
+                let mut logging_role: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut url: Option<::Value<String>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "AccessRole" => {
+                            access_role = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "As2Config" => {
+                            as2_config = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "LoggingRole" => {
+                            logging_role = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Url" => {
+                            url = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ConnectorProperties {
+                    access_role: access_role.ok_or(::serde::de::Error::missing_field("AccessRole"))?,
+                    as2_config: as2_config.ok_or(::serde::de::Error::missing_field("As2Config"))?,
+                    logging_role: logging_role,
+                    tags: tags,
+                    url: url.ok_or(::serde::de::Error::missing_field("Url"))?,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for Connector {
+    type Properties = ConnectorProperties;
+    const TYPE: &'static str = "AWS::Transfer::Connector";
+    fn properties(&self) -> &ConnectorProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ConnectorProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for Connector {}
+
+impl From<ConnectorProperties> for Connector {
+    fn from(properties: ConnectorProperties) -> Connector {
+        Connector { properties }
+    }
+}
+
+/// The [`AWS::Transfer::Profile`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-profile.html) resource type.
+#[derive(Debug, Default)]
+pub struct Profile {
+    properties: ProfileProperties
+}
+
+/// Properties for the `Profile` resource.
+#[derive(Debug, Default)]
+pub struct ProfileProperties {
+    /// Property [`As2Id`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-profile.html#cfn-transfer-profile-as2id).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub as2_id: ::Value<String>,
+    /// Property [`CertificateIds`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-profile.html#cfn-transfer-profile-certificateids).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub certificate_ids: Option<::ValueList<String>>,
+    /// Property [`ProfileType`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-profile.html#cfn-transfer-profile-profiletype).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub profile_type: ::Value<String>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-profile.html#cfn-transfer-profile-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for ProfileProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "As2Id", &self.as2_id)?;
+        if let Some(ref certificate_ids) = self.certificate_ids {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "CertificateIds", certificate_ids)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProfileType", &self.profile_type)?;
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for ProfileProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<ProfileProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = ProfileProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type ProfileProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut as2_id: Option<::Value<String>> = None;
+                let mut certificate_ids: Option<::ValueList<String>> = None;
+                let mut profile_type: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "As2Id" => {
+                            as2_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "CertificateIds" => {
+                            certificate_ids = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "ProfileType" => {
+                            profile_type = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(ProfileProperties {
+                    as2_id: as2_id.ok_or(::serde::de::Error::missing_field("As2Id"))?,
+                    certificate_ids: certificate_ids,
+                    profile_type: profile_type.ok_or(::serde::de::Error::missing_field("ProfileType"))?,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for Profile {
+    type Properties = ProfileProperties;
+    const TYPE: &'static str = "AWS::Transfer::Profile";
+    fn properties(&self) -> &ProfileProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut ProfileProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for Profile {}
+
+impl From<ProfileProperties> for Profile {
+    fn from(properties: ProfileProperties) -> Profile {
+        Profile { properties }
+    }
+}
+
 /// The [`AWS::Transfer::Server`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html) resource type.
 #[derive(Debug, Default)]
 pub struct Server {
@@ -44,6 +605,16 @@ pub struct ServerProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub logging_role: Option<::Value<String>>,
+    /// Property [`PostAuthenticationLoginBanner`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-postauthenticationloginbanner).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub post_authentication_login_banner: Option<::Value<String>>,
+    /// Property [`PreAuthenticationLoginBanner`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-preauthenticationloginbanner).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub pre_authentication_login_banner: Option<::Value<String>>,
     /// Property [`ProtocolDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-protocoldetails).
     ///
     /// Update type: _Mutable_.
@@ -64,6 +635,11 @@ pub struct ServerProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub tags: Option<::ValueList<::Tag>>,
+    /// Property [`WorkflowDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-workflowdetails).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub workflow_details: Option<::Value<self::server::WorkflowDetails>>,
 }
 
 impl ::serde::Serialize for ServerProperties {
@@ -90,6 +666,12 @@ impl ::serde::Serialize for ServerProperties {
         if let Some(ref logging_role) = self.logging_role {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "LoggingRole", logging_role)?;
         }
+        if let Some(ref post_authentication_login_banner) = self.post_authentication_login_banner {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PostAuthenticationLoginBanner", post_authentication_login_banner)?;
+        }
+        if let Some(ref pre_authentication_login_banner) = self.pre_authentication_login_banner {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "PreAuthenticationLoginBanner", pre_authentication_login_banner)?;
+        }
         if let Some(ref protocol_details) = self.protocol_details {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "ProtocolDetails", protocol_details)?;
         }
@@ -101,6 +683,9 @@ impl ::serde::Serialize for ServerProperties {
         }
         if let Some(ref tags) = self.tags {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        if let Some(ref workflow_details) = self.workflow_details {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkflowDetails", workflow_details)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -125,10 +710,13 @@ impl<'de> ::serde::Deserialize<'de> for ServerProperties {
                 let mut identity_provider_details: Option<::Value<self::server::IdentityProviderDetails>> = None;
                 let mut identity_provider_type: Option<::Value<String>> = None;
                 let mut logging_role: Option<::Value<String>> = None;
+                let mut post_authentication_login_banner: Option<::Value<String>> = None;
+                let mut pre_authentication_login_banner: Option<::Value<String>> = None;
                 let mut protocol_details: Option<::Value<self::server::ProtocolDetails>> = None;
                 let mut protocols: Option<::ValueList<self::server::Protocol>> = None;
                 let mut security_policy_name: Option<::Value<String>> = None;
                 let mut tags: Option<::ValueList<::Tag>> = None;
+                let mut workflow_details: Option<::Value<self::server::WorkflowDetails>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -153,6 +741,12 @@ impl<'de> ::serde::Deserialize<'de> for ServerProperties {
                         "LoggingRole" => {
                             logging_role = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "PostAuthenticationLoginBanner" => {
+                            post_authentication_login_banner = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "PreAuthenticationLoginBanner" => {
+                            pre_authentication_login_banner = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         "ProtocolDetails" => {
                             protocol_details = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
@@ -164,6 +758,9 @@ impl<'de> ::serde::Deserialize<'de> for ServerProperties {
                         }
                         "Tags" => {
                             tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "WorkflowDetails" => {
+                            workflow_details = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
                         _ => {}
                     }
@@ -177,10 +774,13 @@ impl<'de> ::serde::Deserialize<'de> for ServerProperties {
                     identity_provider_details: identity_provider_details,
                     identity_provider_type: identity_provider_type,
                     logging_role: logging_role,
+                    post_authentication_login_banner: post_authentication_login_banner,
+                    pre_authentication_login_banner: pre_authentication_login_banner,
                     protocol_details: protocol_details,
                     protocols: protocols,
                     security_policy_name: security_policy_name,
                     tags: tags,
+                    workflow_details: workflow_details,
                 })
             }
         }
@@ -397,8 +997,155 @@ impl From<UserProperties> for User {
     }
 }
 
+/// The [`AWS::Transfer::Workflow`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-workflow.html) resource type.
+#[derive(Debug, Default)]
+pub struct Workflow {
+    properties: WorkflowProperties
+}
+
+/// Properties for the `Workflow` resource.
+#[derive(Debug, Default)]
+pub struct WorkflowProperties {
+    /// Property [`Description`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-workflow.html#cfn-transfer-workflow-description).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub description: Option<::Value<String>>,
+    /// Property [`OnExceptionSteps`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-workflow.html#cfn-transfer-workflow-onexceptionsteps).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub on_exception_steps: Option<::ValueList<self::workflow::WorkflowStep>>,
+    /// Property [`Steps`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-workflow.html#cfn-transfer-workflow-steps).
+    ///
+    /// Update type: _Immutable_.
+    /// AWS CloudFormation replaces the resource when you change this property.
+    pub steps: ::ValueList<self::workflow::WorkflowStep>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-workflow.html#cfn-transfer-workflow-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
+}
+
+impl ::serde::Serialize for WorkflowProperties {
+    fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        let mut map = ::serde::Serializer::serialize_map(s, None)?;
+        if let Some(ref description) = self.description {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Description", description)?;
+        }
+        if let Some(ref on_exception_steps) = self.on_exception_steps {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "OnExceptionSteps", on_exception_steps)?;
+        }
+        ::serde::ser::SerializeMap::serialize_entry(&mut map, "Steps", &self.steps)?;
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
+        ::serde::ser::SerializeMap::end(map)
+    }
+}
+
+impl<'de> ::serde::Deserialize<'de> for WorkflowProperties {
+    fn deserialize<D: ::serde::Deserializer<'de>>(d: D) -> Result<WorkflowProperties, D::Error> {
+        struct Visitor;
+
+        impl<'de> ::serde::de::Visitor<'de> for Visitor {
+            type Value = WorkflowProperties;
+
+            fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "a struct of type WorkflowProperties")
+            }
+
+            fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                let mut description: Option<::Value<String>> = None;
+                let mut on_exception_steps: Option<::ValueList<self::workflow::WorkflowStep>> = None;
+                let mut steps: Option<::ValueList<self::workflow::WorkflowStep>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
+
+                while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                    match __cfn_key.as_ref() {
+                        "Description" => {
+                            description = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "OnExceptionSteps" => {
+                            on_exception_steps = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Steps" => {
+                            steps = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
+                        _ => {}
+                    }
+                }
+
+                Ok(WorkflowProperties {
+                    description: description,
+                    on_exception_steps: on_exception_steps,
+                    steps: steps.ok_or(::serde::de::Error::missing_field("Steps"))?,
+                    tags: tags,
+                })
+            }
+        }
+
+        d.deserialize_map(Visitor)
+    }
+}
+
+impl ::Resource for Workflow {
+    type Properties = WorkflowProperties;
+    const TYPE: &'static str = "AWS::Transfer::Workflow";
+    fn properties(&self) -> &WorkflowProperties {
+        &self.properties
+    }
+    fn properties_mut(&mut self) -> &mut WorkflowProperties {
+        &mut self.properties
+    }
+}
+
+impl ::private::Sealed for Workflow {}
+
+impl From<WorkflowProperties> for Workflow {
+    fn from(properties: WorkflowProperties) -> Workflow {
+        Workflow { properties }
+    }
+}
+
 pub mod server {
     //! Property types for the `Server` resource.
+
+    /// The [`AWS::Transfer::Server.As2Transport`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-as2transport.html) property type.
+    #[derive(Debug, Default)]
+    pub struct As2Transport {
+    }
+
+    impl ::codec::SerializeValue for As2Transport {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for As2Transport {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<As2Transport, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = As2Transport;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type As2Transport")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
+                    Ok(As2Transport {})
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 
     /// The [`AWS::Transfer::Server.EndpointDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-endpointdetails.html) property type.
     #[derive(Debug, Default)]
@@ -514,6 +1261,11 @@ pub mod server {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub directory_id: Option<::Value<String>>,
+        /// Property [`Function`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-identityproviderdetails.html#cfn-transfer-server-identityproviderdetails-function).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub function: Option<::Value<String>>,
         /// Property [`InvocationRole`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-identityproviderdetails.html#cfn-transfer-server-identityproviderdetails-invocationrole).
         ///
         /// Update type: _Mutable_.
@@ -531,6 +1283,9 @@ pub mod server {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
             if let Some(ref directory_id) = self.directory_id {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "DirectoryId", directory_id)?;
+            }
+            if let Some(ref function) = self.function {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Function", function)?;
             }
             if let Some(ref invocation_role) = self.invocation_role {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "InvocationRole", invocation_role)?;
@@ -555,6 +1310,7 @@ pub mod server {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut directory_id: Option<::Value<String>> = None;
+                    let mut function: Option<::Value<String>> = None;
                     let mut invocation_role: Option<::Value<String>> = None;
                     let mut url: Option<::Value<String>> = None;
 
@@ -562,6 +1318,9 @@ pub mod server {
                         match __cfn_key.as_ref() {
                             "DirectoryId" => {
                                 directory_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Function" => {
+                                function = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "InvocationRole" => {
                                 invocation_role = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -575,6 +1334,7 @@ pub mod server {
 
                     Ok(IdentityProviderDetails {
                         directory_id: directory_id,
+                        function: function,
                         invocation_role: invocation_role,
                         url: url,
                     })
@@ -585,7 +1345,7 @@ pub mod server {
         }
     }
 
-    /// The [`AWS::Transfer::Server.Protocol`]() property type.
+    /// The [`AWS::Transfer::Server.Protocol`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-protocol.html) property type.
     #[derive(Debug, Default)]
     pub struct Protocol {
     }
@@ -620,18 +1380,42 @@ pub mod server {
     /// The [`AWS::Transfer::Server.ProtocolDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-protocoldetails.html) property type.
     #[derive(Debug, Default)]
     pub struct ProtocolDetails {
+        /// Property [`As2Transports`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-protocoldetails.html#cfn-transfer-server-protocoldetails-as2transports).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub as2_transports: Option<::ValueList<As2Transport>>,
         /// Property [`PassiveIp`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-protocoldetails.html#cfn-transfer-server-protocoldetails-passiveip).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub passive_ip: Option<::Value<String>>,
+        /// Property [`SetStatOption`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-protocoldetails.html#cfn-transfer-server-protocoldetails-setstatoption).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub set_stat_option: Option<::Value<String>>,
+        /// Property [`TlsSessionResumptionMode`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-protocoldetails.html#cfn-transfer-server-protocoldetails-tlssessionresumptionmode).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub tls_session_resumption_mode: Option<::Value<String>>,
     }
 
     impl ::codec::SerializeValue for ProtocolDetails {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref as2_transports) = self.as2_transports {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "As2Transports", as2_transports)?;
+            }
             if let Some(ref passive_ip) = self.passive_ip {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "PassiveIp", passive_ip)?;
+            }
+            if let Some(ref set_stat_option) = self.set_stat_option {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "SetStatOption", set_stat_option)?;
+            }
+            if let Some(ref tls_session_resumption_mode) = self.tls_session_resumption_mode {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "TlsSessionResumptionMode", tls_session_resumption_mode)?;
             }
             ::serde::ser::SerializeMap::end(map)
         }
@@ -649,19 +1433,147 @@ pub mod server {
                 }
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut as2_transports: Option<::ValueList<As2Transport>> = None;
                     let mut passive_ip: Option<::Value<String>> = None;
+                    let mut set_stat_option: Option<::Value<String>> = None;
+                    let mut tls_session_resumption_mode: Option<::Value<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
+                            "As2Transports" => {
+                                as2_transports = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "PassiveIp" => {
                                 passive_ip = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "SetStatOption" => {
+                                set_stat_option = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TlsSessionResumptionMode" => {
+                                tls_session_resumption_mode = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             _ => {}
                         }
                     }
 
                     Ok(ProtocolDetails {
+                        as2_transports: as2_transports,
                         passive_ip: passive_ip,
+                        set_stat_option: set_stat_option,
+                        tls_session_resumption_mode: tls_session_resumption_mode,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::Transfer::Server.WorkflowDetail`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-workflowdetail.html) property type.
+    #[derive(Debug, Default)]
+    pub struct WorkflowDetail {
+        /// Property [`ExecutionRole`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-workflowdetail.html#cfn-transfer-server-workflowdetail-executionrole).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub execution_role: ::Value<String>,
+        /// Property [`WorkflowId`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-workflowdetail.html#cfn-transfer-server-workflowdetail-workflowid).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub workflow_id: ::Value<String>,
+    }
+
+    impl ::codec::SerializeValue for WorkflowDetail {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "ExecutionRole", &self.execution_role)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "WorkflowId", &self.workflow_id)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for WorkflowDetail {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<WorkflowDetail, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = WorkflowDetail;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type WorkflowDetail")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut execution_role: Option<::Value<String>> = None;
+                    let mut workflow_id: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ExecutionRole" => {
+                                execution_role = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "WorkflowId" => {
+                                workflow_id = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(WorkflowDetail {
+                        execution_role: execution_role.ok_or(::serde::de::Error::missing_field("ExecutionRole"))?,
+                        workflow_id: workflow_id.ok_or(::serde::de::Error::missing_field("WorkflowId"))?,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::Transfer::Server.WorkflowDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-workflowdetails.html) property type.
+    #[derive(Debug, Default)]
+    pub struct WorkflowDetails {
+        /// Property [`OnUpload`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-server-workflowdetails.html#cfn-transfer-server-workflowdetails-onupload).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub on_upload: ::ValueList<WorkflowDetail>,
+    }
+
+    impl ::codec::SerializeValue for WorkflowDetails {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "OnUpload", &self.on_upload)?;
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for WorkflowDetails {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<WorkflowDetails, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = WorkflowDetails;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type WorkflowDetails")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut on_upload: Option<::ValueList<WorkflowDetail>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "OnUpload" => {
+                                on_upload = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(WorkflowDetails {
+                        on_upload: on_upload.ok_or(::serde::de::Error::missing_field("OnUpload"))?,
                     })
                 }
             }
@@ -811,7 +1723,7 @@ pub mod user {
         }
     }
 
-    /// The [`AWS::Transfer::User.SshPublicKey`]() property type.
+    /// The [`AWS::Transfer::User.SshPublicKey`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-user-sshpublickey.html) property type.
     #[derive(Debug, Default)]
     pub struct SshPublicKey {
     }
@@ -836,6 +1748,115 @@ pub mod user {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, _map: A) -> Result<Self::Value, A::Error> {
                     Ok(SshPublicKey {})
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+}
+
+pub mod workflow {
+    //! Property types for the `Workflow` resource.
+
+    /// The [`AWS::Transfer::Workflow.WorkflowStep`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-workflow-workflowstep.html) property type.
+    #[derive(Debug, Default)]
+    pub struct WorkflowStep {
+        /// Property [`CopyStepDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-workflow-workflowstep.html#cfn-transfer-workflow-workflowstep-copystepdetails).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub copy_step_details: Option<::Value<::json::Value>>,
+        /// Property [`CustomStepDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-workflow-workflowstep.html#cfn-transfer-workflow-workflowstep-customstepdetails).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub custom_step_details: Option<::Value<::json::Value>>,
+        /// Property [`DeleteStepDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-workflow-workflowstep.html#cfn-transfer-workflow-workflowstep-deletestepdetails).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub delete_step_details: Option<::Value<::json::Value>>,
+        /// Property [`TagStepDetails`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-workflow-workflowstep.html#cfn-transfer-workflow-workflowstep-tagstepdetails).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub tag_step_details: Option<::Value<::json::Value>>,
+        /// Property [`Type`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-transfer-workflow-workflowstep.html#cfn-transfer-workflow-workflowstep-type).
+        ///
+        /// Update type: _Immutable_.
+        /// AWS CloudFormation replaces the resource when you change this property.
+        pub r#type: Option<::Value<String>>,
+    }
+
+    impl ::codec::SerializeValue for WorkflowStep {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref copy_step_details) = self.copy_step_details {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CopyStepDetails", copy_step_details)?;
+            }
+            if let Some(ref custom_step_details) = self.custom_step_details {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "CustomStepDetails", custom_step_details)?;
+            }
+            if let Some(ref delete_step_details) = self.delete_step_details {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "DeleteStepDetails", delete_step_details)?;
+            }
+            if let Some(ref tag_step_details) = self.tag_step_details {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "TagStepDetails", tag_step_details)?;
+            }
+            if let Some(ref r#type) = self.r#type {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Type", r#type)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for WorkflowStep {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<WorkflowStep, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = WorkflowStep;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type WorkflowStep")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut copy_step_details: Option<::Value<::json::Value>> = None;
+                    let mut custom_step_details: Option<::Value<::json::Value>> = None;
+                    let mut delete_step_details: Option<::Value<::json::Value>> = None;
+                    let mut tag_step_details: Option<::Value<::json::Value>> = None;
+                    let mut r#type: Option<::Value<String>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "CopyStepDetails" => {
+                                copy_step_details = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "CustomStepDetails" => {
+                                custom_step_details = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "DeleteStepDetails" => {
+                                delete_step_details = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "TagStepDetails" => {
+                                tag_step_details = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Type" => {
+                                r#type = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(WorkflowStep {
+                        copy_step_details: copy_step_details,
+                        custom_step_details: custom_step_details,
+                        delete_step_details: delete_step_details,
+                        tag_step_details: tag_step_details,
+                        r#type: r#type,
+                    })
                 }
             }
 

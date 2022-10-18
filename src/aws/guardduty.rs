@@ -24,6 +24,11 @@ pub struct DetectorProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub finding_publishing_frequency: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-detector.html#cfn-guardduty-detector-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
 }
 
 impl ::serde::Serialize for DetectorProperties {
@@ -35,6 +40,9 @@ impl ::serde::Serialize for DetectorProperties {
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "Enable", &self.enable)?;
         if let Some(ref finding_publishing_frequency) = self.finding_publishing_frequency {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "FindingPublishingFrequency", finding_publishing_frequency)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -55,6 +63,7 @@ impl<'de> ::serde::Deserialize<'de> for DetectorProperties {
                 let mut data_sources: Option<::Value<self::detector::CFNDataSourceConfigurations>> = None;
                 let mut enable: Option<::Value<bool>> = None;
                 let mut finding_publishing_frequency: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -67,6 +76,9 @@ impl<'de> ::serde::Deserialize<'de> for DetectorProperties {
                         "FindingPublishingFrequency" => {
                             finding_publishing_frequency = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
@@ -75,6 +87,7 @@ impl<'de> ::serde::Deserialize<'de> for DetectorProperties {
                     data_sources: data_sources,
                     enable: enable.ok_or(::serde::de::Error::missing_field("Enable"))?,
                     finding_publishing_frequency: finding_publishing_frequency,
+                    tags: tags,
                 })
             }
         }
@@ -141,6 +154,11 @@ pub struct FilterProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub rank: ::Value<u32>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-filter.html#cfn-guardduty-filter-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
 }
 
 impl ::serde::Serialize for FilterProperties {
@@ -152,6 +170,9 @@ impl ::serde::Serialize for FilterProperties {
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "FindingCriteria", &self.finding_criteria)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", &self.name)?;
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "Rank", &self.rank)?;
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
+        }
         ::serde::ser::SerializeMap::end(map)
     }
 }
@@ -174,6 +195,7 @@ impl<'de> ::serde::Deserialize<'de> for FilterProperties {
                 let mut finding_criteria: Option<::Value<self::filter::FindingCriteria>> = None;
                 let mut name: Option<::Value<String>> = None;
                 let mut rank: Option<::Value<u32>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -195,6 +217,9 @@ impl<'de> ::serde::Deserialize<'de> for FilterProperties {
                         "Rank" => {
                             rank = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
@@ -206,6 +231,7 @@ impl<'de> ::serde::Deserialize<'de> for FilterProperties {
                     finding_criteria: finding_criteria.ok_or(::serde::de::Error::missing_field("FindingCriteria"))?,
                     name: name.ok_or(::serde::de::Error::missing_field("Name"))?,
                     rank: rank.ok_or(::serde::de::Error::missing_field("Rank"))?,
+                    tags: tags,
                 })
             }
         }
@@ -267,6 +293,11 @@ pub struct IPSetProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub name: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-ipset.html#cfn-guardduty-ipset-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
 }
 
 impl ::serde::Serialize for IPSetProperties {
@@ -278,6 +309,9 @@ impl ::serde::Serialize for IPSetProperties {
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "Location", &self.location)?;
         if let Some(ref name) = self.name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", name)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -300,6 +334,7 @@ impl<'de> ::serde::Deserialize<'de> for IPSetProperties {
                 let mut format: Option<::Value<String>> = None;
                 let mut location: Option<::Value<String>> = None;
                 let mut name: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -318,6 +353,9 @@ impl<'de> ::serde::Deserialize<'de> for IPSetProperties {
                         "Name" => {
                             name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
@@ -328,6 +366,7 @@ impl<'de> ::serde::Deserialize<'de> for IPSetProperties {
                     format: format.ok_or(::serde::de::Error::missing_field("Format"))?,
                     location: location.ok_or(::serde::de::Error::missing_field("Location"))?,
                     name: name,
+                    tags: tags,
                 })
             }
         }
@@ -626,6 +665,11 @@ pub struct ThreatIntelSetProperties {
     /// Update type: _Mutable_.
     /// AWS CloudFormation doesn't replace the resource when you change this property.
     pub name: Option<::Value<String>>,
+    /// Property [`Tags`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-threatintelset.html#cfn-guardduty-threatintelset-tags).
+    ///
+    /// Update type: _Mutable_.
+    /// AWS CloudFormation doesn't replace the resource when you change this property.
+    pub tags: Option<::ValueList<::Tag>>,
 }
 
 impl ::serde::Serialize for ThreatIntelSetProperties {
@@ -637,6 +681,9 @@ impl ::serde::Serialize for ThreatIntelSetProperties {
         ::serde::ser::SerializeMap::serialize_entry(&mut map, "Location", &self.location)?;
         if let Some(ref name) = self.name {
             ::serde::ser::SerializeMap::serialize_entry(&mut map, "Name", name)?;
+        }
+        if let Some(ref tags) = self.tags {
+            ::serde::ser::SerializeMap::serialize_entry(&mut map, "Tags", tags)?;
         }
         ::serde::ser::SerializeMap::end(map)
     }
@@ -659,6 +706,7 @@ impl<'de> ::serde::Deserialize<'de> for ThreatIntelSetProperties {
                 let mut format: Option<::Value<String>> = None;
                 let mut location: Option<::Value<String>> = None;
                 let mut name: Option<::Value<String>> = None;
+                let mut tags: Option<::ValueList<::Tag>> = None;
 
                 while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                     match __cfn_key.as_ref() {
@@ -677,6 +725,9 @@ impl<'de> ::serde::Deserialize<'de> for ThreatIntelSetProperties {
                         "Name" => {
                             name = ::serde::de::MapAccess::next_value(&mut map)?;
                         }
+                        "Tags" => {
+                            tags = ::serde::de::MapAccess::next_value(&mut map)?;
+                        }
                         _ => {}
                     }
                 }
@@ -687,6 +738,7 @@ impl<'de> ::serde::Deserialize<'de> for ThreatIntelSetProperties {
                     format: format.ok_or(::serde::de::Error::missing_field("Format"))?,
                     location: location.ok_or(::serde::de::Error::missing_field("Location"))?,
                     name: name,
+                    tags: tags,
                 })
             }
         }
@@ -720,6 +772,16 @@ pub mod detector {
     /// The [`AWS::GuardDuty::Detector.CFNDataSourceConfigurations`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfndatasourceconfigurations.html) property type.
     #[derive(Debug, Default)]
     pub struct CFNDataSourceConfigurations {
+        /// Property [`Kubernetes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfndatasourceconfigurations.html#cfn-guardduty-detector-cfndatasourceconfigurations-kubernetes).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub kubernetes: Option<::Value<CFNKubernetesConfiguration>>,
+        /// Property [`MalwareProtection`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfndatasourceconfigurations.html#cfn-guardduty-detector-cfndatasourceconfigurations-malwareprotection).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub malware_protection: Option<::Value<CFNMalwareProtectionConfiguration>>,
         /// Property [`S3Logs`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfndatasourceconfigurations.html#cfn-guardduty-detector-cfndatasourceconfigurations-s3logs).
         ///
         /// Update type: _Mutable_.
@@ -730,6 +792,12 @@ pub mod detector {
     impl ::codec::SerializeValue for CFNDataSourceConfigurations {
         fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
             let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref kubernetes) = self.kubernetes {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Kubernetes", kubernetes)?;
+            }
+            if let Some(ref malware_protection) = self.malware_protection {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "MalwareProtection", malware_protection)?;
+            }
             if let Some(ref s3_logs) = self.s3_logs {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "S3Logs", s3_logs)?;
             }
@@ -749,10 +817,18 @@ pub mod detector {
                 }
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut kubernetes: Option<::Value<CFNKubernetesConfiguration>> = None;
+                    let mut malware_protection: Option<::Value<CFNMalwareProtectionConfiguration>> = None;
                     let mut s3_logs: Option<::Value<CFNS3LogsConfiguration>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
+                            "Kubernetes" => {
+                                kubernetes = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "MalwareProtection" => {
+                                malware_protection = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "S3Logs" => {
                                 s3_logs = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
@@ -761,7 +837,168 @@ pub mod detector {
                     }
 
                     Ok(CFNDataSourceConfigurations {
+                        kubernetes: kubernetes,
+                        malware_protection: malware_protection,
                         s3_logs: s3_logs,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::GuardDuty::Detector.CFNKubernetesAuditLogsConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnkubernetesauditlogsconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CFNKubernetesAuditLogsConfiguration {
+        /// Property [`Enable`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnkubernetesauditlogsconfiguration.html#cfn-guardduty-detector-cfnkubernetesauditlogsconfiguration-enable).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub enable: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for CFNKubernetesAuditLogsConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref enable) = self.enable {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Enable", enable)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CFNKubernetesAuditLogsConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CFNKubernetesAuditLogsConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CFNKubernetesAuditLogsConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CFNKubernetesAuditLogsConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut enable: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "Enable" => {
+                                enable = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CFNKubernetesAuditLogsConfiguration {
+                        enable: enable,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::GuardDuty::Detector.CFNKubernetesConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnkubernetesconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CFNKubernetesConfiguration {
+        /// Property [`AuditLogs`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnkubernetesconfiguration.html#cfn-guardduty-detector-cfnkubernetesconfiguration-auditlogs).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub audit_logs: Option<::Value<CFNKubernetesAuditLogsConfiguration>>,
+    }
+
+    impl ::codec::SerializeValue for CFNKubernetesConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref audit_logs) = self.audit_logs {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "AuditLogs", audit_logs)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CFNKubernetesConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CFNKubernetesConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CFNKubernetesConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CFNKubernetesConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut audit_logs: Option<::Value<CFNKubernetesAuditLogsConfiguration>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "AuditLogs" => {
+                                audit_logs = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CFNKubernetesConfiguration {
+                        audit_logs: audit_logs,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
+
+    /// The [`AWS::GuardDuty::Detector.CFNMalwareProtectionConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnmalwareprotectionconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CFNMalwareProtectionConfiguration {
+        /// Property [`ScanEc2InstanceWithFindings`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnmalwareprotectionconfiguration.html#cfn-guardduty-detector-cfnmalwareprotectionconfiguration-scanec2instancewithfindings).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub scan_ec2_instance_with_findings: Option<::Value<CFNScanEc2InstanceWithFindingsConfiguration>>,
+    }
+
+    impl ::codec::SerializeValue for CFNMalwareProtectionConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref scan_ec2_instance_with_findings) = self.scan_ec2_instance_with_findings {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "ScanEc2InstanceWithFindings", scan_ec2_instance_with_findings)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CFNMalwareProtectionConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CFNMalwareProtectionConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CFNMalwareProtectionConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CFNMalwareProtectionConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut scan_ec2_instance_with_findings: Option<::Value<CFNScanEc2InstanceWithFindingsConfiguration>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "ScanEc2InstanceWithFindings" => {
+                                scan_ec2_instance_with_findings = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CFNMalwareProtectionConfiguration {
+                        scan_ec2_instance_with_findings: scan_ec2_instance_with_findings,
                     })
                 }
             }
@@ -822,6 +1059,59 @@ pub mod detector {
             d.deserialize_map(Visitor)
         }
     }
+
+    /// The [`AWS::GuardDuty::Detector.CFNScanEc2InstanceWithFindingsConfiguration`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnscanec2instancewithfindingsconfiguration.html) property type.
+    #[derive(Debug, Default)]
+    pub struct CFNScanEc2InstanceWithFindingsConfiguration {
+        /// Property [`EbsVolumes`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-detector-cfnscanec2instancewithfindingsconfiguration.html#cfn-guardduty-detector-cfnscanec2instancewithfindingsconfiguration-ebsvolumes).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub ebs_volumes: Option<::Value<bool>>,
+    }
+
+    impl ::codec::SerializeValue for CFNScanEc2InstanceWithFindingsConfiguration {
+        fn serialize<S: ::serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+            let mut map = ::serde::Serializer::serialize_map(s, None)?;
+            if let Some(ref ebs_volumes) = self.ebs_volumes {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "EbsVolumes", ebs_volumes)?;
+            }
+            ::serde::ser::SerializeMap::end(map)
+        }
+    }
+
+    impl ::codec::DeserializeValue for CFNScanEc2InstanceWithFindingsConfiguration {
+        fn deserialize<'de, D: ::serde::Deserializer<'de>>(d: D) -> Result<CFNScanEc2InstanceWithFindingsConfiguration, D::Error> {
+            struct Visitor;
+
+            impl<'de> ::serde::de::Visitor<'de> for Visitor {
+                type Value = CFNScanEc2InstanceWithFindingsConfiguration;
+
+                fn expecting(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                    write!(f, "a struct of type CFNScanEc2InstanceWithFindingsConfiguration")
+                }
+
+                fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
+                    let mut ebs_volumes: Option<::Value<bool>> = None;
+
+                    while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
+                        match __cfn_key.as_ref() {
+                            "EbsVolumes" => {
+                                ebs_volumes = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            _ => {}
+                        }
+                    }
+
+                    Ok(CFNScanEc2InstanceWithFindingsConfiguration {
+                        ebs_volumes: ebs_volumes,
+                    })
+                }
+            }
+
+            d.deserialize_map(Visitor)
+        }
+    }
 }
 
 pub mod filter {
@@ -835,11 +1125,41 @@ pub mod filter {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub eq: Option<::ValueList<String>>,
+        /// Property [`Equals`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-equals).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub equals: Option<::ValueList<String>>,
+        /// Property [`GreaterThan`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-greaterthan).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub greater_than: Option<::Value<u32>>,
+        /// Property [`GreaterThanOrEqual`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-greaterthanorequal).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub greater_than_or_equal: Option<::Value<u32>>,
+        /// Property [`Gt`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-gt).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub gt: Option<::Value<u32>>,
         /// Property [`Gte`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-gte).
         ///
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub gte: Option<::Value<u32>>,
+        /// Property [`LessThan`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-lessthan).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub less_than: Option<::Value<u32>>,
+        /// Property [`LessThanOrEqual`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-lessthanorequal).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub less_than_or_equal: Option<::Value<u32>>,
         /// Property [`Lt`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-lt).
         ///
         /// Update type: _Mutable_.
@@ -855,6 +1175,11 @@ pub mod filter {
         /// Update type: _Mutable_.
         /// AWS CloudFormation doesn't replace the resource when you change this property.
         pub neq: Option<::ValueList<String>>,
+        /// Property [`NotEquals`](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-guardduty-filter-condition.html#cfn-guardduty-filter-condition-notequals).
+        ///
+        /// Update type: _Mutable_.
+        /// AWS CloudFormation doesn't replace the resource when you change this property.
+        pub not_equals: Option<::ValueList<String>>,
     }
 
     impl ::codec::SerializeValue for Condition {
@@ -863,8 +1188,26 @@ pub mod filter {
             if let Some(ref eq) = self.eq {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Eq", eq)?;
             }
+            if let Some(ref equals) = self.equals {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Equals", equals)?;
+            }
+            if let Some(ref greater_than) = self.greater_than {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "GreaterThan", greater_than)?;
+            }
+            if let Some(ref greater_than_or_equal) = self.greater_than_or_equal {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "GreaterThanOrEqual", greater_than_or_equal)?;
+            }
+            if let Some(ref gt) = self.gt {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "Gt", gt)?;
+            }
             if let Some(ref gte) = self.gte {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Gte", gte)?;
+            }
+            if let Some(ref less_than) = self.less_than {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LessThan", less_than)?;
+            }
+            if let Some(ref less_than_or_equal) = self.less_than_or_equal {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "LessThanOrEqual", less_than_or_equal)?;
             }
             if let Some(ref lt) = self.lt {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Lt", lt)?;
@@ -874,6 +1217,9 @@ pub mod filter {
             }
             if let Some(ref neq) = self.neq {
                 ::serde::ser::SerializeMap::serialize_entry(&mut map, "Neq", neq)?;
+            }
+            if let Some(ref not_equals) = self.not_equals {
+                ::serde::ser::SerializeMap::serialize_entry(&mut map, "NotEquals", not_equals)?;
             }
             ::serde::ser::SerializeMap::end(map)
         }
@@ -892,18 +1238,43 @@ pub mod filter {
 
                 fn visit_map<A: ::serde::de::MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
                     let mut eq: Option<::ValueList<String>> = None;
+                    let mut equals: Option<::ValueList<String>> = None;
+                    let mut greater_than: Option<::Value<u32>> = None;
+                    let mut greater_than_or_equal: Option<::Value<u32>> = None;
+                    let mut gt: Option<::Value<u32>> = None;
                     let mut gte: Option<::Value<u32>> = None;
+                    let mut less_than: Option<::Value<u32>> = None;
+                    let mut less_than_or_equal: Option<::Value<u32>> = None;
                     let mut lt: Option<::Value<u32>> = None;
                     let mut lte: Option<::Value<u32>> = None;
                     let mut neq: Option<::ValueList<String>> = None;
+                    let mut not_equals: Option<::ValueList<String>> = None;
 
                     while let Some(__cfn_key) = ::serde::de::MapAccess::next_key::<String>(&mut map)? {
                         match __cfn_key.as_ref() {
                             "Eq" => {
                                 eq = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "Equals" => {
+                                equals = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "GreaterThan" => {
+                                greater_than = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "GreaterThanOrEqual" => {
+                                greater_than_or_equal = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "Gt" => {
+                                gt = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             "Gte" => {
                                 gte = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LessThan" => {
+                                less_than = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
+                            "LessThanOrEqual" => {
+                                less_than_or_equal = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
                             "Lt" => {
                                 lt = ::serde::de::MapAccess::next_value(&mut map)?;
@@ -914,16 +1285,26 @@ pub mod filter {
                             "Neq" => {
                                 neq = ::serde::de::MapAccess::next_value(&mut map)?;
                             }
+                            "NotEquals" => {
+                                not_equals = ::serde::de::MapAccess::next_value(&mut map)?;
+                            }
                             _ => {}
                         }
                     }
 
                     Ok(Condition {
                         eq: eq,
+                        equals: equals,
+                        greater_than: greater_than,
+                        greater_than_or_equal: greater_than_or_equal,
+                        gt: gt,
                         gte: gte,
+                        less_than: less_than,
+                        less_than_or_equal: less_than_or_equal,
                         lt: lt,
                         lte: lte,
                         neq: neq,
+                        not_equals: not_equals,
                     })
                 }
             }
